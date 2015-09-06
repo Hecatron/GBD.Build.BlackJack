@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{5030D122-DEF2-4D27-8563-DB5490C99D7C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{C5EF82C7-9B10-45BB-B751-6C2E9A4872C8}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "TestApp1", "TestApp1\TestApp1.vbproj", "{5F92459E-3739-4981-8DC1-E4FE842A658E}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "GBD.Build.dotCMake", "GBD.Build.dotCMake\GBD.Build.dotCMake.vbproj", "{F08A6028-063B-403F-84BE-63B02B9F0183}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5F92459E-3739-4981-8DC1-E4FE842A658E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F92459E-3739-4981-8DC1-E4FE842A658E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F92459E-3739-4981-8DC1-E4FE842A658E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F92459E-3739-4981-8DC1-E4FE842A658E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F08A6028-063B-403F-84BE-63B02B9F0183}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F08A6028-063B-403F-84BE-63B02B9F0183}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F08A6028-063B-403F-84BE-63B02B9F0183}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F08A6028-063B-403F-84BE-63B02B9F0183}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5F92459E-3739-4981-8DC1-E4FE842A658E} = {C5EF82C7-9B10-45BB-B751-6C2E9A4872C8}
+		{F08A6028-063B-403F-84BE-63B02B9F0183} = {5030D122-DEF2-4D27-8563-DB5490C99D7C}
+	EndGlobalSection
+EndGlobal
