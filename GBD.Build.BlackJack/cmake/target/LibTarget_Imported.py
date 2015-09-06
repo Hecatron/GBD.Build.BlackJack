@@ -20,7 +20,6 @@ class LibTarget_Imported(BaseTarget):
         """Global Import"""
         return
 
-    
     @property
     def LibType(self):
         """Library Type"""
@@ -31,7 +30,6 @@ class LibTarget_Imported(BaseTarget):
         if value != LibTypes.SHARED and value != LibTypes.STATIC and value != LibTypes.MODULE and value != LibTypes.UNKNOWN:
             raise ValueError("Invalid value for Library Type")
         self._LibType = value
-
 
     def render_body(self):
         ret = ["## Library Target - Imported"]

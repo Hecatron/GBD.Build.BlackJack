@@ -2,7 +2,7 @@
 from logs.Logger import Logger
 
 # Setup logging
-Logger.LogLevel = logging.DEBUG
+Logger.LogLevel = logging.INFO
 Logger.setup()
 log = Logger.getlogger()
 
@@ -22,7 +22,7 @@ try:
     # 1. Import an existing txt file into the ScriptBase class - MiddleSection
     # 2. Read in Visual Studio Project xml files and change to a Target Class
     # 3. Further expansion on set for cache values, enviromnet values
-    # 4. Test all Library Targets / Write Exe Targets
+    # 4. Write Exe Targets
 
     #test1 = CMakeProcessOpts()
     #test1.developer_warnings = False
@@ -52,6 +52,9 @@ try:
 
     tgt1 = target.LibTarget("Test Name", [set1, "Test3.c"], target.LibTypes.SHARED)
     sol1.Targets.append(tgt1)
+
+    tgt2 = target.ExeTarget_Imported("Test Name2", True)
+    sol1.Targets.append(tgt2)
 
 
     result = sol1.render()

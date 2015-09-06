@@ -3,10 +3,10 @@ from cmake.SourceList import SourceList
 from .cmake_set import cmake_set
 import cmake.cmdpart as cmdpart
 
-class add_library(ScriptBase):
+class add_executable(ScriptBase):
 
     """
-    CMake Command - Add Library Target
+    CMake Command - Add Executable Target
     """
 
     def __init__(self, name: str, opts: str, srcs: []):
@@ -15,7 +15,7 @@ class add_library(ScriptBase):
         self.Name = name
         """Name of the target"""
         self.Options = opts
-        """Type of library to use, and library options"""
+        """Executable options"""
         self.Srcs = srcs
         """List of Sources to include into the target"""
         return
@@ -31,7 +31,7 @@ class add_library(ScriptBase):
 
     def render_body(self):
         ret = []
-        tmpline = "add_library(" + self.Name
+        tmpline = "add_executable(" + self.Name
         if self.Options is not None:
             tmpline += " " + self.Options
         ret.append(tmpline)

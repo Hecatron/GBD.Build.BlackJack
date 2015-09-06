@@ -21,7 +21,6 @@ class LibTarget(BaseTarget):
         """If to exlude from the default make all"""
         return
 
-
     @property
     def LibType(self):
         """Library Type"""
@@ -32,7 +31,6 @@ class LibTarget(BaseTarget):
         if value != LibTypes.DEFAULT and value != LibTypes.STATIC and value != LibTypes.SHARED and value != LibTypes.MODULE:
             raise ValueError("Invalid value for Library Type")
         self._LibType = value
-
 
     def render_body(self):
         ret = ["## Library Target - Normal"]

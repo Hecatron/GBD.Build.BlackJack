@@ -26,6 +26,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="cmake\cmd\add_executable.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Test1.py" />
     <Compile Include="cmake\cmdpart\BaseCmdPart.py" />
     <Compile Include="cmake\cmdpart\__init__.py" />
@@ -160,6 +163,9 @@
     <Compile Include="cmake\process\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="tests\cmake\SourceList.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="{2af0f10d-7135-4994-9156-5d01c9c11b7e}\3.4" />
@@ -180,6 +186,8 @@
     <Folder Include="helper\" />
     <Folder Include="cmake\" />
     <Folder Include="contrib\" />
+    <Folder Include="tests\" />
+    <Folder Include="tests\cmake\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="contrib\pexpect\.coveragerc" />

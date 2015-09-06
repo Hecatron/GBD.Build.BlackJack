@@ -2,6 +2,7 @@
 # any additional custom ones the user can add to the header / footer as a text line
 
 # Class Imports
+from .add_executable import add_executable
 from .add_library import add_library
 from .cmake_minimum_required import cmake_minimum_required
 from .endforeach import endforeach

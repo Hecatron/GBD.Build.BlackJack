@@ -12,8 +12,19 @@ class LibTarget_Alias(BaseTarget):
 
     def __init__(self, name: str, target: str):
         super().__init__(name)
+        self._Target = None
         self.Target = target
         """Destination Target to link to"""
+        return
+
+    @property
+    def Target(self):
+        """Name of the Target"""
+        return self._Target
+
+    @Target.setter
+    def Target(self, value):
+        self._Target = value.replace(" ", "_")
         return
 
     def render_body(self):
