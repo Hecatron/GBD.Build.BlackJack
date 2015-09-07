@@ -24,9 +24,10 @@ try:
     #from helper.Process import Process
 
     # TODO
-    # 1. Import an existing txt file into the ScriptBase class - MiddleSection
-    # 2. Read in Visual Studio Project xml files and change to a Target Class
-    # 3. Further expansion on set for cache values, enviromnet values
+    # 1. Read in Visual Studio Project xml files and change to a Target Class
+    # 2. Further expansion on set for cache values, enviromnet values
+    # 3. Include directories for both target and global, also check Target has a Sets section
+    # 4. Document existing code before adding more
 
     #test1 = CMakeProcessOpts()
     #test1.developer_warnings = False
@@ -40,6 +41,12 @@ try:
 
     #p1 = cmake.ScriptBase()
     #p1.Header.append("Test123")
+
+
+    store1 = storage.ScriptBlock()
+    store1.importfile("D:\\SourceControl\\GitRepos\\GBD.Build.BlackJack\\examples\\testinput.txt")
+    x1 = store1.render()
+
 
     set1 = storage.SourceList("Test Set")
     set1.add("Test1.cxx")

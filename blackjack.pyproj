@@ -33,8 +33,14 @@
     <Compile Include="blackjack\cmake\cmd\add_executable.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="blackjack\cmake\storage\ScriptBlock.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="blackjack\cmake\storage\__init__.py" />
     <Compile Include="blackjack\__init__.py" />
+    <Compile Include="docs\cmake\storage\ScriptBlock.md">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="examples\Test1.py" />
     <Compile Include="blackjack\cmake\cmdpart\__init__.py" />
     <Compile Include="blackjack\cmake\cmd\add_library.py">
@@ -194,6 +200,10 @@
     <Folder Include="blackjack\test\cmake\" />
     <Folder Include="docs\" />
     <Folder Include="docs\cmake\" />
+    <Folder Include="docs\cmake\macros\" />
+    <Folder Include="docs\cmake\cmdpart\" />
+    <Folder Include="docs\cmake\target\" />
+    <Folder Include="docs\cmake\storage\" />
     <Folder Include="examples\" />
   </ItemGroup>
   <ItemGroup>
@@ -214,8 +224,16 @@
     <Content Include="docs\1.2 Project Components.md" />
     <Content Include="docs\1.3 Example Use Cases.md" />
     <Content Include="docs\API Overview.md" />
+    <Content Include="docs\cmake\cmdpart\IncludeDir.md" />
+    <Content Include="docs\cmake\cmdpart\Version.md" />
+    <Content Include="docs\cmake\macros\FlagsReplace.md" />
+    <Content Include="docs\cmake\macros\FlagsReplaceCompiler.md" />
     <Content Include="docs\cmake\ScriptBase.md" />
     <Content Include="docs\cmake\Solution.md" />
+    <Content Include="docs\cmake\storage\SourceList.md" />
+    <Content Include="docs\cmake\target\BaseTarget.md" />
+    <Content Include="docs\cmake\target\ExeTarget.md" />
+    <Content Include="docs\cmake\target\LibTarget.md" />
     <Content Include="docs\Notes.txt" />
     <Content Include="Licence.md" />
     <Content Include="Readme.md" />

@@ -20,8 +20,6 @@ class ScriptBase(object):
         """List of lines or other ScriptBase to prefix this section"""
         self.Footer = []
         """List of lines or other ScriptBase to suffix this section"""
-        self.Middle = []
-        """Typically not used in derived class's, represents the import destination"""
         maindir = os.path.realpath(sys.argv[0])
         if not os.path.isdir(maindir): maindir = os.path.dirname(maindir)
         self.OutputFilePath = os.path.join(maindir, "CMakeLists.txt")
@@ -29,7 +27,7 @@ class ScriptBase(object):
 
     def render_body(self):
         """Virtual Method used to render the body of the Script Section"""
-        return self.Middle
+        return []
 
     def render(self):
         """

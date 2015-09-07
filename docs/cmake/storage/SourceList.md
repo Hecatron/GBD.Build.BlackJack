@@ -1,6 +1,5 @@
-# ScriptBase Class
+# SourceList Class
 
 ## Overview
 
 ## TODO
-

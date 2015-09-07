@@ -1,4 +1,4 @@
-# ScriptBase Class
+﻿# ScriptBlock Class
 
 ## Overview
 
