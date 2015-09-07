@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{446CDEED-2F3A-4D90-A925-9B68EA5B9861}"
 EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "GBD.Build.BlackJack", "GBD.Build.BlackJack\GBD.Build.BlackJack.pyproj", "{26BFD115-F770-4CF1-977B-3462A663BD32}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "blackjack", "blackjack.pyproj", "{26BFD115-F770-4CF1-977B-3462A663BD32}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

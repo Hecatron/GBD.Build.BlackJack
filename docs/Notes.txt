@@ -1,0 +1,58 @@
+
+## Overview
+
+1	There doesn't seem to be a direct API for cmake
+	but we can use the -P option to process scripts without running the configure / generate stages
+	http://www.cmake.org/Wiki/CMake/Language_Syntax
+	cmake -P con
+
+
+## Overall Structure
+
+* http://www.aosabook.org/en/cmake.html
+* http://www.cmake.org/Wiki/CMake/Language_Syntax
+* http://www.cmake.org/cmake/help/v3.2/#reference-manuals
+* http://www.cmake.org/cmake/help/v3.2/manual/cmake-commands.7.html
+
+* Each file CMakeLists.txt is a list file
+
+## Language Ref
+
+* comments start with # for the whole line
+
+* CMake splits arguments unless you use quotation marks or escapes.
+
+* The names of commands are case insensitive; the usual convention is to type the command names in uppercase.
+However, the arguments are case sensitive. Thus MESSAGE and message and Message and mESsAgE are the same command
+
+Commands are procedure calls and cannot return values. However,
+you may pass the name of a global variable to some commands,
+and those commands will store the result there. For example, the MATH( EXPR ... ) 
+command takes three arguments; the third argument is the expression, and the second argument 
+is the variable to store the result: 
+
+* Variables always contain strings. Sometimes, we use the string to store a boolean,
+a path to a file, an integer, or a list. 
+
+* Almost all variables have global scope
+exceptions include functions and for each loops
+
+
+## TODO Required Modules
+
+Make sure your using the pip from python version 3.x
+
+For Linux:
+
+  * pip install pexpect
+
+For windows:
+
+http://www.lfd.uci.edu/~gohlke/pythonlibs/#pywin32
+https://bitbucket.org/geertj/winpexpect/wiki/Home
+https://pexpect.readthedocs.org/en/latest/index.html
+
+  * C:\Python34\Scripts\pip install winpexpect
+  * C:\Python34\Scripts\pip install http://www.lfd.uci.edu/~gohlke/pythonlibs/3i673h27/pywin32-219-cp34-none-win32.whl
+
+pypiwin32
