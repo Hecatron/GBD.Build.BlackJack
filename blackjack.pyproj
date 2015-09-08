@@ -33,6 +33,15 @@
     <Compile Include="blackjack\cmake\cmd\add_executable.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="blackjack\cmake\storage\CacheList.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="blackjack\cmake\storage\CacheTypes.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="blackjack\cmake\storage\EnvVar.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="blackjack\cmake\storage\ScriptBlock.py">
       <SubType>Code</SubType>
     </Compile>
@@ -62,9 +71,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="blackjack\cmake\cmd\cmake_set.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="blackjack\cmake\cmd\cmake_set_env.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="blackjack\cmake\cmd\__init__.py" />

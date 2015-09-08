@@ -1,26 +1,23 @@
 ﻿from blackjack.cmake.ScriptBase import ScriptBase
 
-class SourceList(ScriptBase):
+class EnvVar(ScriptBase):
 
     """
-    Represents a collection of source files to be passed to a Target
+    Represents the setting of an Enviromnent Variable
     """
 
-    def __init__(self, name: str, srcs: [] = None, parentscope: bool = False):
+    def __init__(self, name: str, srcs: []):
         super().__init__()
         self._Name = None
         self.Name = name
-        """Name of the Set"""
+        """Name of the enviroment variable to set"""
         self.Srcs = srcs
-        """List of Sources"""
-        self.ParentScope = parentscope
-        """If to set the list within the parent scope"""
-        if self.Srcs is None: self.Srcs = []
+        """List of values for the variable"""
         return
 
     @property
     def Name(self):
-        """Name of the Set"""
+        """Name of the enviroment variable to set"""
         return self._Name
 
     @Name.setter
@@ -30,11 +27,8 @@ class SourceList(ScriptBase):
 
     def render_body(self):
         from blackjack.cmake.cmd.cmake_set import cmake_set
-        ret = ["## Source Set"]
-        opts = ""
-        if self.ParentScope == True:
-            opts = "PARENT_SCOPE"
-        setcmd = cmake_set(self.Name, self.Srcs, opts)
+        ret = ["## EnvVar Set"]
+        setcmd = cmake_set("ENV{" + self.Name + "}", self.Srcs)
         ret += setcmd.render()
         return ret
 
@@ -44,8 +38,6 @@ class SourceList(ScriptBase):
             self.Srcs.append(items)
         if isinstance(items, list):
             self.Srcs += items
-        if isinstance(items, SourceList):
-            self.Srcs += items.Srcs
         return
 
     def add_spacesep(self, items_str):

@@ -43,12 +43,13 @@ try:
     #p1.Header.append("Test123")
 
 
-    store1 = storage.ScriptBlock()
-    store1.importfile("D:\\SourceControl\\GitRepos\\GBD.Build.BlackJack\\examples\\testinput.txt")
-    x1 = store1.render()
+    #store1 = storage.ScriptBlock()
+    #store1.importfile("D:\\SourceControl\\GitRepos\\GBD.Build.BlackJack\\examples\\testinput.txt")
+    #x1 = store1.render()
 
-    store1.append()
-    store1.append()
+    #store1.append()
+    #store1.append()
+
 
 
     set1 = storage.SourceList("Test Set")
@@ -56,8 +57,14 @@ try:
     set1.add("Test2.cxx")
     set1.add_spacesep("Test3.cxx Test4.cxx")
 
+    set2 = storage.EnvVar("testvar",["testval1", "testval2"])
+
+
+
+
     sol1 = cmake.Solution("test cmake solution")
     sol1.SourceLists.append(set1)
+    sol1.SourceLists.append(set2)
     sol1.IncDirs.append(cmake.src_dir + "/..")
     sol1.IncDirs.append(cmake.src_dir + "/../include")
 

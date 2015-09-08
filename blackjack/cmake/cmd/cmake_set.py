@@ -6,15 +6,15 @@ class cmake_set(ScriptBase):
     CMake Command - Set / List of items
     """
 
-    def __init__(self, name: str, srcs: [], parentscope: bool = False):
+    def __init__(self, name: str, srcs: [], opts: str = None):
         super().__init__()
         self._Name = None
         self.Name = name
         """Name of the Set"""
         self.Srcs = srcs
         """List of Sources"""
-        self.ParentScope = parentscope
-        """If to set the list within the parent scope"""
+        self.Options = opts
+        """Options to pass to set"""
         return
 
     @property
@@ -32,7 +32,7 @@ class cmake_set(ScriptBase):
         ret.append("set(" + self.Name + " ")
         for item in self.Srcs:
             ret.append('    "' + item + '"')
-        if self.ParentScope == True:
-            ret.append("PARENT_SCOPE")
+        if self.Options is not None:
+            ret.append(self.Options)
         ret.append(")")
         return ret
