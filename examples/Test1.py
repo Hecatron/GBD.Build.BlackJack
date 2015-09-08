@@ -47,6 +47,9 @@ try:
     store1.importfile("D:\\SourceControl\\GitRepos\\GBD.Build.BlackJack\\examples\\testinput.txt")
     x1 = store1.render()
 
+    store1.append()
+    store1.append()
+
 
     set1 = storage.SourceList("Test Set")
     set1.add("Test1.cxx")
