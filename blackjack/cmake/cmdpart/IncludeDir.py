@@ -7,7 +7,7 @@ class IncludeDir(ScriptBase):
     Represents a CMake style include directory
     """
 
-    def __init__(self, dirnames: [], scopetype: ScopeTypes = ScopeTypes.PUBLIC, system: bool = False, before = None):
+    def __init__(self, dirnames: [], scopetype: ScopeTypes = ScopeTypes.PUBLIC, system: bool = False, before: bool = None):
         super().__init__()
         self.DirNames = dirnames
         """Directory Names"""
@@ -16,9 +16,6 @@ class IncludeDir(ScriptBase):
         self.System = system
         self.Before = before
         return
-
-    def get_dirname(self):
-        return self.DirName
 
     def render(self):
         """Default is used for Targets"""
@@ -31,7 +28,7 @@ class IncludeDir(ScriptBase):
         tmpline += self.ScopeType.name
         ret.append(tmpline)
         for item in self.DirNames:
-            ret.append('    "' + item + "'")
+            ret.append('    "' + item + '"')
         return ret
 
     def render_global(self):
@@ -44,7 +41,9 @@ class IncludeDir(ScriptBase):
             tmpline += "AFTER "
         if self.System == True:
             tmpline += "SYSTEM "
+        if tmpline:
+            tmpline = "    " + tmpline
         ret.append(tmpline)
         for item in self.DirNames:
-            ret.append('    "' + item + "'")
+            ret.append('    "' + item + '"')
         return ret

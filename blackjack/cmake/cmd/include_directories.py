@@ -33,6 +33,7 @@ class include_directories(ScriptBase):
 
         # Include any directories specified via the IncludeDir class
         for item in inc_cls:
-            ret.append("include_directories(" + item.render_string(item.render_global()))
+            ret.append("include_directories(")
+            ret += item.render_global()
             ret.append(")")
         return ret

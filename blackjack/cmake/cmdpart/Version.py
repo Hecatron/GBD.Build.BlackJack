@@ -22,16 +22,16 @@ class Version(ScriptBase):
 
     def version_number(self):
         ret = ""
-        if self.Major:
+        if self.Major is not None:
             if not isinstance(self.Major, int): raise ValueError("Major Number must be an integer")
             ret += str(self.Major)
-        if self.Minor:
+        if self.Minor is not None:
             if not isinstance(self.Minor, int): raise ValueError("Minor Number must be an integer")
             ret += "." + str(self.Minor)
-        if self.Patch:
+        if self.Patch is not None:
             if not isinstance(self.Patch, int): raise ValueError("Patch Number must be an integer")
             ret += "." + str(self.Patch)
-        if self.Tweak:
+        if self.Tweak is not None:
             if not isinstance(self.Tweak, int): raise ValueError("Tweak Number must be an integer")
             ret += "." + str(self.Tweak)
         if self.AddFatalError == True:

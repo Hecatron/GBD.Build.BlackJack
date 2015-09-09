@@ -25,5 +25,17 @@ class Test_SourceList(unittest.TestCase):
             self.fail("Unexpected result")
         return
 
+    def test_advset(self):
+        block1 = SourceList("test set 1", ["Test1.cpp", "Folder1/Test2.cpp"], False)
+        block1.add("Test3.cpp")
+        block1.add(["Test4.cpp", "Test5.cpp"])
+        block2 = SourceList("test set 2", ["Test6.cpp", "Test7.cpp"])
+        block1.add(block2)
+        result = block1.render()
+        if result != ['## Source Set', 'set(test_set_1 ', '    "Test1.cpp"', '    "Folder1/Test2.cpp"',
+                      '    "Test3.cpp"', '    "Test4.cpp"', '    "Test5.cpp"', '    "Test6.cpp"', '    "Test7.cpp"', ')']:
+            self.fail("Unexpected result")
+        return
+
 if __name__ == '__main__':
     unittest.main()

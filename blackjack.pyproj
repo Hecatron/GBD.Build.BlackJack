@@ -6,7 +6,7 @@
     <ProjectGuid>26bfd115-f770-4cf1-977b-3462a663bd32</ProjectGuid>
     <ProjectHome>
     </ProjectHome>
-    <StartupFile>blackjack\test\cmake\storage\SourceList.py</StartupFile>
+    <StartupFile>blackjack\test\cmake\cmdpart\Version.py</StartupFile>
     <SearchPath>./</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -47,6 +47,21 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="blackjack\cmake\storage\__init__.py" />
+    <Compile Include="blackjack\test\cmake\cmdpart\IncludeDir.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="blackjack\test\cmake\cmdpart\Version.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="blackjack\test\cmake\Solution.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="blackjack\test\cmake\storage\CacheList.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="blackjack\test\cmake\storage\EnvVar.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="blackjack\test\cmake\storage\ScriptBlock.py" />
     <Compile Include="blackjack\test\cmake\storage\SourceList.py">
       <SubType>Code</SubType>
@@ -195,6 +210,7 @@
     <Folder Include="blackjack\cmake\process\" />
     <Folder Include="blackjack\contrib\pexpect\" />
     <Folder Include="blackjack\contrib\pexpect\pexpect\" />
+    <Folder Include="blackjack\test\cmake\cmdpart\" />
     <Folder Include="blackjack\test\cmake\storage\" />
     <Folder Include="contrib\" />
     <Folder Include="contrib\pexpect\" />
@@ -233,8 +249,12 @@
     <Content Include="docs\1.2 Project Components.md" />
     <Content Include="docs\1.3 Example Use Cases.md" />
     <Content Include="docs\API Overview.md" />
+    <Content Include="docs\cmake\cmdpart\IncludeDir.md" />
+    <Content Include="docs\cmake\cmdpart\Version.md" />
     <Content Include="docs\cmake\ScriptBase.md" />
     <Content Include="docs\cmake\Solution.md" />
+    <Content Include="docs\cmake\storage\CacheList.md" />
+    <Content Include="docs\cmake\storage\EnvVar.md" />
     <Content Include="docs\cmake\storage\SourceList.md" />
     <Content Include="docs\cmake\target\BaseTarget.md" />
     <Content Include="docs\cmake\target\ExeTarget.md" />

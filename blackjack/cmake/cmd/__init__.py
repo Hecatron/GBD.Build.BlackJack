@@ -11,10 +11,7 @@ from .foreach import foreach
 from .include_directories import include_directories
 from .project import project
 
-
 # TODO Commands
-
-# TODO Set needs to be looked at / Enviromental Variables
 
 ### Add Project Class
 #add_compile_options(<option> ...)
