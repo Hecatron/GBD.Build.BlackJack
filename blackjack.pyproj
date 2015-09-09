@@ -6,7 +6,7 @@
     <ProjectGuid>26bfd115-f770-4cf1-977b-3462a663bd32</ProjectGuid>
     <ProjectHome>
     </ProjectHome>
-    <StartupFile>blackjack\test\cmake\cmdpart\Version.py</StartupFile>
+    <StartupFile>blackjack\test\cmake\target\ExeTarget_Imported.py</StartupFile>
     <SearchPath>./</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -53,6 +53,9 @@
     <Compile Include="blackjack\test\cmake\cmdpart\Version.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="blackjack\test\cmake\macros\FlagsReplaceCompiler.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="blackjack\test\cmake\Solution.py">
       <SubType>Code</SubType>
     </Compile>
@@ -66,7 +69,22 @@
     <Compile Include="blackjack\test\cmake\storage\SourceList.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="blackjack\test\cmake\target\BaseTarget.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="blackjack\test\cmake\target\ExeTarget.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="blackjack\test\cmake\target\ExeTarget_Alias.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="blackjack\test\cmake\target\ExeTarget_Imported.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="blackjack\__init__.py" />
+    <Compile Include="docs\cmake\macros\FlagsReplace.md">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="docs\cmake\storage\ScriptBlock.md">
       <SubType>Code</SubType>
     </Compile>
@@ -211,6 +229,8 @@
     <Folder Include="blackjack\contrib\pexpect\" />
     <Folder Include="blackjack\contrib\pexpect\pexpect\" />
     <Folder Include="blackjack\test\cmake\cmdpart\" />
+    <Folder Include="blackjack\test\cmake\macros\" />
+    <Folder Include="blackjack\test\cmake\target\" />
     <Folder Include="blackjack\test\cmake\storage\" />
     <Folder Include="contrib\" />
     <Folder Include="contrib\pexpect\" />
@@ -258,6 +278,8 @@
     <Content Include="docs\cmake\storage\SourceList.md" />
     <Content Include="docs\cmake\target\BaseTarget.md" />
     <Content Include="docs\cmake\target\ExeTarget.md" />
+    <Content Include="docs\cmake\target\ExeTarget_Alias.md" />
+    <Content Include="docs\cmake\target\ExeTarget_Imported.md" />
     <Content Include="docs\cmake\target\LibTarget.md" />
     <Content Include="docs\Notes.txt" />
     <Content Include="Licence.md" />

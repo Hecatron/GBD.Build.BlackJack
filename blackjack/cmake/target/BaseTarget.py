@@ -1,14 +1,16 @@
 ﻿from blackjack.cmake.ScriptBase import ScriptBase
 
+# TODO Include Directories
+
 class BaseTarget(ScriptBase):
     """Base Class for all CMake target types"""
 
-    def __init__(self, name: str):
+    def __init__(self, name: str, srcs: [] = None):
         super().__init__()
         self._Name = None
         self.Name = name
         """Name of the Target"""
-        self.Srcs = None
+        self.Srcs = srcs
         """List of Sources to include into the Target"""
         return
 
