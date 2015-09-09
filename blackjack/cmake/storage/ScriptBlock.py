@@ -10,19 +10,19 @@ class ScriptBlock(ScriptBase):
 
     def __init__(self, contents: [] = None):
         super().__init__()
-        self.Contents = contents
-        if self.Contents == None:
-            self.Contents = []
+        self.Body = contents
+        if self.Body == None:
+            self.Body = []
         return
 
     def render_body(self):
         """Virtual Method used to render the body of the Script Section"""
-        return self.Contents
+        return self.Body
 
     def importstring(self, val: str):
         """Import a string block seperated by new lines into the class storage"""
-        self.Contents = val.splitlines()
-        return self.Contents
+        self.Body = val.splitlines()
+        return self.Body
 
     def importfile(self, filepath: str):
         """Import the given file into the class storage"""

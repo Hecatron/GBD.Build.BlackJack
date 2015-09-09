@@ -34,9 +34,9 @@ class project(ScriptBase):
     def render_body(self):
         ret = []
         tmpline = "project(" + self.Name + " "
-        if self.Version is not None:
+        if self.Version:
             tmpline += self.Version.render_string() + " "
-        if self.Langs is not None:
+        if self.Langs:
             tmpline += "LANGUAGES " + self.Langs
         tmpline += ")"
         ret.append(tmpline)

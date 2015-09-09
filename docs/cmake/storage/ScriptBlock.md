@@ -7,12 +7,17 @@ It's job is just to act as a simple string list container
 
 ## Properties
 
-### Contents
+### Body
 
-Contents is a simple string list that is outputed via render_body()
+Body is a simple string list that is outputed via render_body()
 This can be manipulated via code to contain any strings lines required
 
 ## Methods
+
+### constructor(contents: [] = None)
+
+The constructor takes a single optional input which can be an array of text lines to store
+within the body property of the class.
 
 ### importstring(val)
 

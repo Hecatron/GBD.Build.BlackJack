@@ -40,7 +40,6 @@ class ScriptBase(object):
         fulllist += self.Footer
 
         # Change any ScriptBase into string arrays
-        self.__log.debug("Compiling Render List")
         ret = []
         for item in fulllist:
             if isinstance(item, str):
@@ -56,7 +55,7 @@ class ScriptBase(object):
         """Full render of the section as a single string"""
         # Get the Full array of strings
         ret= ""
-        if val is not None:
+        if val:
             fulllist = val
         else:
             fulllist = self.render()
@@ -72,7 +71,6 @@ class ScriptBase(object):
         if filepath is None: filepath = self.OutputFilePath
         tmppath = os.path.abspath(filepath)
         txt = self.render_string()
-        self.__log.debug("Appending Section to: " + tmppath)
         with open(tmppath, "a+b") as f:
             f.write(bytes(txt, 'UTF-8'))
         return
@@ -82,7 +80,6 @@ class ScriptBase(object):
         if filepath is None: filepath = self.OutputFilePath
         tmppath = os.path.abspath(filepath)
         txt = self.render_string()
-        self.__log.debug("Exporting Section to: " + tmppath)
         with open(tmppath, "w+b") as f:
             f.write(bytes(txt, 'UTF-8'))
         return

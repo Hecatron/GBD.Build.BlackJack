@@ -1,6 +1,6 @@
 ﻿import sys, os, logging
 #Uncomment below to use in VS for development
-sys.path.insert(0, os.path.abspath("./"))
+#sys.path.insert(0, os.path.abspath("./"))
 
 # Setup logging
 from blackjack.logs.Logger import Logger
@@ -25,7 +25,6 @@ try:
 
     # TODO
     # 1. Read in Visual Studio Project xml files and change to a Target Class
-    # 2. Further expansion on set for cache values, enviromnet values
     # 3. Include directories for both target and global, also check Target has a Sets section
     # 4. Document existing code before adding more
 
@@ -50,6 +49,16 @@ try:
     #store1.append()
     #store1.append()
 
+
+    contentsparam = ["#middle1", "#middle2"]
+    block1 = storage.ScriptBlock(contentsparam)
+    block1.Header.append("#header1")
+    block1.Header.append("#header2")
+    block1.Footer.append("#footer1")
+    block1.Footer.append("#footer2")
+    block1.Body.append("#middle3")
+
+    output = block1.render_string()
 
 
     set1 = storage.SourceList("Test Set")

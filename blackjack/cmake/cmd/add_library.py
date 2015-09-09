@@ -31,7 +31,7 @@ class add_library(ScriptBase):
     def render_body(self):
         ret = []
         tmpline = "add_library(" + self.Name
-        if self.Options is not None:
+        if self.Options:
             tmpline += " " + self.Options
         ret.append(tmpline)
         for item in self.Srcs:
