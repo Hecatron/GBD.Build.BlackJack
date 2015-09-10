@@ -37,6 +37,13 @@
     <Compile Include="blackjack\cmake\cmd\target_include_directories.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="blackjack\cmake\modules\cmake\BaseModule.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="blackjack\cmake\modules\cmake\CMakeForceCompiler.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="blackjack\cmake\modules\cmake\__init__.py" />
     <Compile Include="blackjack\cmake\storage\CacheList.py">
       <SubType>Code</SubType>
     </Compile>
@@ -50,13 +57,17 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="blackjack\cmake\storage\__init__.py" />
+    <Compile Include="blackjack\cmake\vars\CompilerID.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="blackjack\cmake\vars\__init__.py" />
     <Compile Include="blackjack\test\cmake\cmdpart\IncludeDir.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="blackjack\test\cmake\cmdpart\Version.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="blackjack\test\cmake\macros\FlagsReplaceCompiler.py">
+    <Compile Include="blackjack\test\cmake\modules\FlagsReplaceCompiler.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="blackjack\test\cmake\Solution.py">
@@ -130,13 +141,13 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="blackjack\cmake\cmd\__init__.py" />
-    <Compile Include="blackjack\cmake\macros\FlagsReplace.py">
+    <Compile Include="blackjack\cmake\modules\FlagsReplace.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="blackjack\cmake\macros\FlagsReplaceCompiler.py">
+    <Compile Include="blackjack\cmake\modules\FlagsReplaceCompiler.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="blackjack\cmake\macros\__init__.py" />
+    <Compile Include="blackjack\cmake\modules\__init__.py" />
     <Compile Include="blackjack\cmake\process\cache\CacheEntry.py">
       <SubType>Code</SubType>
     </Compile>
@@ -238,7 +249,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="blackjack\cmake\cmdpart\" />
-    <Folder Include="blackjack\cmake\macros\" />
+    <Folder Include="blackjack\cmake\modules\" />
+    <Folder Include="blackjack\cmake\modules\cmake\" />
+    <Folder Include="blackjack\cmake\vars\" />
     <Folder Include="blackjack\cmake\storage\" />
     <Folder Include="blackjack\cmake\process\cache\" />
     <Folder Include="blackjack\cmake\target\" />
@@ -247,7 +260,7 @@
     <Folder Include="blackjack\contrib\pexpect\" />
     <Folder Include="blackjack\contrib\pexpect\pexpect\" />
     <Folder Include="blackjack\test\cmake\cmdpart\" />
-    <Folder Include="blackjack\test\cmake\macros\" />
+    <Folder Include="blackjack\test\cmake\modules\" />
     <Folder Include="blackjack\test\cmake\target\" />
     <Folder Include="blackjack\test\cmake\storage\" />
     <Folder Include="contrib\" />

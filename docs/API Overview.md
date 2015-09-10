@@ -15,7 +15,7 @@ This a general overview of the code layout within the subdirectories:
 
  * **blackjack.cmake** - High level wrapper classes such as Solution and SourceList
  * **blackjack.target** - High level target classes such as exe and lib targets
- * **blackjack.cmake.macros** - Usefull custom macros for inserting into scripts
+ * **blackjack.cmake.modules** - Usefull modules for inserting into scripts
  * **blackjack.cmake.cmd** - List of all standard cmake commands, low level
  * **blackjack.cmake.cmdpart** - Common groupings of parameters passed to commands
  * **blackjack.cmake.process** - Codes related to launching a cmake process

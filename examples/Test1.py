@@ -13,7 +13,7 @@ try:
     import blackjack.cmake as cmake
     import blackjack.cmake.cmd as cmd
     import blackjack.cmake.cmdpart as cmdpart
-    import blackjack.cmake.macros as macros
+    import blackjack.cmake.modules as modules
     import blackjack.cmake.process as process
     import blackjack.cmake.storage as storage
     import blackjack.cmake.target as target
@@ -45,7 +45,7 @@ try:
     sol1.IncDirs.append(cmake.src_dir + "/..")
     sol1.IncDirs.append(cmake.src_dir + "/../include")
 
-    flagreplace1 = macros.FlagsReplaceCompiler([["/MD","/MT"], ["/Flag1","/Flag2"]])
+    flagreplace1 = modules.FlagsReplaceCompiler([["/MD","/MT"], ["/Flag1","/Flag2"]])
     sol1.Footer.append(flagreplace1)
 
     tgt1 = target.LibTarget("Test Name", [set1, "Test3.c"], target.LibTypes.SHARED)

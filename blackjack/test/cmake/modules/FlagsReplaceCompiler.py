@@ -1,5 +1,5 @@
 ﻿import unittest, os, sys
-from blackjack.cmake.macros.FlagsReplaceCompiler import FlagsReplaceCompiler
+from blackjack.cmake.modules.FlagsReplaceCompiler import FlagsReplaceCompiler
 
 class Test_FlagsReplaceCompiler(unittest.TestCase):
 

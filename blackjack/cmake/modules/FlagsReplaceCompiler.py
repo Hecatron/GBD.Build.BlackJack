@@ -6,7 +6,7 @@ class FlagsReplaceCompiler(FlagsReplace):
     Helper Class to replace Compiler Flags within all the Compiler variables
 
     An Example of how to use this:
-    flagreplace1 = macros.FlagsReplaceCompiler([["/MD","/MT"], ["/Flag1","/Flag2"]])
+    flagreplace1 = modules.FlagsReplaceCompiler([["/MD","/MT"], ["/Flag1","/Flag2"]])
     sol1.Footer.append(flagreplace1)
     """
 
