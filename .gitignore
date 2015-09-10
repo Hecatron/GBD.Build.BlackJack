@@ -3,3 +3,6 @@
 .eggs
 dist
 *.suo
+
+# Still working on this at the moment
+docs/doxygen

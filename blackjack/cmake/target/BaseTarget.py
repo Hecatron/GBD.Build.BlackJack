@@ -1,4 +1,5 @@
 ﻿from blackjack.cmake.ScriptBase import ScriptBase
+from blackjack.cmake.cmd.target_include_directories import target_include_directories
 
 # TODO Include Directories
 
@@ -12,6 +13,10 @@ class BaseTarget(ScriptBase):
         """Name of the Target"""
         self.Srcs = srcs
         """List of Sources to include into the Target"""
+        self.IncDirs = []
+        """Target Include Directories"""
+        self.SourceLists = []
+        """List of Sets to add to the Target"""
         return
 
     @property
@@ -27,4 +32,26 @@ class BaseTarget(ScriptBase):
     def get_objname(self):
         """Returns the target name in a Object Form for inclusion into other targets"""
         ret = "$<TARGET_OBJECTS:" + self.Name + ">"
+        return ret
+
+    def get_fullsrcs(self):
+        """This function returns the full list of sources and the list of set names"""
+        setnames = []
+        for item in self.SourceLists:
+            setnames.append(item.Name)
+        setnames += self.Srcs
+        return setnames
+
+    def render_prefix(self):
+        # Add the Set Lists
+        ret = []
+        for item in self.SourceLists:
+            ret += item.render()
+        return ret
+
+    def render_body(self):
+        ret = []
+        # Add in Target Include Directories
+        cmd1 = target_include_directories(self.Name, self.IncDirs)
+        ret += cmd1.render()
         return ret

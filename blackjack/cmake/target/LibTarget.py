@@ -33,13 +33,16 @@ class LibTarget(BaseTarget):
         self._LibType = value
 
     def render_body(self):
-        ret = ["## Library Target - Normal"]
+        ret = []
+        ret += ["## Library Target - Normal"]
+        ret += super().render_prefix()
         tmpopts = ""
         if self.LibType != LibTypes.DEFAULT:
             tmpopts += self.LibType.name + " "
         if self.ExludeFromAll == True:
             tmpopts += "EXCLUDE_FROM_ALL "
-        libcmd = cmd.add_library(self.Name, tmpopts, self.Srcs)
+        libcmd = cmd.add_library(self.Name, tmpopts, self.get_fullsrcs())
         ret += libcmd.render()
+        ret += super().render_body()
         return ret
 

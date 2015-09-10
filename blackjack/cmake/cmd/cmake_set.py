@@ -29,10 +29,10 @@ class cmake_set(ScriptBase):
 
     def render_body(self):
         ret = []
-        ret.append("set( " + self.Name + " ")
+        ret.append("set(" + self.Name + " ")
         for item in self.Srcs:
             ret.append('    "' + item + '"')
         if self.Options:
             ret.append(self.Options)
-        ret.append(")")
+        ret[-1] += ")"
         return ret

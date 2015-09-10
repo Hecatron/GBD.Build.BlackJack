@@ -17,10 +17,13 @@ class ExeTarget_Imported(BaseTarget):
         return
 
     def render_body(self):
-        ret = ["## Executable Target - Imported"]
+        ret = []
+        ret += ["## Executable Target - Imported"]
+        ret += super().render_prefix()
         tmpopts = "IMPORTED "
         if self.GlobalImport == True:
             tmpopts += "GLOBAL "
         execmd = cmd.add_executable(self.Name, tmpopts, [])
         ret += execmd.render()
+        ret += super().render_body()
         return ret

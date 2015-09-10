@@ -8,7 +8,7 @@ class Test_LibTarget_Interface(unittest.TestCase):
         block1 = LibTarget_Interface("lib target1", True, True)
         result = block1.render()
         print(result)
-        if result != ['## Library Target - Interface', 'add_library(lib_target1 INTERFACE IMPORTED GLOBAL', ')']:
+        if result != ['## Library Target - Interface', 'add_library(lib_target1 INTERFACE IMPORTED GLOBAL)']:
             self.fail("Unexpected result")
         return
 

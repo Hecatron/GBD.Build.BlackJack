@@ -32,10 +32,13 @@ class LibTarget_Imported(BaseTarget):
         self._LibType = value
 
     def render_body(self):
-        ret = ["## Library Target - Imported"]
+        ret = []
+        ret += ["## Library Target - Imported"]
+        ret += super().render_prefix()
         tmpopts = self.LibType.name + " IMPORTED"
         if self.GlobalImport == True:
             tmpopts += " GLOBAL"
         libcmd = cmd.add_library(self.Name, tmpopts, [])
         ret += libcmd.render()
+        ret += super().render_body()
         return ret

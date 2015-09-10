@@ -39,5 +39,5 @@ class add_library(ScriptBase):
                 ret.append('    "' + item + '" ')
             if isinstance(item, SourceList):
                 ret.append('    ' + item.Name)
-        ret.append(")")
+        ret[-1] += ")"
         return ret

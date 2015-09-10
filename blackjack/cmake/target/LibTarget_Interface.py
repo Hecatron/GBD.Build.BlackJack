@@ -20,7 +20,9 @@ class LibTarget_Interface(BaseTarget):
         return
 
     def render_body(self):
-        ret = ["## Library Target - Interface"]
+        ret = []
+        ret += ["## Library Target - Interface"]
+        ret += super().render_prefix()
         tmpopts = "INTERFACE"
         if self.Imported == True:
             tmpopts += " IMPORTED"
@@ -29,4 +31,5 @@ class LibTarget_Interface(BaseTarget):
 
         libcmd = cmd.add_library(self.Name, tmpopts, [])
         ret += libcmd.render()
+        ret += super().render_body()
         return ret

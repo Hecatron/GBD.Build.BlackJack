@@ -34,16 +34,17 @@ class IncludeDir(ScriptBase):
     def render_global(self):
         """This one is used for global include directories"""
         ret = []
-        tmpline = ""
+        optsline = ""
         if self.Before == True:
-            tmpline += "BEFORE "
+            optsline += "BEFORE "
         if self.Before == False:
-            tmpline += "AFTER "
+            optsline += "AFTER "
         if self.System == True:
-            tmpline += "SYSTEM "
-        if tmpline:
-            tmpline = "    " + tmpline
-        ret.append(tmpline)
+            optsline += "SYSTEM "
+        if optsline:
+            optsline = "    " + optsline
+        if optsline:
+            ret.append(optsline)
         for item in self.DirNames:
             ret.append('    "' + item + '"')
         return ret

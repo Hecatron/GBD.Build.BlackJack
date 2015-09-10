@@ -9,7 +9,7 @@ class ExeTarget(BaseTarget):
     add_executable(<name> [WIN32] [MACOSX_BUNDLE] [EXCLUDE_FROM_ALL] source1 [source2 ...])
     """
 
-    def __init__(self, name: str, srcs: [], iswin32: bool = False, macosx_bundle: bool = False , excludefromall: bool = False):
+    def __init__(self, name: str, srcs: [] = [], iswin32: bool = False, macosx_bundle: bool = False , excludefromall: bool = False):
         super().__init__(name)
         self.Srcs = srcs
         """List of Sources to include into the Target"""
@@ -22,7 +22,9 @@ class ExeTarget(BaseTarget):
         return
 
     def render_body(self):
-        ret = ["## Executable Target - Normal"]
+        ret = []
+        ret += ["## Executable Target - Normal"]
+        ret += super().render_prefix()
         tmpopts = ""
         if self.Win32 == True:
             tmpopts += "WIN32 "
@@ -30,6 +32,7 @@ class ExeTarget(BaseTarget):
             tmpopts += "MACOSX_BUNDLE "
         if self.ExludeFromAll == True:
             tmpopts += "EXCLUDE_FROM_ALL "
-        execmd = cmd.add_executable(self.Name, tmpopts, self.Srcs)
+        execmd = cmd.add_executable(self.Name, tmpopts, self.get_fullsrcs())
         ret += execmd.render()
+        ret += super().render_body()
         return ret

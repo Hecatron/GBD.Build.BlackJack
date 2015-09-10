@@ -7,7 +7,7 @@ class Test_LibTarget_Alias(unittest.TestCase):
         block1 = LibTarget_Alias("lib source", "lib target")
         result = block1.render()
         print(result)
-        if result != ['## Library Target - Alias', 'add_library(lib_source ALIAS lib_target', ')']:
+        if result != ['## Library Target - Alias', 'add_library(lib_source ALIAS lib_target)']:
             self.fail("Unexpected result")
         return
 

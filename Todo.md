@@ -2,11 +2,9 @@
 
 ## General
 
-1. Document existing code
+1. Look into comments feeding into doxygen
 2. Look into running the cmake process via pexpect / winpexpect
-3. alter the formatting for single / multi line commands using this as a basis
-http://www.cmake.org/Wiki/CMake/Tutorials/Exporting_and_Importing_Targets
-4. Look into cmake variables via constants
+3. Look into cmake variables via constants
 
 ## Visual Studio
 
@@ -16,10 +14,9 @@ Ideally we want it to look at NMake based projects first
 ## Targets
 
 1. custom target
-2. Include directories for both target and global, also check Target has a Sets section
-3. target properties
-4. target_link_libraries
-5. add custom command
+2. target properties
+3. target_link_libraries
+4. add custom command
 
 ## CMake Commands
 

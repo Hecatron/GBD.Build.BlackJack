@@ -34,6 +34,9 @@
     <Compile Include="blackjack\cmake\cmd\add_executable.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="blackjack\cmake\cmd\target_include_directories.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="blackjack\cmake\storage\CacheList.py">
       <SubType>Code</SubType>
     </Compile>
@@ -97,9 +100,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="blackjack\__init__.py" />
-    <Compile Include="docs\cmake\macros\FlagsReplace.md">
+    <Content Include="docs\cmake\macros\FlagsReplace.md">
       <SubType>Code</SubType>
-    </Compile>
+    </Content>
     <Compile Include="docs\cmake\storage\ScriptBlock.md">
       <SubType>Code</SubType>
     </Compile>

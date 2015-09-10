@@ -28,7 +28,10 @@ class LibTarget_Alias(BaseTarget):
         return
 
     def render_body(self):
-        ret = ["## Library Target - Alias"]
+        ret = []
+        ret += ["## Library Target - Alias"]
+        ret += super().render_prefix()
         libcmd = cmd.add_library(self.Name, "ALIAS " + self.Target, [])
         ret += libcmd.render()
+        ret += super().render_body()
         return ret

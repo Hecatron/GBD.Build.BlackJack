@@ -7,7 +7,7 @@ class Test_ExeTarget_Alias(unittest.TestCase):
         block1 = ExeTarget_Alias("exe source", "exe target")
         result = block1.render()
         print(result)
-        if result != ['## Executable Target - Alias', 'add_executable(exe_source ALIAS exe_target', ')']:
+        if result != ['## Executable Target - Alias', 'add_executable(exe_source ALIAS exe_target)']:
             self.fail("Unexpected result")
         return
 

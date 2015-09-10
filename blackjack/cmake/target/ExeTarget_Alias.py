@@ -28,7 +28,10 @@ class ExeTarget_Alias(BaseTarget):
         return
 
     def render_body(self):
-        ret = ["## Executable Target - Alias"]
+        ret = []
+        ret += ["## Executable Target - Alias"]
+        ret += super().render_prefix()
         execmd = cmd.add_executable(self.Name, "ALIAS " + self.Target, [])
         ret += execmd.render()
+        ret += super().render_body()
         return ret

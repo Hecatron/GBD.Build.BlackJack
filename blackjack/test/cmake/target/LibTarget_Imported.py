@@ -8,7 +8,7 @@ class Test_LibTarget_Imported(unittest.TestCase):
         block1 = LibTarget_Imported("lib target1", LibTypes.STATIC, True)
         result = block1.render()
         print(result)
-        if result != ['## Library Target - Imported', 'add_library(lib_target1 STATIC IMPORTED GLOBAL', ')']:
+        if result != ['## Library Target - Imported', 'add_library(lib_target1 STATIC IMPORTED GLOBAL)']:
             self.fail("Unexpected result")
         return
 

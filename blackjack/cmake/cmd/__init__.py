@@ -10,3 +10,4 @@ from .endforeach import endforeach
 from .foreach import foreach
 from .include_directories import include_directories
 from .project import project
+from .target_include_directories import target_include_directories
