@@ -6,6 +6,7 @@ class Test_ExeTarget_Imported(unittest.TestCase):
     def test_render(self):
         block1 = ExeTarget_Imported("exe source", True)
         result = block1.render()
+        print(result)
         if result != ['## Executable Target - Imported', 'add_executable(exe_source IMPORTED GLOBAL ', ')']:
             self.fail("Unexpected result")
         return

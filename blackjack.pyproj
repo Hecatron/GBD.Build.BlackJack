@@ -6,7 +6,7 @@
     <ProjectGuid>26bfd115-f770-4cf1-977b-3462a663bd32</ProjectGuid>
     <ProjectHome>
     </ProjectHome>
-    <StartupFile>blackjack\test\cmake\target\ExeTarget_Imported.py</StartupFile>
+    <StartupFile>blackjack\test\cmake\target\LibTarget_Object.py</StartupFile>
     <SearchPath>./</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -79,6 +79,21 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="blackjack\test\cmake\target\ExeTarget_Imported.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="blackjack\test\cmake\target\LibTarget.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="blackjack\test\cmake\target\LibTarget_Alias.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="blackjack\test\cmake\target\LibTarget_Imported.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="blackjack\test\cmake\target\LibTarget_Interface.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="blackjack\test\cmake\target\LibTarget_Object.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="blackjack\__init__.py" />
@@ -281,9 +296,14 @@
     <Content Include="docs\cmake\target\ExeTarget_Alias.md" />
     <Content Include="docs\cmake\target\ExeTarget_Imported.md" />
     <Content Include="docs\cmake\target\LibTarget.md" />
+    <Content Include="docs\cmake\target\LibTarget_Alias.md" />
+    <Content Include="docs\cmake\target\LibTarget_Imported.md" />
+    <Content Include="docs\cmake\target\LibTarget_Interface.md" />
+    <Content Include="docs\cmake\target\LibTarget_Object.md" />
     <Content Include="docs\Notes.txt" />
     <Content Include="Licence.md" />
     <Content Include="Readme.md" />
+    <Content Include="Todo.md" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

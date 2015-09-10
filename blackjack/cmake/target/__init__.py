@@ -16,16 +16,3 @@ from .LibTarget_Alias import LibTarget_Alias
 from .LibTarget_Imported import LibTarget_Imported
 from .LibTarget_Interface import LibTarget_Interface
 from .LibTarget_Object import LibTarget_Object
-
-    # TODO - Target Properties
-    # target_link_libraries
-    # target properties
-    # add_custom_command
-
-
-    # TODO - Target Types
-    # http://www.cmake.org/cmake/help/v3.3/command/add_library.html
-    # http://www.cmake.org/cmake/help/v3.3/command/add_executable.html
-    # http://www.cmake.org/Wiki/CMake/Tutorials/Exporting_and_Importing_Targets
-
-    # We also have custom target

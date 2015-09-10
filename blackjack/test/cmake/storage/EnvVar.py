@@ -9,6 +9,7 @@ class Test_EnvVar(unittest.TestCase):
         block1.add("TESTVAL3")
         block1.add_spacesep("TESTVAL4 TESTVAL5")
         result = block1.render()
+        print(result)
         if result != ['## EnvVar Set', 'set( ENV{TESTENV1} ', '    "TESTVAL1"', '    "TESTVAL2"',
                       '    "TESTVAL3"', '    "TESTVAL4"', '    "TESTVAL5"', ')']:
             self.fail("Unexpected result")

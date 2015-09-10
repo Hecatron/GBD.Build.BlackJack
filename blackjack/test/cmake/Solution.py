@@ -18,6 +18,7 @@ class Test_Solution(unittest.TestCase):
 
         # TODO
 
+        print(result)
         if result != ['## Cachelist Set', 'set( TESTCACHE1 ', '    "TESTVAL1"', '    "TESTVAL2"', '    "TESTVAL3"', '    "TESTVAL4"', '    "TESTVAL5"', 'CACHE STRING "docstring" FORCE', ')']:
             self.fail("Unexpected result")
         return

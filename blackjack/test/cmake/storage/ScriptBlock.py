@@ -16,8 +16,9 @@ class Test_ScriptBlock(unittest.TestCase):
     def test_render(self):
         block1 = self.setup_block()
         outputraw = block1.render_string()
-        outputsplit = outputraw.splitlines()
-        if outputsplit != ['#header1', '#header2', '#middle1', '#middle2', '#middle3', '#footer1', '#footer2']:
+        result = outputraw.splitlines()
+        print(result)
+        if result != ['#header1', '#header2', '#middle1', '#middle2', '#middle3', '#footer1', '#footer2']:
             self.fail("Unexpected Output")
         return
 
@@ -29,8 +30,9 @@ class Test_ScriptBlock(unittest.TestCase):
         os.remove(block1.OutputFilePath)
 
         outputraw = block2.render_string()
-        outputsplit = outputraw.splitlines()
-        if outputsplit != ['#header1', '#header2', '#middle1', '#middle2', '#middle3', '#footer1', '#footer2']:
+        result = outputraw.splitlines()
+        print(result)
+        if result != ['#header1', '#header2', '#middle1', '#middle2', '#middle3', '#footer1', '#footer2']:
             self.fail("Unexpected Output")        
         return
 

@@ -10,6 +10,7 @@ class Test_CacheList(unittest.TestCase):
         block1.add("TESTVAL3")
         block1.add_spacesep("TESTVAL4 TESTVAL5")
         result = block1.render()
+        print(result)
         if result != ['## Cachelist Set', 'set( TESTCACHE1 ', '    "TESTVAL1"', '    "TESTVAL2"', '    "TESTVAL3"', '    "TESTVAL4"', '    "TESTVAL5"', 'CACHE STRING "docstring" FORCE', ')']:
             self.fail("Unexpected result")
         return

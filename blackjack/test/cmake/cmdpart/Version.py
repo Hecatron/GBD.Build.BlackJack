@@ -6,6 +6,7 @@ class Test_Version(unittest.TestCase):
     def test_render(self):
         incdir1 = Version(1,2,3,4)
         result = incdir1.render()
+        print(result)
         if result != ['VERSION 1.2.3.4']:
             self.fail("Unexpected result")
         return
