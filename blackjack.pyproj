@@ -114,9 +114,6 @@
     <Content Include="docs\cmake\macros\FlagsReplace.md">
       <SubType>Code</SubType>
     </Content>
-    <Compile Include="docs\cmake\storage\ScriptBlock.md">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="examples\Test1.py" />
     <Compile Include="blackjack\cmake\cmdpart\__init__.py" />
     <Compile Include="blackjack\cmake\cmd\add_library.py">
@@ -301,8 +298,8 @@
     <Content Include="docs\Overview.md" />
     <Content Include="docs\cmake\cmdpart\IncludeDir.md" />
     <Content Include="docs\cmake\cmdpart\Version.md" />
-    <Content Include="docs\cmake\ScriptBase.md" />
-    <Content Include="docs\cmake\Solution.md" />
+    <Content Include="docs\api\Script Classes.md" />
+    <Content Include="docs\api\Project Classes.md" />
     <Content Include="docs\cmake\storage\CacheList.md" />
     <Content Include="docs\cmake\storage\EnvVar.md" />
     <Content Include="docs\cmake\storage\SourceList.md" />

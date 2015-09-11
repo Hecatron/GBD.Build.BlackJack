@@ -1,0 +1,4 @@
+var namespaceblackjack_1_1cmake_1_1target_1_1_exe_target___imported =
+[
+    [ "ExeTarget_Imported", "classblackjack_1_1cmake_1_1target_1_1_exe_target___imported_1_1_exe_target___imported.html", "classblackjack_1_1cmake_1_1target_1_1_exe_target___imported_1_1_exe_target___imported" ]
+];

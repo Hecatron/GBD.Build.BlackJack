@@ -1,0 +1,26 @@
+var classblackjack_1_1cmake_1_1vars_1_1_compiler_i_d_1_1_compiler_i_d =
+[
+    [ "Absoft", "classblackjack_1_1cmake_1_1vars_1_1_compiler_i_d_1_1_compiler_i_d.html#a19001f085707757c18e39720955f7586", null ],
+    [ "ADSP", "classblackjack_1_1cmake_1_1vars_1_1_compiler_i_d_1_1_compiler_i_d.html#a591fd98af56fc8a1cd2c50284df9a763", null ],
+    [ "AppleClang", "classblackjack_1_1cmake_1_1vars_1_1_compiler_i_d_1_1_compiler_i_d.html#a265d4005f1e933d5c323cc599ec870b6", null ],
+    [ "Borland", "classblackjack_1_1cmake_1_1vars_1_1_compiler_i_d_1_1_compiler_i_d.html#a638b77f925e55a3ae6631ccabe6565fa", null ],
+    [ "Clang", "classblackjack_1_1cmake_1_1vars_1_1_compiler_i_d_1_1_compiler_i_d.html#a7a353b821cd19d06ed3e3edc2080840e", null ],
+    [ "Cray", "classblackjack_1_1cmake_1_1vars_1_1_compiler_i_d_1_1_compiler_i_d.html#a08d9399e0f366e34dd4773c511f0316e", null ],
+    [ "Embarcadero", "classblackjack_1_1cmake_1_1vars_1_1_compiler_i_d_1_1_compiler_i_d.html#a3e6923ac1b2b531752ef330967341caa", null ],
+    [ "G95", "classblackjack_1_1cmake_1_1vars_1_1_compiler_i_d_1_1_compiler_i_d.html#a22384d0ff987fa9efa5be87fe60991d6", null ],
+    [ "GNU", "classblackjack_1_1cmake_1_1vars_1_1_compiler_i_d_1_1_compiler_i_d.html#ae37ce16d755a1a738f8d136847485bfe", null ],
+    [ "HP", "classblackjack_1_1cmake_1_1vars_1_1_compiler_i_d_1_1_compiler_i_d.html#a1d5fd04a67cf324f728363944d7959fc", null ],
+    [ "Intel", "classblackjack_1_1cmake_1_1vars_1_1_compiler_i_d_1_1_compiler_i_d.html#a75d3db824f6b69c542f2a84d8f3cddfd", null ],
+    [ "MIPSpro", "classblackjack_1_1cmake_1_1vars_1_1_compiler_i_d_1_1_compiler_i_d.html#a63ba74ff984d59f03f50fcce387b4770", null ],
+    [ "MSVC", "classblackjack_1_1cmake_1_1vars_1_1_compiler_i_d_1_1_compiler_i_d.html#a8b3a84c634a08dece17ee5ed310fb986", null ],
+    [ "OpenWatcom", "classblackjack_1_1cmake_1_1vars_1_1_compiler_i_d_1_1_compiler_i_d.html#ac7588acbda97b26996b373eb5fc68b82", null ],
+    [ "PathScale", "classblackjack_1_1cmake_1_1vars_1_1_compiler_i_d_1_1_compiler_i_d.html#af9c908397110b20592f879b40ba6b208", null ],
+    [ "PGI", "classblackjack_1_1cmake_1_1vars_1_1_compiler_i_d_1_1_compiler_i_d.html#ac0c039ad9ce97d4b001b4a35fd57daf7", null ],
+    [ "SDCC", "classblackjack_1_1cmake_1_1vars_1_1_compiler_i_d_1_1_compiler_i_d.html#a6745729fdb03856bc4bbdad813a5f355", null ],
+    [ "SunPro", "classblackjack_1_1cmake_1_1vars_1_1_compiler_i_d_1_1_compiler_i_d.html#a08a5a66262d7e28d14b304d067a10997", null ],
+    [ "TI", "classblackjack_1_1cmake_1_1vars_1_1_compiler_i_d_1_1_compiler_i_d.html#a80922dd2807ac1b56790713dabc96ad4", null ],
+    [ "TinyCC", "classblackjack_1_1cmake_1_1vars_1_1_compiler_i_d_1_1_compiler_i_d.html#ab54e09f5f28a2fedd58268c2aa87eb09", null ],
+    [ "VisualAge", "classblackjack_1_1cmake_1_1vars_1_1_compiler_i_d_1_1_compiler_i_d.html#a8127f68ace74a1fe2e372efc5688e220", null ],
+    [ "XL", "classblackjack_1_1cmake_1_1vars_1_1_compiler_i_d_1_1_compiler_i_d.html#a778127d66bdb64198d6bc5698eff017f", null ],
+    [ "zOS", "classblackjack_1_1cmake_1_1vars_1_1_compiler_i_d_1_1_compiler_i_d.html#a0d32a1d045010358cb53754c2b6d85f3", null ]
+];

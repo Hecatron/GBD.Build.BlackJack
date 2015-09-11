@@ -1,0 +1,4 @@
+var namespaceblackjack_1_1cmake_1_1target_1_1_lib_target___imported =
+[
+    [ "LibTarget_Imported", "classblackjack_1_1cmake_1_1target_1_1_lib_target___imported_1_1_lib_target___imported.html", "classblackjack_1_1cmake_1_1target_1_1_lib_target___imported_1_1_lib_target___imported" ]
+];

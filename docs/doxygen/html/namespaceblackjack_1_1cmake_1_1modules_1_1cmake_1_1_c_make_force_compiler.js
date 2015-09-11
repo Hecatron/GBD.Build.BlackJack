@@ -1,0 +1,4 @@
+var namespaceblackjack_1_1cmake_1_1modules_1_1cmake_1_1_c_make_force_compiler =
+[
+    [ "CMakeForceCompiler", "classblackjack_1_1cmake_1_1modules_1_1cmake_1_1_c_make_force_compiler_1_1_c_make_force_compiler.html", "classblackjack_1_1cmake_1_1modules_1_1cmake_1_1_c_make_force_compiler_1_1_c_make_force_compiler" ]
+];

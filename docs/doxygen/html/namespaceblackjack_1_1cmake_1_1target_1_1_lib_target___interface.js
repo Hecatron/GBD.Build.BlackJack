@@ -1,0 +1,4 @@
+var namespaceblackjack_1_1cmake_1_1target_1_1_lib_target___interface =
+[
+    [ "LibTarget_Interface", "classblackjack_1_1cmake_1_1target_1_1_lib_target___interface_1_1_lib_target___interface.html", "classblackjack_1_1cmake_1_1target_1_1_lib_target___interface_1_1_lib_target___interface" ]
+];

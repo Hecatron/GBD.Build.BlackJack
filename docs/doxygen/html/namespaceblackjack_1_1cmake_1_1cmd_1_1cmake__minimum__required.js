@@ -1,0 +1,4 @@
+var namespaceblackjack_1_1cmake_1_1cmd_1_1cmake__minimum__required =
+[
+    [ "cmake_minimum_required", "classblackjack_1_1cmake_1_1cmd_1_1cmake__minimum__required_1_1cmake__minimum__required.html", "classblackjack_1_1cmake_1_1cmd_1_1cmake__minimum__required_1_1cmake__minimum__required" ]
+];

@@ -10,3 +10,5 @@ The main aim for this project is to try and make generating CMakeFiles a bit qui
 also to handle some of the more mundane things that need to be taken care of during a build of a Project.
 
   * [Namespaces](api/Namespaces.md)
+  * [Script Classes](api/Script Classes.md)
+  * [Project Classes](api/Project Classes.md)

@@ -1,0 +1,4 @@
+var namespaceblackjack_1_1cmake_1_1modules_1_1_flags_replace_compiler =
+[
+    [ "FlagsReplaceCompiler", "classblackjack_1_1cmake_1_1modules_1_1_flags_replace_compiler_1_1_flags_replace_compiler.html", "classblackjack_1_1cmake_1_1modules_1_1_flags_replace_compiler_1_1_flags_replace_compiler" ]
+];
