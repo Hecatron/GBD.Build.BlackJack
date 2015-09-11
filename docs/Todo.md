@@ -15,7 +15,7 @@ http://www.cmake.org/cmake/help/v3.3/manual/cmake-variables.7.html
 4. Look into running the cmake process via pexpect / winpexpect
 
 5. Look into comments feeding into doxygen
-and redo docs for the main high level classes to use
+and redo docs for the main high level classes to use, remove cmake subdir, add to api subdir
 
 ## Visual Studio
 

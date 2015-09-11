@@ -12,6 +12,8 @@ Adding a degree of object orientation to some of the concepts such as Script fil
 
   * [API Documentation](docs/API Overview.md)
 
+Note this is still a work in progress at this stage.
+
 ## Why do this?
 
 Other build systems I looked into included

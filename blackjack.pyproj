@@ -251,6 +251,7 @@
     <Folder Include="blackjack\cmake\cmdpart\" />
     <Folder Include="blackjack\cmake\modules\" />
     <Folder Include="blackjack\cmake\modules\cmake\" />
+    <Folder Include="blackjack\cmake\util\" />
     <Folder Include="blackjack\cmake\vars\" />
     <Folder Include="blackjack\cmake\storage\" />
     <Folder Include="blackjack\cmake\process\cache\" />
@@ -280,6 +281,7 @@
     <Folder Include="docs\cmake\cmdpart\" />
     <Folder Include="docs\cmake\target\" />
     <Folder Include="docs\cmake\storage\" />
+    <Folder Include="docs\api\" />
     <Folder Include="examples\" />
   </ItemGroup>
   <ItemGroup>
@@ -296,10 +298,7 @@
     <Content Include="contrib\winpexpect\AUTHORS" />
     <Content Include="contrib\winpexpect\LICENSE" />
     <Content Include="contrib\winpexpect\README" />
-    <Content Include="docs\1.1 Project Dependencies.md" />
-    <Content Include="docs\1.2 Project Components.md" />
-    <Content Include="docs\1.3 Example Use Cases.md" />
-    <Content Include="docs\API Overview.md" />
+    <Content Include="docs\Overview.md" />
     <Content Include="docs\cmake\cmdpart\IncludeDir.md" />
     <Content Include="docs\cmake\cmdpart\Version.md" />
     <Content Include="docs\cmake\ScriptBase.md" />
@@ -316,10 +315,11 @@
     <Content Include="docs\cmake\target\LibTarget_Imported.md" />
     <Content Include="docs\cmake\target\LibTarget_Interface.md" />
     <Content Include="docs\cmake\target\LibTarget_Object.md" />
+    <Content Include="docs\api\Namespaces.md" />
     <Content Include="docs\Notes.txt" />
     <Content Include="Licence.md" />
     <Content Include="Readme.md" />
-    <Content Include="Todo.md" />
+    <Content Include="docs\Todo.md" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
