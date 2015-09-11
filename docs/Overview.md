@@ -12,3 +12,6 @@ also to handle some of the more mundane things that need to be taken care of dur
   * [Namespaces](api/Namespaces.md)
   * [Script Classes](api/Script Classes.md)
   * [Project Classes](api/Project Classes.md)
+  * [Modules](api/Modules.md)
+  * [Command Parts](api/Cmd Parts.md)
+  * [Storage Classes](api/Storage Classes.md)

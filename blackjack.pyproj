@@ -34,6 +34,9 @@
     <Compile Include="blackjack\cmake\cmd\add_executable.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="blackjack\cmake\cmd\include.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="blackjack\cmake\cmd\target_include_directories.py">
       <SubType>Code</SubType>
     </Compile>
@@ -54,6 +57,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="blackjack\cmake\storage\ScriptBlock.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="blackjack\cmake\storage\ToolchainScript.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="blackjack\cmake\storage\__init__.py" />
@@ -111,7 +117,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="blackjack\__init__.py" />
-    <Content Include="docs\cmake\macros\FlagsReplace.md">
+    <Content Include="docs\api\Cmd Parts.md" />
+    <Content Include="docs\api\Modules.md">
       <SubType>Code</SubType>
     </Content>
     <Compile Include="examples\Test1.py" />
@@ -274,7 +281,6 @@
     <Folder Include="blackjack\test\cmake\" />
     <Folder Include="docs\" />
     <Folder Include="docs\cmake\" />
-    <Folder Include="docs\cmake\macros\" />
     <Folder Include="docs\cmake\cmdpart\" />
     <Folder Include="docs\cmake\target\" />
     <Folder Include="docs\cmake\storage\" />
@@ -295,6 +301,7 @@
     <Content Include="contrib\winpexpect\AUTHORS" />
     <Content Include="contrib\winpexpect\LICENSE" />
     <Content Include="contrib\winpexpect\README" />
+    <Content Include="docs\api\Storage Classes.md" />
     <Content Include="docs\Overview.md" />
     <Content Include="docs\cmake\cmdpart\IncludeDir.md" />
     <Content Include="docs\cmake\cmdpart\Version.md" />
