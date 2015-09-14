@@ -9,3 +9,5 @@ class BaseModule(ScriptBase):
         Can be overriden if the class name doesn't match the module name
         """
         return self.__class__.__name__
+
+    # TODO add method for getting the include statement

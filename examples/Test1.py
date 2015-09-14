@@ -17,6 +17,7 @@ try:
     import blackjack.cmake.process as process
     import blackjack.cmake.storage as storage
     import blackjack.cmake.target as target
+    import blackjack.cmake.vars as vars
 
     #sys.path.insert(0, os.path.abspath("./contrib/winpexpect/lib"))
     #sys.path.insert(0, os.path.abspath("./contrib/pexpect"))
@@ -32,6 +33,13 @@ try:
 
     #x1 = Process()
     #x1.test1()
+
+    test1 = str(vars.CMakeSystem.GHS_MULTI)
+    test2 = vars.CMakeSystem.GHS_MULTI.name
+    test3 = vars.CMakeSystem.GHS_MULTI
+
+    test4 = vars.CMakeLangs.CMAKE_USER_MAKE_RULES_OVERRIDE_LANG("C")
+
 
     set1 = storage.SourceList("Test Set")
     set1.add("Test1.cxx")

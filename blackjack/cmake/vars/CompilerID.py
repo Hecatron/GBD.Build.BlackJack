@@ -1,70 +1,70 @@
-﻿from enum import Enum
+﻿from .BaseEnum import BaseEnum
 
-class CompilerID(Enum):
+class CompilerID(BaseEnum):
     """Type of Compiler ID used within CMake"""
 
-    Absoft = 1
+    Absoft = ()
     """Absoft Fortran (absoft.com)"""
 
-    ADSP = 2
+    ADSP = ()
     """Analog VisualDSP++ (analog.com)"""
 
-    AppleClang = 3
+    AppleClang = ()
     """Apple Clang (apple.com)"""
 
-    Clang = 4
+    Clang = ()
     """LLVM Clang (clang.llvm.org)"""
 
-    Cray = 5
+    Cray = ()
     """Cray Compiler (cray.com)"""
 
-    Embarcadero = 6
+    Embarcadero = ()
     """Embarcadero (embarcadero.com)"""
-    Borland = 6
+    Borland = (-1)
     """Embarcadero (embarcadero.com)"""
 
-    G95 = 7
+    G95 = ()
     """G95 Fortran (g95.org)"""
 
-    GNU = 8
+    GNU = ()
     """GNU Compiler Collection (gcc.gnu.org)"""
 
-    HP = 9
+    HP = ()
     """Hewlett-Packard Compiler (hp.com)"""
 
-    Intel = 10
+    Intel = ()
     """Intel Compiler (intel.com)"""
 
-    MIPSpro = 11
+    MIPSpro = ()
     """SGI MIPSpro (sgi.com)"""
 
-    MSVC = 12
+    MSVC = ()
     """Microsoft Visual Studio (microsoft.com)"""
 
-    OpenWatcom = 13
+    OpenWatcom = ()
     """Open Watcom (openwatcom.org)"""
 
-    PGI = 14
+    PGI = ()
     """The Portland Group (pgroup.com)"""
 
-    PathScale = 15
+    PathScale = ()
     """PathScale (pathscale.com)"""
 
-    SDCC = 16
+    SDCC = ()
     """Small Device C Compiler (sdcc.sourceforge.net)"""
 
-    SunPro = 17
+    SunPro = ()
     """Oracle Solaris Studio (oracle.com)"""
 
-    TI = 18
+    TI = ()
     """Texas Instruments (ti.com)"""
 
-    TinyCC = 19
+    TinyCC = ()
     """Tiny C Compiler (tinycc.org)"""
 
-    XL = 20
+    XL = ()
     """IBM XL (ibm.com)"""
-    VisualAge = 20
+    VisualAge = (-1)
     """IBM XL (ibm.com)"""
-    zOS = 20
+    zOS = (-1)
     """IBM XL (ibm.com)"""

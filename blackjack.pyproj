@@ -6,7 +6,7 @@
     <ProjectGuid>26bfd115-f770-4cf1-977b-3462a663bd32</ProjectGuid>
     <ProjectHome>
     </ProjectHome>
-    <StartupFile>blackjack\test\cmake\target\LibTarget_Object.py</StartupFile>
+    <StartupFile>examples\Test1.py</StartupFile>
     <SearchPath>./</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -63,6 +63,30 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="blackjack\cmake\storage\__init__.py" />
+    <Compile Include="blackjack\cmake\vars\BaseEnum.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="blackjack\cmake\vars\CMakeBehavior.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="blackjack\cmake\vars\CMakeBuildControl.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="blackjack\cmake\vars\CMakeCPack.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="blackjack\cmake\vars\CMakeCTest.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="blackjack\cmake\vars\CMakeInfo.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="blackjack\cmake\vars\CMakeLangs.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="blackjack\cmake\vars\CMakeSystem.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="blackjack\cmake\vars\CompilerID.py">
       <SubType>Code</SubType>
     </Compile>

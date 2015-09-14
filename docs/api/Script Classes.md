@@ -83,4 +83,8 @@ is that it overrides the default export file path to "CMakeToolChain.txt"
 If we provide a ToolchainScript class to the ToolchainScript property of the Solution class
 then during the launching of cmake, CMAKE_TOOLCHAIN_FILE will be set to the filepath of that class
 
+### Links
+
+ * http://www.cmake.org/Wiki/CMake_Cross_Compiling
+
 TODO Example
