@@ -1,6 +1,7 @@
-﻿from .BaseEnum import BaseEnum
+﻿from .types.CMakeVariable import CMakeVariable
+from .types.VariableCollection import VariableCollection
 
-class CMakeInfo(BaseEnum):
+class CMakeInfo(VariableCollection):
     """CMake Information related variables"""
 
     CMAKE_ARGC = ()
@@ -80,12 +81,30 @@ class CMakeInfo(BaseEnum):
     PROJECT_VERSION_PATCH = ()
     PROJECT_VERSION_TWEAK = ()
 
+    @staticmethod
+    def PROJECTNAME_BINARY_DIR(projname: str):
+        return CMakeVariable(projname + "_BINARY_DIR", projname)
 
+    @staticmethod
+    def PROJECTNAME_SOURCE_DIR(projname: str):
+        return CMakeVariable(projname + "_SOURCE_DIR", projname)
 
-    #<PROJECT-NAME>_BINARY_DIR
-    #<PROJECT-NAME>_SOURCE_DIR
-    #<PROJECT-NAME>_VERSION
-    #<PROJECT-NAME>_VERSION_MAJOR
-    #<PROJECT-NAME>_VERSION_MINOR
-    #<PROJECT-NAME>_VERSION_PATCH
-    #<PROJECT-NAME>_VERSION_TWEAK
+    @staticmethod
+    def PROJECTNAME_VERSION(projname: str):
+        return CMakeVariable(projname + "_VERSION", projname)
+
+    @staticmethod
+    def PROJECTNAME_VERSION_MAJOR(projname: str):
+        return CMakeVariable(projname + "_VERSION_MAJOR", projname)
+
+    @staticmethod
+    def PROJECTNAME_VERSION_MINOR(projname: str):
+        return CMakeVariable(projname + "_VERSION_MINOR", projname)
+
+    @staticmethod
+    def PROJECTNAME_VERSION_PATCH(projname: str):
+        return CMakeVariable(projname + "_VERSION_PATCH", projname)
+
+    @staticmethod
+    def PROJECTNAME_VERSION_TWEAK(projname: str):
+        return CMakeVariable(projname + "_VERSION_TWEAK", projname)

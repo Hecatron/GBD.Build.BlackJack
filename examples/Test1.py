@@ -34,11 +34,22 @@ try:
     #x1 = Process()
     #x1.test1()
 
-    test1 = str(vars.CMakeSystem.GHS_MULTI)
-    test2 = vars.CMakeSystem.GHS_MULTI.name
-    test3 = vars.CMakeSystem.GHS_MULTI
+    #test1 = vars.CMakeBehavior.CMAKE_PROJECT_PROJECT_NAME_INCLUDE("test1")
+    #test2 = vars.CMakeBehavior.CMAKE_PROJECT_PROJECT_NAME_INCLUDE("test2")
 
-    test4 = vars.CMakeLangs.CMAKE_USER_MAKE_RULES_OVERRIDE_LANG("C")
+    #test2._name_ = "123"
+
+    #test3 = vars.CMakeBehavior.BUILD_SHARED_LIBS
+    #test33 = vars.CMakeBehavior.CMAKE_ABSOLUTE_DESTINATION_FILES
+    #test4 = str(test1)
+
+    xx1 = vars.types.VariableCollection()
+    xx1.FullName = "123"
+
+    #test2 = vars.CMakeLangs.CMAKE_COMPILER_IS_GNU("C")
+    #test3 = vars.CMakeLangs.CMAKE_COMPILER_IS_GNU("C")
+
+    #test4 = vars.CMakeBuildControl.CMAKE_XCODE_ATTRIBUTE_ATTR("test")
 
 
     set1 = storage.SourceList("Test Set")

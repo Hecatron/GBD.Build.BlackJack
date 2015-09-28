@@ -1,6 +1,7 @@
-﻿from .BaseEnum import BaseEnum
+﻿from .types.CMakeVariable import CMakeVariable
+from .types.VariableCollection import VariableCollection
 
-class CMakeBuildControl(BaseEnum):
+class CMakeBuildControl(VariableCollection):
     """CMake Build Control related variables"""
 
     CMAKE_ANDROID_API = ()
@@ -55,17 +56,58 @@ class CMakeBuildControl(BaseEnum):
     EXECUTABLE_OUTPUT_PATH = ()
     LIBRARY_OUTPUT_PATH = ()
 
-#    CMAKE_ARCHIVE_OUTPUT_DIRECTORY_<CONFIG> = ()
-#    CMAKE_COMPILE_PDB_OUTPUT_DIRECTORY_<CONFIG> = ()
-#    CMAKE_EXE_LINKER_FLAGS_<CONFIG> = ()
-#    CMAKE_MAP_IMPORTED_CONFIG_<CONFIG> = ()
-#    CMAKE_MODULE_LINKER_FLAGS_<CONFIG> = ()
-#    CMAKE_PDB_OUTPUT_DIRECTORY_<CONFIG> = ()
-#    CMAKE_LIBRARY_OUTPUT_DIRECTORY_<CONFIG> = ()
-#    CMAKE_<CONFIG>_POSTFIX = ()
-#    CMAKE_<LANG>_INCLUDE_WHAT_YOU_USE = ()
-#    CMAKE_<LANG>_VISIBILITY_PRESET = ()
-#    CMAKE_RUNTIME_OUTPUT_DIRECTORY_<CONFIG> = ()
-#    CMAKE_SHARED_LINKER_FLAGS_<CONFIG> = ()
-#    CMAKE_STATIC_LINKER_FLAGS_<CONFIG> = ()
-#    CMAKE_XCODE_ATTRIBUTE_<an-attribute> = ()
+    @staticmethod
+    def CMAKE_ARCHIVE_OUTPUT_DIRECTORY_CONFIG(config: str):
+        return CMakeVariable("CMAKE_ARCHIVE_OUTPUT_DIRECTORY_" + config, config)
+
+    @staticmethod
+    def CMAKE_COMPILE_PDB_OUTPUT_DIRECTORY_CONFIG(config: str):
+        return CMakeVariable("CMAKE_COMPILE_PDB_OUTPUT_DIRECTORY_" + config, config)
+
+    @staticmethod
+    def CMAKE_EXE_LINKER_FLAGS_CONFIG(config: str):
+        return CMakeVariable("CMAKE_EXE_LINKER_FLAGS_" + config, config)
+
+    @staticmethod
+    def CMAKE_MAP_IMPORTED_CONFIG_CONFIG(config: str):
+        return CMakeVariable("CMAKE_MAP_IMPORTED_CONFIG_" + config, config)
+
+    @staticmethod
+    def CMAKE_MODULE_LINKER_FLAGS_CONFIG(config: str):
+        return CMakeVariable("CMAKE_MODULE_LINKER_FLAGS_" + config, config)
+
+    @staticmethod
+    def CMAKE_PDB_OUTPUT_DIRECTORY_CONFIG(config: str):
+        return CMakeVariable("CMAKE_PDB_OUTPUT_DIRECTORY_" + config, config)
+
+    @staticmethod
+    def CMAKE_LIBRARY_OUTPUT_DIRECTORY_CONFIG(config: str):
+        return CMakeVariable("CMAKE_LIBRARY_OUTPUT_DIRECTORY_" + config, config)
+
+    @staticmethod
+    def CMAKE_CONFIG_POSTFIX(config: str):
+        return CMakeVariable("CMAKE_" + config + "_POSTFIX", config)
+
+    @staticmethod
+    def CMAKE_LANG_INCLUDE_WHAT_YOU_USE(lang: str):
+        return CMakeVariable("CMAKE_" + lang + "_INCLUDE_WHAT_YOU_USE", lang)
+
+    @staticmethod
+    def CMAKE_LANG_VISIBILITY_PRESET(lang: str):
+        return CMakeVariable("CMAKE_" + lang + "_VISIBILITY_PRESET", lang)
+
+    @staticmethod
+    def CMAKE_RUNTIME_OUTPUT_DIRECTORY_CONFIG(config: str):
+        return CMakeVariable("CMAKE_RUNTIME_OUTPUT_DIRECTORY_" + config, config)
+
+    @staticmethod
+    def CMAKE_SHARED_LINKER_FLAGS_CONFIG(config: str):
+        return CMakeVariable("CMAKE_SHARED_LINKER_FLAGS_" + config, config)
+
+    @staticmethod
+    def CMAKE_STATIC_LINKER_FLAGS_CONFIG(config: str):
+        return CMakeVariable("CMAKE_STATIC_LINKER_FLAGS_" + config, config)
+
+    @staticmethod
+    def CMAKE_XCODE_ATTRIBUTE_ATTR(attr: str):
+        return CMakeVariable("CMAKE_XCODE_ATTRIBUTE_" + attr, attr)

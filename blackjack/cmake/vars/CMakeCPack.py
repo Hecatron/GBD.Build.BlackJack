@@ -1,6 +1,7 @@
-﻿from .BaseEnum import BaseEnum
+﻿from .types.CMakeVariable import CMakeVariable
+from .types.VariableCollection import VariableCollection
 
-class CMakeCPack(BaseEnum):
+class CMakeCPack(VariableCollection):
     """CMake CPack related variables"""
 
     CPACK_ABSOLUTE_DESTINATION_FILES = ()

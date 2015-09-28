@@ -1,11 +1,8 @@
-﻿from .BaseEnum import BaseEnum
+﻿from .types.CMakeVariable import CMakeVariable
+from .types.VariableCollection import VariableCollection
 
-class CMakeLangs(BaseEnum):
+class CMakeLangs(VariableCollection):
     """CMake Language related variables"""
-
-    @staticmethod
-    def CMAKE_COMPILER_IS_GNU(lang: str):
-        return "CMAKE_COMPILER_IS_GNU" + lang
 
     CMAKE_C_COMPILE_FEATURES = ()
     CMAKE_C_EXTENSIONS = ()
@@ -21,48 +18,161 @@ class CMakeLangs(BaseEnum):
     CMAKE_INTERNAL_PLATFORM_ABI = ()
 
     @staticmethod
-    def CMAKE_LANG_ARCHIVE_APPEND(lang: str):
-        return "CMAKE_" + lang + "_ARCHIVE_APPEND" + lang
+    def CMAKE_COMPILER_IS_GNU(lang: str):
+        return CMakeVariable("CMAKE_COMPILER_IS_GNU" + lang, lang)
 
-#    CMAKE_<LANG>_ARCHIVE_APPEND
-#    CMAKE_<LANG>_ARCHIVE_CREATE
-#    CMAKE_<LANG>_ARCHIVE_FINISH
-#    CMAKE_<LANG>_COMPILE_OBJECT
-#    CMAKE_<LANG>_COMPILER_ABI
-#    CMAKE_<LANG>_COMPILER_ID
-#    CMAKE_<LANG>_COMPILER_LOADED
-#    CMAKE_<LANG>_COMPILER
-#    CMAKE_<LANG>_COMPILER_EXTERNAL_TOOLCHAIN
-#    CMAKE_<LANG>_COMPILER_TARGET
-#    CMAKE_<LANG>_COMPILER_VERSION
-#    CMAKE_<LANG>_CREATE_SHARED_LIBRARY
-#    CMAKE_<LANG>_CREATE_SHARED_MODULE
-#    CMAKE_<LANG>_CREATE_STATIC_LIBRARY
-#    CMAKE_<LANG>_FLAGS_DEBUG
-#    CMAKE_<LANG>_FLAGS_MINSIZEREL
-#    CMAKE_<LANG>_FLAGS_RELEASE
-#    CMAKE_<LANG>_FLAGS_RELWITHDEBINFO
-#    CMAKE_<LANG>_FLAGS
-#    CMAKE_<LANG>_GHS_KERNEL_FLAGS_DEBUG
-#    CMAKE_<LANG>_GHS_KERNEL_FLAGS_MINSIZEREL
-#    CMAKE_<LANG>_GHS_KERNEL_FLAGS_RELEASE
-#    CMAKE_<LANG>_GHS_KERNEL_FLAGS_RELWITHDEBINFO
-#    CMAKE_<LANG>_IGNORE_EXTENSIONS
-#    CMAKE_<LANG>_IMPLICIT_INCLUDE_DIRECTORIES
-#    CMAKE_<LANG>_IMPLICIT_LINK_DIRECTORIES
-#    CMAKE_<LANG>_IMPLICIT_LINK_FRAMEWORK_DIRECTORIES
-#    CMAKE_<LANG>_IMPLICIT_LINK_LIBRARIES
-#    CMAKE_<LANG>_LIBRARY_ARCHITECTURE
-#    CMAKE_<LANG>_LINKER_PREFERENCE_PROPAGATES
-#    CMAKE_<LANG>_LINKER_PREFERENCE
-#    CMAKE_<LANG>_LINK_EXECUTABLE
-#    CMAKE_<LANG>_OUTPUT_EXTENSION
-#    CMAKE_<LANG>_PLATFORM_ID
-#    CMAKE_<LANG>_SIMULATE_ID
-#    CMAKE_<LANG>_SIMULATE_VERSION
-#    CMAKE_<LANG>_SIZEOF_DATA_PTR
-#    CMAKE_<LANG>_SOURCE_FILE_EXTENSIONS
+    @staticmethod
+    def CMAKE_LANG_ARCHIVE_APPEND(lang: str):
+        return CMakeVariable("CMAKE_" + lang + "_ARCHIVE_APPEND", lang)
+
+    @staticmethod
+    def CMAKE_LANG_ARCHIVE_CREATE(lang: str):
+        return CMakeVariable("CMAKE_" + lang + "_ARCHIVE_CREATE", lang)
+
+    @staticmethod
+    def CMAKE_LANG_ARCHIVE_FINISH(lang: str):
+        return CMakeVariable("CMAKE_" + lang + "_ARCHIVE_FINISH", lang)
+
+    @staticmethod
+    def CMAKE_LANG_COMPILE_OBJECT(lang: str):
+        return CMakeVariable("CMAKE_" + lang + "_COMPILE_OBJECT", lang)
+
+    @staticmethod
+    def CMAKE_LANG_COMPILER_ABI(lang: str):
+        return CMakeVariable("CMAKE_" + lang + "_COMPILER_ABI", lang)
+
+    @staticmethod
+    def CMAKE_LANG_COMPILER_ID(lang: str):
+        return CMakeVariable("CMAKE_" + lang + "_COMPILER_ID", lang)
+
+    @staticmethod
+    def CMAKE_LANG_COMPILER_LOADED(lang: str):
+        return CMakeVariable("CMAKE_" + lang + "_COMPILER_LOADED", lang)
+
+    @staticmethod
+    def CMAKE_LANG_COMPILER(lang: str):
+        return CMakeVariable("CMAKE_" + lang + "_COMPILER", lang)
+
+    @staticmethod
+    def CMAKE_LANG_COMPILER_EXTERNAL_TOOLCHAIN(lang: str):
+        return CMakeVariable("CMAKE_" + lang + "_COMPILER_EXTERNAL_TOOLCHAIN", lang)
+
+    @staticmethod
+    def CMAKE_LANG_COMPILER_TARGET(lang: str):
+        return CMakeVariable("CMAKE_" + lang + "_COMPILER_TARGET", lang)
+
+    @staticmethod
+    def CMAKE_LANG_COMPILER_VERSION(lang: str):
+        return CMakeVariable("CMAKE_" + lang + "_COMPILER_VERSION", lang)
+
+    @staticmethod
+    def CMAKE_LANG_CREATE_SHARED_LIBRARY(lang: str):
+        return CMakeVariable("CMAKE_" + lang + "_CREATE_SHARED_LIBRARY", lang)
+
+    @staticmethod
+    def CMAKE_LANG_CREATE_SHARED_MODULE(lang: str):
+        return CMakeVariable("CMAKE_" + lang + "_CREATE_SHARED_MODULE", lang)
+
+    @staticmethod
+    def CMAKE_LANG_CREATE_STATIC_LIBRARY(lang: str):
+        return CMakeVariable("CMAKE_" + lang + "_CREATE_STATIC_LIBRARY", lang)
+
+    @staticmethod
+    def CMAKE_LANG_FLAGS_DEBUG(lang: str):
+        return CMakeVariable("CMAKE_" + lang + "_FLAGS_DEBUG", lang)
+
+    @staticmethod
+    def CMAKE_LANG_FLAGS_MINSIZEREL(lang: str):
+        return CMakeVariable("CMAKE_" + lang + "_FLAGS_MINSIZEREL", lang)
+
+    @staticmethod
+    def CMAKE_LANG_FLAGS_RELEASE(lang: str):
+        return CMakeVariable("CMAKE_" + lang + "_FLAGS_RELEASE", lang)
+
+    @staticmethod
+    def CMAKE_LANG_FLAGS_RELWITHDEBINFO(lang: str):
+        return CMakeVariable("CMAKE_" + lang + "_FLAGS_RELWITHDEBINFO", lang)
+
+    @staticmethod
+    def CMAKE_LANG_FLAGS(lang: str):
+        return CMakeVariable("CMAKE_" + lang + "_FLAGS", lang)
+
+    @staticmethod
+    def CMAKE_LANG_GHS_KERNEL_FLAGS_DEBUG(lang: str):
+        return CMakeVariable("CMAKE_" + lang + "_GHS_KERNEL_FLAGS_DEBUG", lang)
+
+    @staticmethod
+    def CMAKE_LANG_GHS_KERNEL_FLAGS_MINSIZEREL(lang: str):
+        return CMakeVariable("CMAKE_" + lang + "_GHS_KERNEL_FLAGS_MINSIZEREL", lang)
+
+    @staticmethod
+    def CMAKE_LANG_GHS_KERNEL_FLAGS_RELEASE(lang: str):
+        return CMakeVariable("CMAKE_" + lang + "_GHS_KERNEL_FLAGS_RELEASE", lang)
+
+    @staticmethod
+    def CMAKE_LANG_GHS_KERNEL_FLAGS_RELWITHDEBINFO(lang: str):
+        return CMakeVariable("CMAKE_" + lang + "_GHS_KERNEL_FLAGS_RELWITHDEBINFO", lang)
+
+    @staticmethod
+    def CMAKE_LANG_IGNORE_EXTENSIONS(lang: str):
+        return CMakeVariable("CMAKE_" + lang + "_IGNORE_EXTENSIONS", lang)
+
+    @staticmethod
+    def CMAKE_LANG_IMPLICIT_INCLUDE_DIRECTORIES(lang: str):
+        return CMakeVariable("CMAKE_" + lang + "_IMPLICIT_INCLUDE_DIRECTORIES", lang)
+
+    @staticmethod
+    def CMAKE_LANG_IMPLICIT_LINK_DIRECTORIES(lang: str):
+        return CMakeVariable("CMAKE_" + lang + "_IMPLICIT_LINK_DIRECTORIES", lang)
+
+    @staticmethod
+    def CMAKE_LANG_IMPLICIT_LINK_FRAMEWORK_DIRECTORIES(lang: str):
+        return CMakeVariable("CMAKE_" + lang + "_IMPLICIT_LINK_FRAMEWORK_DIRECTORIES", lang)
+
+    @staticmethod
+    def CMAKE_LANG_IMPLICIT_LINK_LIBRARIES(lang: str):
+        return CMakeVariable("CMAKE_" + lang + "_IMPLICIT_LINK_LIBRARIES", lang)
+
+    @staticmethod
+    def CMAKE_LANG_LIBRARY_ARCHITECTURE(lang: str):
+        return CMakeVariable("CMAKE_" + lang + "_LIBRARY_ARCHITECTURE", lang)
+
+    @staticmethod
+    def CMAKE_LANG_LINKER_PREFERENCE_PROPAGATES(lang: str):
+        return CMakeVariable("CMAKE_" + lang + "_LINKER_PREFERENCE_PROPAGATES", lang)
+
+    @staticmethod
+    def CMAKE_LANG_LINKER_PREFERENCE(lang: str):
+        return CMakeVariable("CMAKE_" + lang + "_LINKER_PREFERENCE", lang)
+
+    @staticmethod
+    def CMAKE_LANG_LINK_EXECUTABLE(lang: str):
+        return CMakeVariable("CMAKE_" + lang + "_LINK_EXECUTABLE", lang)
+
+    @staticmethod
+    def CMAKE_LANG_OUTPUT_EXTENSION(lang: str):
+        return CMakeVariable("CMAKE_" + lang + "_OUTPUT_EXTENSION", lang)
+
+    @staticmethod
+    def CMAKE_LANG_PLATFORM_ID(lang: str):
+        return CMakeVariable("CMAKE_" + lang + "_PLATFORM_ID", lang)
+
+    @staticmethod
+    def CMAKE_LANG_SIMULATE_ID(lang: str):
+        return CMakeVariable("CMAKE_" + lang + "_SIMULATE_ID", lang)
+
+    @staticmethod
+    def CMAKE_LANG_SIMULATE_VERSION(lang: str):
+        return CMakeVariable("CMAKE_" + lang + "_SIMULATE_VERSION", lang)
+
+    @staticmethod
+    def CMAKE_LANG_SIZEOF_DATA_PTR(lang: str):
+        return CMakeVariable("CMAKE_" + lang + "_SIZEOF_DATA_PTR", lang)
+
+    @staticmethod
+    def CMAKE_LANG_SOURCE_FILE_EXTENSIONS(lang: str):
+        return CMakeVariable("CMAKE_" + lang + "_SOURCE_FILE_EXTENSIONS", lang)
 
     @staticmethod
     def CMAKE_USER_MAKE_RULES_OVERRIDE_LANG(lang: str):
-        return "CMAKE_USER_MAKE_RULES_OVERRIDE_" + lang
+        return CMakeVariable("CMAKE_USER_MAKE_RULES_OVERRIDE_" + lang, lang)

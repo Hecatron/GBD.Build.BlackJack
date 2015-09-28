@@ -1,11 +1,11 @@
 ﻿from enum import Enum
 
-class BaseEnum(Enum):
+class AutoEnum(Enum):
     """
     Auto Numbering Enum
     
     The value can be overriden
-    also if -1 is specified then the value from the prior enum definition will be used
+    if -1 is specified then the value from the prior enum definition will be used
     """
 
     def __new__(cls, override: int = None):

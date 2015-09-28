@@ -1,6 +1,6 @@
-﻿from .BaseEnum import BaseEnum
+﻿from .types.AutoEnum import AutoEnum
 
-class CompilerID(BaseEnum):
+class CompilerIds(AutoEnum):
     """Type of Compiler ID used within CMake"""
 
     Absoft = ()

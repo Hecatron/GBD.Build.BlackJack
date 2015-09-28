@@ -1,6 +1,7 @@
-﻿from .BaseEnum import BaseEnum
+﻿from .types.CMakeVariable import CMakeVariable
+from .types.VariableCollection import VariableCollection
 
-class CMakeCTest(BaseEnum):
+class CMakeCTest(VariableCollection):
     """CMake CTest related variables"""
 
     CTEST_BINARY_DIRECTORY = ()
@@ -50,4 +51,3 @@ class CMakeCTest(BaseEnum):
     CTEST_UPDATE_OPTIONS = ()
     CTEST_UPDATE_VERSION_ONLY = ()
     CTEST_USE_LAUNCHERS = ()
-

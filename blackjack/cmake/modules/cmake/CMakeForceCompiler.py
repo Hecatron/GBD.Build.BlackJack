@@ -1,5 +1,5 @@
 ﻿from blackjack.cmake.modules.cmake.BaseModule import BaseModule
-from blackjack.cmake.vars.CompilerID import CompilerID
+from blackjack.cmake.vars.CompilerIds import CompilerIds
 
 class CMakeForceCompiler(BaseModule):
 
@@ -7,7 +7,7 @@ class CMakeForceCompiler(BaseModule):
     Inbuilt CMake modules to force C / CXX Compilers for cross compilation
     """
 
-    def __init__(self, lang:str, compilerpath: str, compilerid: CompilerID):
+    def __init__(self, lang:str, compilerpath: str, compilerid: CompilerIds):
         super().__init__()
         self._Lang = None
         self.Lang = lang

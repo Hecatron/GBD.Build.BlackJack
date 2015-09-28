@@ -63,7 +63,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="blackjack\cmake\storage\__init__.py" />
-    <Compile Include="blackjack\cmake\vars\BaseEnum.py">
+    <Compile Include="blackjack\cmake\vars\types\AutoEnum.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="blackjack\cmake\vars\CMakeBehavior.py">
@@ -87,7 +87,14 @@
     <Compile Include="blackjack\cmake\vars\CMakeSystem.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="blackjack\cmake\vars\CompilerID.py">
+    <Compile Include="blackjack\cmake\vars\types\__init__.py" />
+    <Compile Include="blackjack\cmake\vars\types\VariableCollection.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="blackjack\cmake\vars\types\CMakeVariable.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="blackjack\cmake\vars\CompilerIds.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="blackjack\cmake\vars\__init__.py" />
@@ -286,6 +293,7 @@
     <Folder Include="blackjack\cmake\target\" />
     <Folder Include="blackjack\cmake\cmd\" />
     <Folder Include="blackjack\cmake\process\" />
+    <Folder Include="blackjack\cmake\vars\types\" />
     <Folder Include="blackjack\contrib\pexpect\" />
     <Folder Include="blackjack\contrib\pexpect\pexpect\" />
     <Folder Include="blackjack\test\cmake\cmdpart\" />

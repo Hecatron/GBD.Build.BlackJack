@@ -1,6 +1,7 @@
-﻿from .BaseEnum import BaseEnum
+﻿from .types.CMakeVariable import CMakeVariable
+from .types.VariableCollection import VariableCollection
 
-class CMakeBehavior(BaseEnum):
+class CMakeBehavior(VariableCollection):
     """CMake Behavior related variables"""
 
     BUILD_SHARED_LIBS = ()
@@ -54,16 +55,16 @@ class CMakeBehavior(BaseEnum):
 
     @staticmethod
     def CMAKE_PROJECT_PROJECT_NAME_INCLUDE(projname: str):
-        return "CMAKE_PROJECT_" + projname + "_INCLUDE"
+        return CMakeVariable("CMAKE_PROJECT_" + projname + "_INCLUDE", projname)
 
     @staticmethod
     def CMAKE_POLICY_DEFAULT_CMP_NNNN(polnum: str):
-        return "CMAKE_POLICY_DEFAULT_CMP" + polnum
+        return CMakeVariable("CMAKE_POLICY_DEFAULT_CMP" + polnum, polnum)
 
     @staticmethod
     def CMAKE_POLICY_WARNING_CMP_NNNN(polnum: str):
-        return "CMAKE_POLICY_WARNING_CMP" + polnum
+        return CMakeVariable("CMAKE_POLICY_WARNING_CMP" + polnum, polnum)
 
     @staticmethod
     def CMAKE_DISABLE_FIND_PACKAGE_PackageName(packagename: str):
-        return "CMAKE_DISABLE_FIND_PACKAGE_" + packagename
+        return CMakeVariable("CMAKE_DISABLE_FIND_PACKAGE_" + packagename, packagename)

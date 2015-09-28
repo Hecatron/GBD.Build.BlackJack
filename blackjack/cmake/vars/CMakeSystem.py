@@ -1,7 +1,7 @@
-﻿from .BaseEnum import BaseEnum
-from types import DynamicClassAttribute
+﻿from .types.CMakeVariable import CMakeVariable
+from .types.VariableCollection import VariableCollection
 
-class CMakeSystem(BaseEnum):
+class CMakeSystem(VariableCollection):
     """CMake System related variables"""
 
     APPLE = ()
@@ -24,7 +24,7 @@ class CMakeSystem(BaseEnum):
     CMAKE_SYSTEM_VERSION = ()
     CYGWIN = ()
     ENV = ()
-    GHS_MULTI = ()
+    GHS_MULTI = CMakeVariable('GHS-MULTI')
     MINGW = ()
     MSVC10 = ()
     MSVC11 = ()
@@ -44,9 +44,3 @@ class CMakeSystem(BaseEnum):
     WINDOWS_PHONE = ()
     WINDOWS_STORE = ()
     XCODE_VERSION = ()
-
-    @DynamicClassAttribute
-    def name(self):
-        """The name of the Enum member."""
-        if self._name_ == "GHS_MULTI": return "GHS-MULTI"
-        return self._name_
