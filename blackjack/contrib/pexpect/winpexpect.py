@@ -17,7 +17,7 @@ import signal
 from queue import Queue, Empty
 from threading import Thread, Lock
 
-from pexpect import spawn, ExceptionPexpect, EOF, TIMEOUT
+from .pexpect import spawn, ExceptionPexpect, EOF, TIMEOUT
 from subprocess import list2cmdline
 
 from msvcrt import open_osfhandle

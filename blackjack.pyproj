@@ -98,6 +98,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="blackjack\cmake\vars\__init__.py" />
+    <Compile Include="blackjack\contrib\pexpect\pexpect.py" />
+    <Compile Include="blackjack\contrib\pexpect\winpexpect.py" />
     <Compile Include="blackjack\test\cmake\cmdpart\IncludeDir.py">
       <SubType>Code</SubType>
     </Compile>
@@ -234,32 +236,6 @@
     </Compile>
     <Compile Include="blackjack\cmake\target\__init__.py" />
     <Compile Include="blackjack\cmake\__init__.py" />
-    <Compile Include="contrib\pexpect\ANSI.py" />
-    <Compile Include="contrib\pexpect\fdpexpect.py" />
-    <Compile Include="contrib\pexpect\FSM.py" />
-    <Compile Include="blackjack\contrib\pexpect\pexpect\ANSI.py" />
-    <Compile Include="blackjack\contrib\pexpect\pexpect\async.py" />
-    <Compile Include="blackjack\contrib\pexpect\pexpect\exceptions.py" />
-    <Compile Include="blackjack\contrib\pexpect\pexpect\expect.py" />
-    <Compile Include="blackjack\contrib\pexpect\pexpect\fdpexpect.py" />
-    <Compile Include="blackjack\contrib\pexpect\pexpect\FSM.py" />
-    <Compile Include="blackjack\contrib\pexpect\pexpect\pty_spawn.py" />
-    <Compile Include="blackjack\contrib\pexpect\pexpect\pxssh.py" />
-    <Compile Include="blackjack\contrib\pexpect\pexpect\replwrap.py" />
-    <Compile Include="blackjack\contrib\pexpect\pexpect\screen.py" />
-    <Compile Include="blackjack\contrib\pexpect\pexpect\spawnbase.py" />
-    <Compile Include="blackjack\contrib\pexpect\pexpect\utils.py" />
-    <Compile Include="blackjack\contrib\pexpect\pexpect\__init__.py" />
-    <Compile Include="contrib\pexpect\screen.py" />
-    <Compile Include="contrib\pexpect\setup.py" />
-    <Compile Include="contrib\winpexpect\lib\expectstub.py" />
-    <Compile Include="contrib\winpexpect\lib\pexpect.py" />
-    <Compile Include="contrib\winpexpect\lib\test\test_cmdline.py" />
-    <Compile Include="contrib\winpexpect\lib\test\test_which.py" />
-    <Compile Include="contrib\winpexpect\lib\test\test_winspawn.py" />
-    <Compile Include="contrib\winpexpect\lib\test\__init__.py" />
-    <Compile Include="contrib\winpexpect\lib\winpexpect.py" />
-    <Compile Include="contrib\winpexpect\setup.py" />
     <Compile Include="blackjack\cmake\process\Process.py">
       <SubType>Code</SubType>
     </Compile>
@@ -294,20 +270,14 @@
     <Folder Include="blackjack\cmake\cmd\" />
     <Folder Include="blackjack\cmake\process\" />
     <Folder Include="blackjack\cmake\vars\types\" />
+    <Folder Include="blackjack\contrib\" />
     <Folder Include="blackjack\contrib\pexpect\" />
-    <Folder Include="blackjack\contrib\pexpect\pexpect\" />
     <Folder Include="blackjack\test\cmake\cmdpart\" />
     <Folder Include="blackjack\test\cmake\modules\" />
     <Folder Include="blackjack\test\cmake\target\" />
     <Folder Include="blackjack\test\cmake\storage\" />
-    <Folder Include="contrib\" />
-    <Folder Include="contrib\pexpect\" />
-    <Folder Include="contrib\winpexpect\" />
-    <Folder Include="contrib\winpexpect\lib\" />
-    <Folder Include="contrib\winpexpect\lib\test\" />
     <Folder Include="blackjack\logs\" />
     <Folder Include="blackjack\cmake\" />
-    <Folder Include="blackjack\contrib\" />
     <Folder Include="blackjack\" />
     <Folder Include="blackjack\test\" />
     <Folder Include="blackjack\test\cmake\" />
@@ -320,19 +290,6 @@
     <Folder Include="examples\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="contrib\pexpect\.coveragerc" />
-    <Content Include="contrib\pexpect\.gitignore" />
-    <Content Include="contrib\pexpect\.travis.yml" />
-    <Content Include="contrib\pexpect\DEVELOPERS.rst" />
-    <Content Include="contrib\pexpect\LICENSE" />
-    <Content Include="contrib\pexpect\MANIFEST.in" />
-    <Content Include="blackjack\contrib\pexpect\pexpect\bashrc.sh" />
-    <Content Include="contrib\pexpect\requirements-testing.txt" />
-    <Content Include="contrib\pexpect\setup.cfg" />
-    <Content Include="contrib\Readme.md" />
-    <Content Include="contrib\winpexpect\AUTHORS" />
-    <Content Include="contrib\winpexpect\LICENSE" />
-    <Content Include="contrib\winpexpect\README" />
     <Content Include="docs\api\Storage Classes.md" />
     <Content Include="docs\Overview.md" />
     <Content Include="docs\cmake\cmdpart\IncludeDir.md" />

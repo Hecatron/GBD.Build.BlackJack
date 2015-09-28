@@ -6,10 +6,8 @@
 
 2. add a property to Solution called ToolchainScript which if set adds a definition to load in the toolchain file
 
-3. Look into cmake variables via constants
-Within Vars we need to add some enums which are lists of strings from
-http://www.cmake.org/cmake/help/v3.3/manual/cmake-variables.7.html
-can we add a function onto the back of the enum for rendering?
+3. Add a function to CMakeVariable base class to read off the value from cmake
+   during python runtime
 
 4. Look into comments feeding into doxygen
 and redo docs for the main high level classes to use, remove cmake subdir, add to api subdir

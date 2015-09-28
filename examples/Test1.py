@@ -1,6 +1,8 @@
-﻿import sys, os, logging
+﻿#! python3
+
+import sys, os, logging
 #Uncomment below to use outside of VS for development
-#sys.path.insert(0, os.path.abspath("./"))
+sys.path.insert(0, os.path.abspath("../"))
 
 # Setup logging
 from blackjack.logs.Logger import Logger
@@ -19,6 +21,12 @@ try:
     import blackjack.cmake.target as target
     import blackjack.cmake.vars as vars
 
+    proc1 = process.CMakeProcess()
+    x1 = proc1.get_version()
+
+    #print("TEST1" + proc1.get_version())
+
+    sys.exit(0)
     #sys.path.insert(0, os.path.abspath("./contrib/winpexpect/lib"))
     #sys.path.insert(0, os.path.abspath("./contrib/pexpect"))
     #from process.CMakeProcessOpts import CMakeProcessOpts
