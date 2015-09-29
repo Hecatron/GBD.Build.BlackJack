@@ -23,9 +23,9 @@ try:
     import blackjack.cmake.vars as vars
 
     proc1 = process.CMakeProcess()
-    x1 = proc1.get_version()
-
-    #print("TEST1" + proc1.get_version())
+    #proc1.get_generators()
+    #proc1.get_version()
+    #proc1.testexe()
 
     sys.exit(0)
     #sys.path.insert(0, os.path.abspath("./contrib/winpexpect/lib"))
