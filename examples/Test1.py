@@ -3,6 +3,7 @@
 import sys, os, logging
 #Uncomment below to use outside of VS for development
 sys.path.insert(0, os.path.abspath("../"))
+#sys.path.insert(0, os.path.abspath("../contrib/pexpect/"))
 
 # Setup logging
 from blackjack.logs.Logger import Logger

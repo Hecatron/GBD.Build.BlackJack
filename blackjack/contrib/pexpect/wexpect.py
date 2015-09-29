@@ -63,31 +63,43 @@ http://pexpect.sourceforge.net/
 $Id: pexpect.py 507 2007-12-27 02:40:52Z noah $
 """
 
-try:
-    import os, sys, time
-    import select
-    import string
-    import re
-    import struct
-    #import resource
-    import types
-    #import pty
-    #import tty
-    #import termios
-    #import fcntl
-    import errno
-    import traceback
-    import signal
-except ImportError as e:
-    raise ImportError (str(e) + """
+import os, sys, time
+import select
+import string
+import re
+import struct
+import types
+import errno
+import traceback
+import signal
+import subprocess
 
-A critical module was not found. Probably this operating system does not
-support it. Pexpect is intended for UNIX-like operating systems.""")
+if sys.platform != 'win32':
+    import pty
+    import tty
+    import termios
+    import resource
+    import fcntl
+else:
+    from io import StringIO
+    from ctypes import windll
+    import pywintypes
+    from win32com.shell.shellcon import CSIDL_APPDATA
+    from win32com.shell.shell import SHGetSpecialFolderPath
+    from win32console import *
+    from win32process import *
+    from win32con import *
+    from win32gui import *
+    import win32api
+    import win32file
+    import winerror
 
 __version__ = '2.3'
 __revision__ = '$Revision: 399 $'
 __all__ = ['ExceptionPexpect', 'EOF', 'TIMEOUT', 'spawn', 'run', 'which',
     'split_command_line', '__version__', '__revision__']
+
+appname = 'dispcalGUI'
 
 # Exception classes used by this module.
 class ExceptionPexpect(Exception):
@@ -259,7 +271,27 @@ def run (command, timeout=-1, withexitstatus=False, events=None, extra_args=None
     else:
         return child_result
 
-class spawn (object):
+def spawn(command, args=[], timeout=30, maxread=2000, searchwindowsize=None, logfile=None, cwd=None, env=None,
+          codepage=None, columns=None, rows=None):
+    log('=' * 80)
+    log('Buffer size: %s' % maxread)
+    if searchwindowsize:
+        log('Search window size: %s' % searchwindowsize)
+    log('Timeout: %ss' % timeout)
+    if env:
+        log('Environment:')
+        for name in env:
+            log('\t%s=%s' % (name, env[name]))
+    if cwd:
+        log('Working directory: %s' % cwd)
+    log('Spawning %s' % join_args([command] + args))
+    if sys.platform == 'win32':
+        return spawn_windows(command, args, timeout, maxread, searchwindowsize, logfile, cwd, env,
+                             codepage, columns, rows)
+    else:
+        return spawn_unix(command, args, timeout, maxread, searchwindowsize, logfile, cwd, env)
+        
+class spawn_unix (object):
 
     """This is the main class interface for Pexpect. Use this class to start
     and control child applications. """
@@ -374,9 +406,9 @@ class spawn (object):
         stores the status returned by os.waitpid. You can interpret this using
         os.WIFEXITED/os.WEXITSTATUS or os.WIFSIGNALED/os.TERMSIG. """
 
-        #self.STDIN_FILENO = pty.STDIN_FILENO
-        #self.STDOUT_FILENO = pty.STDOUT_FILENO
-        #self.STDERR_FILENO = pty.STDERR_FILENO
+        self.STDIN_FILENO = pty.STDIN_FILENO
+        self.STDOUT_FILENO = pty.STDOUT_FILENO
+        self.STDERR_FILENO = pty.STDERR_FILENO
         self.stdin = sys.stdin
         self.stdout = sys.stdout
         self.stderr = sys.stderr
@@ -410,6 +442,7 @@ class spawn (object):
         self.name = '<' + repr(self) + '>' # File-like object.
         self.encoding = None # File-like object.
         self.closed = True # File-like object.
+        self.ocwd = os.getcwd()
         self.cwd = cwd
         self.env = env
         self.__irix_hack = (sys.platform.lower().find('irix')>=0) # This flags if we are running on irix
@@ -559,6 +592,9 @@ class spawn (object):
                 os.execv(self.command, self.args)
             else:
                 os.execvpe(self.command, self.args, self.env)
+            if self.cwd is not None:
+                # Restore the original working dir
+                os.chdir(self.ocwd)
 
         # Parent
         self.terminated = False
@@ -950,7 +986,7 @@ class spawn (object):
         if self.logfile_send is not None:
             self.logfile_send.write (s)
             self.logfile_send.flush()
-        c = os.write(self.child_fd, s.encode('ascii'))
+        c = os.write(self.child_fd, s)
         return c
 
     def sendline(self, s=''):
@@ -958,8 +994,8 @@ class spawn (object):
         """This is like send(), but it adds a line feed (os.linesep). This
         returns the number of bytes written. """
 
-        s += os.linesep
         n = self.send(s)
+        n = n + self.send (os.linesep)
         return n
 
     def sendcontrol(self, char):
@@ -1217,7 +1253,7 @@ class spawn (object):
             compile_flags = compile_flags | re.IGNORECASE
         compiled_pattern_list = []
         for p in patterns:
-            if isinstance(p, str):
+            if isinstance(p,str):
                 compiled_pattern_list.append(re.compile(p, compile_flags))
             elif p is EOF:
                 compiled_pattern_list.append(EOF)
@@ -1378,7 +1414,7 @@ class spawn (object):
                 c = self.read_nonblocking (self.maxread, timeout)
                 freshlen = len(c)
                 time.sleep (0.0001)
-                incoming = incoming + c
+                incoming = incoming + c.decode("utf-8") 
                 if timeout is not None:
                     timeout = end_time - time.time()
         except EOF as e:
@@ -1499,7 +1535,7 @@ class spawn (object):
         """
 
         while data != '' and self.isalive():
-            n = os.write(fd, data.encode('ascii'))
+            n = os.write(fd, data)
             data = data[n:]
 
     def __interact_read(self, fd):
@@ -1517,12 +1553,15 @@ class spawn (object):
         while self.isalive():
             r,w,e = self.__select([self.child_fd, self.STDIN_FILENO], [], [])
             if self.child_fd in r:
-                data = self.__interact_read(self.child_fd)
+                try:
+                    data = self.__interact_read(self.child_fd)
+                except OSError as e:
+                    break
                 if output_filter: data = output_filter(data)
                 if self.logfile is not None:
                     self.logfile.write (data)
                     self.logfile.flush()
-                os.write(self.STDOUT_FILENO, data.encode('ascii'))
+                os.write(self.STDOUT_FILENO, data)
             if self.STDIN_FILENO in r:
                 data = self.__interact_read(self.STDIN_FILENO)
                 if input_filter: data = input_filter(data)
@@ -1575,9 +1614,993 @@ class spawn (object):
         raise ExceptionPexpect ('This method is no longer supported or allowed. Just assign a value to the logfile member variable.')
 
 ##############################################################################
-# End of spawn class
+# End of spawn_unix class
 ##############################################################################
 
+class spawn_windows (spawn_unix, object):
+    """This is the main class interface for Pexpect. Use this class to start
+    and control child applications. """
+
+    def __init__(self, command, args=[], timeout=30, maxread=60000, searchwindowsize=None, logfile=None, cwd=None, env=None,
+                 codepage=None, columns=None, rows=None):
+        self.stdin = sys.stdin
+        self.stdout = sys.stdout
+        self.stderr = sys.stderr
+        self.searcher = None
+        self.ignorecase = False
+        self.before = None
+        self.after = None
+        self.match = None
+        self.match_index = None
+        self.terminated = True
+        self.exitstatus = None
+        self.signalstatus = None
+        self.status = None # status returned by os.waitpid
+        self.flag_eof = False
+        self.pid = None
+        self.child_fd = -1 # initially closed
+        self.timeout = timeout
+        self.delimiter = EOF
+        self.logfile = logfile
+        self.logfile_read = None # input from child (read_nonblocking)
+        self.logfile_send = None # output to send (send, sendline)
+        self.maxread = maxread # max bytes to read at one time into buffer
+        self.buffer = '' # This is the read buffer. See maxread.
+        self.searchwindowsize = searchwindowsize # Anything before searchwindowsize point is preserved, but not searched.
+        self.delaybeforesend = 0.05 # Sets sleep time used just before sending data to child. Time in seconds.
+        self.delayafterclose = 0.1 # Sets delay in close() method to allow kernel time to update process status. Time in seconds.
+        self.delayafterterminate = 0.1 # Sets delay in terminate() method to allow kernel time to update process status. Time in seconds.
+        self.softspace = False # File-like object.
+        self.name = '<' + repr(self) + '>' # File-like object.
+        self.encoding = None # File-like object.
+        self.closed = True # File-like object.
+        self.ocwd = os.getcwd()
+        self.cwd = cwd
+        self.env = env
+        self.codepage = codepage
+        self.columns = columns
+        self.rows = rows
+
+        # allow dummy instances for subclasses that may not use command or args.
+        if command is None:
+            self.command = None
+            self.args = None
+            self.name = '<pexpect factory incomplete>'
+        else:
+            self._spawn (command, args)
+
+    def __del__(self):
+        """This makes sure that no system resources are left open. Python only
+        garbage collects Python objects, not the child console."""
+        
+        try:
+            self.wtty.terminate_child()
+        except:
+            pass
+        try:
+            self.wtty.terminate()
+        except:
+            pass
+            
+    def _spawn(self,command,args=[]):
+        """This starts the given command in a child process. This does all the
+        fork/exec type of stuff for a pty. This is called by __init__. If args
+        is empty then command will be parsed (split on spaces) and args will be
+        set to parsed arguments. """
+
+        # The pid and child_fd of this object get set by this method.
+        # Note that it is difficult for this method to fail.
+        # You cannot detect if the child process cannot start.
+        # So the only way you can tell if the child process started
+        # or not is to try to read from the file descriptor. If you get
+        # EOF immediately then it means that the child is already dead.
+        # That may not necessarily be bad because you may haved spawned a child
+        # that performs some task; creates no stdout output; and then dies.
+
+        # If command is an int type then it may represent a file descriptor.
+        if type(command) == type(0):
+            raise ExceptionPexpect ('Command is an int type. If this is a file descriptor then maybe you want to use fdpexpect.fdspawn which takes an existing file descriptor instead of a command string.')
+
+        if type (args) != type([]):
+            raise TypeError ('The argument, args, must be a list.')
+   
+        if args == []:
+            #Momentairly broken - path '\' characters being misinterpreted
+            #self.args = split_command_line(command)
+            self.args = [command]
+            self.command = self.args[0]
+        else:
+            self.args = args[:] # work with a copy
+            self.args.insert (0, command)
+            self.command = command    
+            
+        command_with_path = which(self.command)
+        if command_with_path is None:
+           raise ExceptionPexpect ('The command was not found or was not executable: %s.' % self.command)
+        self.command = command_with_path
+        self.args[0] = self.command
+
+        self.name = '<' + ' '.join (self.args) + '>'
+
+        #assert self.pid is None, 'The pid member should be None.'
+        #assert self.command is not None, 'The command member should not be None.'
+
+        self.wtty = Wtty(timeout=self.timeout, codepage=self.codepage,
+                         columns=self.columns, rows=self.rows)        
+    
+        if self.cwd is not None:
+            os.chdir(self.cwd)
+        
+        self.child_fd = self.wtty.spawn(self.command, self.args, self.env)
+        
+        if self.cwd is not None:
+            # Restore the original working dir
+            os.chdir(self.ocwd)
+            
+        self.terminated = False
+        self.closed = False
+        self.pid = self.wtty.pid
+
+    def fileno (self):   # File-like object.
+        """There is no child fd."""
+        
+        return 0
+
+    def close(self, force=True):   # File-like object.
+        """ Closes the child console."""
+        
+        self.closed = self.terminate(force)
+        if not self.closed:
+            raise ExceptionPexpect ('close() could not terminate the child using terminate()')
+        self.closed = True
+
+    def isatty(self):   # File-like object.
+        """The child is always created with a console."""
+        
+        return True
+
+    def getecho (self):
+        """This returns the terminal echo mode. This returns True if echo is
+        on or False if echo is off. Child applications that are expecting you
+        to enter a password often set ECHO False. See waitnoecho()."""
+
+        return self.wtty.getecho()
+
+    def setecho (self, state):
+        """This sets the terminal echo mode on or off."""
+        
+        self.wtty.setecho(state)
+        
+    def read_nonblocking (self, size = 1, timeout = -1):
+        """This reads at most size characters from the child application. It
+        includes a timeout. If the read does not complete within the timeout
+        period then a TIMEOUT exception is raised. If the end of file is read
+        then an EOF exception will be raised. If a log file was set using
+        setlog() then all data will also be written to the log file.
+
+        If timeout is None then the read may block indefinitely. If timeout is -1
+        then the self.timeout value is used. If timeout is 0 then the child is
+        polled and if there was no data immediately ready then this will raise
+        a TIMEOUT exception.
+
+        The timeout refers only to the amount of time to read at least one
+        character. This is not effected by the 'size' parameter, so if you call
+        read_nonblocking(size=100, timeout=30) and only one character is
+        available right away then one character will be returned immediately.
+        It will not wait for 30 seconds for another 99 characters to come in.
+
+        This is a wrapper around Wtty.read(). """
+
+        if self.closed:
+            raise ValueError ('I/O operation on closed file in read_nonblocking().')
+        
+        
+        if timeout == -1:
+            timeout = self.timeout
+         
+        s = self.wtty.read_nonblocking(timeout, size)
+        
+        if s == '':
+            if not self.wtty.isalive():
+                self.flag_eof = True
+                raise EOF('End Of File (EOF) in read_nonblocking().')
+            if timeout is None:
+                # Do not raise TIMEOUT because we might be waiting for EOF
+                # sleep to keep CPU utilization down
+                time.sleep(.05)
+            else:
+                raise TIMEOUT ('Timeout exceeded in read_nonblocking().')
+        else:
+            if self.logfile is not None:
+                self.logfile.write (s.decode("utf-8"))
+                self.logfile.flush()
+            if self.logfile_read is not None:
+                self.logfile_read.write (s.decode("utf-8"))
+                self.logfile_read.flush()
+
+        return s
+
+    def send(self, s):
+        """This sends a string to the child process. This returns the number of
+        bytes written. If a log file was set then the data is also written to
+        the log. """
+        
+        (self.delaybeforesend)
+        if self.logfile is not None:
+            self.logfile.write (s)
+            self.logfile.flush()
+        if self.logfile_send is not None:
+            self.logfile_send.write (s)
+            self.logfile_send.flush()
+        c = self.wtty.write(s)
+        return c
+
+    ### UNIMPLEMENTED ###
+    def sendcontrol(self, char):
+        raise ExceptionPexpect ('sendcontrol() is not supported on windows')
+        
+    ### UNIMPLEMENTED ###
+    ### Parent buffer does not wait for endline by default.
+    def sendeof(self):
+        raise ExceptionPexpect ('sendeof() is not supported on windows')
+        
+    def sendintr(self):
+        """This sends a SIGINT to the child. It does not require
+        the SIGINT to be the first character on a line. """
+        
+        self.wtty.sendintr()
+
+    def terminate(self, force=False):
+        """Terminate the child. Force not used. """
+
+        if not self.isalive():
+            return True
+            
+        self.wtty.terminate_child()
+        time.sleep(self.delayafterterminate)
+        if not self.isalive():
+            return True
+                
+        return False
+
+    def kill(self, sig):
+        """Sig == sigint for ctrl-c otherwise the child is terminated."""
+        
+        if sig == signal.SIGINT:
+            self.wtty.sendintr()
+        else:
+            self.wtty.terminate_child()
+        
+    def wait(self):
+        """This waits until the child exits. This is a blocking call. This will
+        not read any data from the child, so this will block forever if the
+        child has unread output and has terminated. In other words, the child
+        may have printed output then called exit(); but, technically, the child
+        is still alive until its output is read."""
+        
+        if not self.isalive():
+            raise ExceptionPexpect ('Cannot wait for dead child process.')
+        
+        # We can't use os.waitpid under Windows because of 'permission denied' 
+        # exception? Perhaps if not running as admin (or UAC enabled under 
+        # Vista/7). Simply loop and wait for child to exit.
+        while self.isalive():
+            time.sleep(.05)  # Keep CPU utilization down
+        
+        return self.exitstatus
+        
+    def isalive(self):
+        """Determines if the child is still alive."""
+        
+        if self.terminated:
+            return False
+        
+        if self.wtty.isalive():
+            return True
+        else:
+            self.exitstatus = GetExitCodeProcess(self.wtty.getchild())
+            # left-shift exit status by 8 bits like os.waitpid
+            self.status = self.exitstatus << 8
+            self.terminated = True
+            return False
+
+    def getwinsize(self):
+        """This returns the terminal window size of the child tty. The return
+        value is a tuple of (rows, cols). """
+        
+        return self.wtty.getwinsize()
+
+    def setwinsize(self, r, c):
+        """Set the size of the child screen buffer. """
+    
+        self.wtty.setwinsize(r, c)
+      
+    ### Prototype changed
+    def interact(self):
+        """Makes the child console visible for interaction"""
+        
+        self.wtty.interact()
+    
+    ### Prototype changed
+    def stop_interact(self):
+        """Hides the child console from the user."""
+    
+        self.wtty.stop_interact()
+        
+##############################################################################
+# End of spawn_windows class
+##############################################################################
+
+class Wtty:
+
+    def __init__(self, timeout=30, codepage=None, columns=None, rows=None):
+        self.__buffer = StringIO()
+        self.__bufferY = 0
+        self.__currentReadCo = PyCOORDType(0, 0)
+        self.__parentPid = 0
+        self.__oproc = 0
+        self.conpid = 0
+        self.__otid = 0
+        self.__switch = True
+        self.__childProcess = None
+        self.codepage = (codepage or windll.kernel32.GetConsoleOutputCP() or
+                         windll.kernel32.GetOEMCP())
+        log("Code page: %s" % self.codepage)
+        self.columns = columns
+        self.rows = rows
+        self.console = False
+        self.lastRead = 0
+        self.lastReadData = ""
+        self.pid = None
+        self.processList = []
+        # We need a timeout for connecting to the child process
+        self.timeout = timeout
+        self.totalRead = 0
+            
+    def spawn(self, command, args=[], env=None):
+        """Spawns spawner.py with correct arguments."""
+        
+        ts = time.time()
+        self.startChild(args, env)
+            
+        while True:
+            msg = PeekMessage(0, 0, 0, PM_REMOVE)
+            childPid = msg[1][2]
+            # Sometimes GetMessage returns a bogus PID, so keep calling it
+            # until we can successfully connect to the child or timeout is
+            # reached
+            if childPid:
+                try:
+                    self.__childProcess = win32api.OpenProcess(PROCESS_TERMINATE | PROCESS_QUERY_INFORMATION, False, childPid)
+                except pywintypes.error as e:
+                    pass
+                else:
+                    self.pid = childPid
+                    break
+            if time.time() > ts + self.timeout:
+                log('Timeout exceeded in Wtty.spawn().')
+                break
+            time.sleep(.05)
+        
+        if not self.__childProcess:
+            raise ExceptionPexpect ('The process ' + args[0] + ' could not be started.') 
+        
+        winHandle = int(GetConsoleWindow())
+        
+        self.__switch = True
+        
+        if winHandle != 0:
+            self.__parentPid = GetWindowThreadProcessId(winHandle)[1]    
+            # Do we have a console attached? Do not rely on winHandle, because
+            # it will also be non-zero if we didn't have a console, and then 
+            # spawned a child process! Using sys.stdout.isatty() seems safe
+            self.console = hasattr(sys.stdout, 'isatty') and sys.stdout.isatty()
+            # If the original process had a console, record a list of attached
+            # processes so we can check if we need to reattach/reallocate the 
+            # console later
+            self.processList = GetConsoleProcessList()
+        else:
+            self.switchTo(False)
+            self.__switch = False
+   
+    def startChild(self, args, env):
+        si = GetStartupInfo()
+        si.dwFlags = STARTF_USESHOWWINDOW
+        si.wShowWindow = SW_HIDE
+        # Determine the directory of wexpect.py or, if we are running 'frozen'
+        # (eg. py2exe deployment), of the packed executable
+        dirname = os.path.dirname(sys.executable 
+                                  if getattr(sys, 'frozen', False) else 
+                                  os.path.abspath(__file__))
+        if getattr(sys, 'frozen', False):
+            logdir = appname
+        else:
+            logdir = dirname
+        logdir = os.path.basename(logdir)
+        spath = [dirname]
+        pyargs = ['-c']
+        if getattr(sys, 'frozen', False):
+            # If we are running 'frozen', add library.zip and lib\library.zip
+            # to sys.path
+            # py2exe: Needs appropriate 'zipfile' option in setup script and 
+            # 'bundle_files' 3
+            spath.append(os.path.join(dirname, 'library.zip'))
+            spath.append(os.path.join(dirname, 'library.zip', appname))
+            if os.path.isdir(os.path.join(dirname, 'lib')):
+                dirname = os.path.join(dirname, 'lib')
+                spath.append(os.path.join(dirname, 'library.zip'))
+                spath.append(os.path.join(dirname, 'library.zip', appname))
+            pyargs.insert(0, '-S')  # skip 'import site'
+        pid = GetCurrentProcessId()
+        tid = win32api.GetCurrentThreadId()
+        # If we are running 'frozen', expect python.exe in the same directory
+        # as the packed executable.
+        # py2exe: The python executable can be included via setup script by 
+        # adding it to 'data_files'
+        commandLine = '"%s" %s "%s"' % (os.path.join(dirname, 'python.exe') 
+                                        if getattr(sys, 'frozen', False) else 
+                                        os.path.join(os.path.dirname(sys.executable), 'python.exe'), 
+                                        ' '.join(pyargs), 
+                                        "import sys; sys.path = %s + sys.path;"
+                                        "args = %s; import wexpect;"
+                                        "wexpect.ConsoleReader(wexpect.join_args(args), %i, %i, cp=%i, c=%s, r=%s, logdir=%r)" % (("%r" % spath).replace('"', r'\"'), ("%r" % args).replace('"', r'\"'), pid, tid, self.codepage, self.columns, self.rows, logdir))
+                     
+        log(commandLine)
+        self.__oproc, _, self.conpid, self.__otid = CreateProcess(None, commandLine, None, None, False, 
+                                                                  CREATE_NEW_CONSOLE, env, None, si)
+            
+   
+    def switchTo(self, attached=True):
+        """Releases from the current console and attatches
+        to the childs."""
+        
+        if not self.__switch or not self.__oproc_isalive():
+            return
+        
+        if attached:
+            FreeConsole()
+        
+        AttachConsole(self.conpid)
+        self.__consin = GetStdHandle(STD_INPUT_HANDLE)
+        self.__consout = self.getConsoleOut()
+        
+    def switchBack(self):
+        """Releases from the current console and attaches 
+        to the parents."""
+
+        if not self.__switch or not self.__oproc_isalive():
+            return
+        
+        if self.console:
+            # If we originally had a console, re-attach it (or allocate a new one)
+            # If we didn't have a console to begin with, there's no need to
+            # re-attach/allocate
+            FreeConsole()
+            if len(self.processList) > 1:
+                # Our original console is still present, re-attach
+                AttachConsole(self.__parentPid)
+            else:
+                # Our original console has been free'd, allocate a new one
+                AllocConsole()
+        
+        self.__consin = None
+        self.__consout = None
+    
+    def getConsoleOut(self):
+        consout = win32file.CreateFile('CONOUT$', 
+                                       GENERIC_READ | GENERIC_WRITE, 
+                                       FILE_SHARE_READ | FILE_SHARE_WRITE, 
+                                       None, 
+                                       OPEN_EXISTING, 
+                                       0, 
+                                       0)
+                                       
+        return PyConsoleScreenBufferType(consout)    
+    
+    def getchild(self):
+        """Returns a handle to the child process."""
+    
+        return self.__childProcess
+     
+    def terminate(self):
+        """Terminate the ConsoleReader process."""
+        
+        win32api.TerminateProcess(self.__oproc, 1)
+     
+    def terminate_child(self):
+        """Terminate the child process."""
+        
+        win32api.TerminateProcess(self.__childProcess, 1)
+        
+    def createKeyEvent(self, char):
+        """Creates a single key record corrosponding to
+            the ascii character char."""
+        
+        evt = PyINPUT_RECORDType(KEY_EVENT)
+        evt.KeyDown = True
+        evt.Char = char
+        if char in ("\n", "\r"):
+            evt.VirtualKeyCode = 0x0d  # VK_RETURN
+        evt.RepeatCount = 1
+        return evt    
+    
+    def write(self, s):
+        """Writes input into the child consoles input buffer."""
+    
+        if len(s) == 0:
+            return 0
+        records = [self.createKeyEvent(c) for c in str(s)]
+        self.switchTo()
+        try:
+            wrote = self.__consin.WriteConsoleInput(records)
+        except Exception as e:
+            log(e, '_exceptions')
+            self.switchBack()
+            raise
+        self.switchBack()
+        return wrote
+    
+    def getPoint(self, offset):
+        """Converts an offset to a point represented as a tuple."""
+        
+        consinfo = self.__consout.GetConsoleScreenBufferInfo()
+        x = offset % consinfo['Size'].X
+        y = offset / consinfo['Size'].X
+        return (x, y)
+   
+    def getOffset(self, x, y):
+        """Converts a tuple-point to an offset."""
+        
+        consinfo = self.__consout.GetConsoleScreenBufferInfo()
+        return x + y * consinfo['Size'].X
+   
+    def readConsole(self, startCo, endCo):
+        """Reads the console area from startCo to endCo and returns it
+        as a string."""
+        
+        buff = []
+        self.lastRead = 0
+
+        startCo = PyCOORDType(startCo.X, startCo.Y)
+        endX = endCo.X
+        endY = endCo.Y
+
+        while True:
+            startOff = self.getOffset(startCo.X, startCo.Y)
+            endOff = self.getOffset(endX, endY)
+            readlen = endOff - startOff
+            
+            if readlen > 4000:
+                readlen = 4000
+                endPoint = self.getPoint(startOff + 4000)
+            else:
+                endPoint = self.getPoint(endOff)
+            
+            s = self.__consout.ReadConsoleOutputCharacter(readlen, startCo)
+            ln = len(s)
+            self.lastRead += ln
+            self.totalRead += ln
+            buff.append(s)
+            
+            startCo.X, startCo.Y = endPoint[0], endPoint[1]
+            if readlen <= 0 or (startCo.X >= endX and startCo.Y >= endY):
+                break
+            
+        return ''.join(buff)
+   
+    def parseData(self, s):
+        """Ensures that special characters are interpretted as
+        newlines or blanks, depending on if there written over
+        characters or screen-buffer-fill characters."""
+    
+        consinfo = self.__consout.GetConsoleScreenBufferInfo()
+        strlist = []
+        for i, c in enumerate(s):
+            strlist.append(c)
+            if (self.totalRead - self.lastRead + i + 1) % consinfo['Size'].X == 0:
+                strlist.append('\r\n')
+
+        s = '\r\n'.join([line.rstrip(' ') for line in
+                         ''.join(strlist).split('\r\n')])
+        try:
+            return s.encode("cp%i" % self.codepage, 'replace')
+        except LookupError:
+            return s.encode(getattr(sys.stdout, 'encoding', None) or 
+                            sys.getdefaultencoding(), 'replace')
+    
+    def readConsoleToCursor(self):
+        """Reads from the current read position to the current cursor
+        position and inserts the string into self.__buffer."""
+        
+        if not self.__consout:
+            return ""
+    
+        consinfo = self.__consout.GetConsoleScreenBufferInfo()
+        cursorPos = consinfo['CursorPosition']
+        
+        #log('=' * 80)
+        #log('cursor: %r, current: %r' % (cursorPos, self.__currentReadCo))
+
+        if cursorPos.Y < self.__currentReadCo.Y:
+            # Has the child cleared the screen buffer?
+            self.__buffer.seek(0)
+            self.__buffer.truncate()
+            self.__bufferY = 0
+            self.__currentReadCo.X = 0
+            self.__currentReadCo.Y = 0
+
+        isSameX = cursorPos.X == self.__currentReadCo.X
+        isSameY = cursorPos.Y == self.__currentReadCo.Y
+        isSamePos = isSameX and isSameY
+        
+        #log('isSameY: %r' % isSameY)
+        #log('isSamePos: %r' % isSamePos)
+        
+        if isSameY or not self.lastReadData.endswith('\r\n'):
+            # Read the current slice again
+            self.totalRead -= self.lastRead
+            self.__currentReadCo.X = 0
+            self.__currentReadCo.Y = self.__bufferY
+        
+        #log('cursor: %r, current: %r' % (cursorPos, self.__currentReadCo))
+        
+        raw = self.readConsole(self.__currentReadCo, cursorPos)
+        rawlist = []
+        while raw:
+            rawlist.append(raw[:consinfo['Size'].X])
+            raw = raw[consinfo['Size'].X:]
+        raw = ''.join(rawlist)
+        s = self.parseData(raw)
+        for i, line in enumerate(reversed(rawlist)):
+            if len(line) == consinfo['Size'].X:
+                # Record the Y offset where the most recent line break was detected
+                self.__bufferY += len(rawlist) - i
+                break
+        
+        #log('lastReadData: %r' % self.lastReadData)
+        #log('s: %r' % s)
+        
+        #isSameData = False
+        if isSamePos and self.lastReadData == s:
+            #isSameData = True
+            s = ''
+        
+        #log('isSameData: %r' % isSameData)
+        #log('s: %r' % s)
+        
+        if s:
+            lastReadData = self.lastReadData
+            pos = self.getOffset(self.__currentReadCo.X, self.__currentReadCo.Y)
+            self.lastReadData = s
+            if isSameY or not lastReadData.endswith('\r\n'):
+                # Detect changed lines
+                self.__buffer.seek(pos)
+                buf = self.__buffer.read()
+                #log('buf: %r' % buf)
+                #log('raw: %r' % raw)
+                if raw.startswith(buf):
+                    # Line has grown
+                    rawslice = raw[len(buf):]
+                    # Update last read bytes so line breaks can be detected in parseData
+                    lastRead = self.lastRead
+                    self.lastRead = len(rawslice)
+                    s = self.parseData(rawslice)
+                    self.lastRead = lastRead
+                else:
+                    # Cursor has been repositioned
+                    s = '\r' + s        
+                #log('s:   %r' % s)
+            self.__buffer.seek(pos)
+            self.__buffer.truncate()
+            self.__buffer.write(raw)
+
+        self.__currentReadCo.X = cursorPos.X
+        self.__currentReadCo.Y = cursorPos.Y
+
+        return s
+    
+    def read_nonblocking(self, timeout, size):
+        """Reads data from the console if available, otherwise
+           waits timeout seconds, and writes the string 'None'
+           to the pipe if no data is available after that time.""" 
+          
+        self.switchTo()  
+          
+        consinfo = self.__consout.GetConsoleScreenBufferInfo()
+        cursorPos = consinfo['CursorPosition']
+        maxconsoleY = consinfo['Size'].Y / 2
+        reset = False
+        eof = False
+        try:  
+            while True:
+                #Wait for child process to be paused
+                if cursorPos.Y > maxconsoleY:
+                    reset = True
+                    time.sleep(.2)
+            
+                start = time.clock()
+                s = self.readConsoleToCursor()
+                
+                if reset:
+                    self.refreshConsole()
+                    reset = False
+                
+                if len(s) != 0:
+                    self.switchBack()
+                    return s
+                
+                if eof or timeout <= 0:
+                    self.switchBack()
+                    if eof and self.__oproc_isalive():
+                        try:
+                            TerminateProcess(self.__oproc, 0)
+                        except pywintypes.error as e:
+                            log(e, '_exceptions')
+                            log('Could not terminate ConsoleReader after child exited.')
+                    return ''
+                
+                if not self.isalive():
+                    eof = True
+                    # Child has already terminated, but there may still be
+                    # output coming in with a slight delay
+                    time.sleep(.1)
+                
+                time.sleep(0.001)
+                end = time.clock()
+                timeout -= end - start
+        
+        except Exception as e:
+            log(e, '_exceptions')
+            log('End Of File (EOF) in Wtty.read_nonblocking().')
+            self.switchBack()
+            raise EOF('End Of File (EOF) in Wtty.read_nonblocking().')
+    
+    def refreshConsole(self):
+        """Clears the console after pausing the child and
+        reading all the data currently on the console.
+        The last line before clearing becomes the first line after clearing."""
+    
+        consinfo = self.__consout.GetConsoleScreenBufferInfo()
+        cursorPos = consinfo['CursorPosition']
+        startCo = PyCOORDType(0, cursorPos.Y)
+        self.totalRead = 0
+        raw = self.readConsole(startCo, cursorPos)
+        orig = PyCOORDType(0, 0)
+        self.__consout.SetConsoleCursorPosition(orig)
+        writelen = consinfo['Size'].X * consinfo['Size'].Y
+        self.__consout.FillConsoleOutputCharacter(' ', writelen, orig)
+        self.__consout.WriteConsoleOutputCharacter(raw, orig)
+        cursorPos.Y = 0
+        self.__consout.SetConsoleCursorPosition(cursorPos)
+        self.__currentReadCo = cursorPos
+        
+        self.__bufferY = 0
+        self.__buffer.truncate(0)
+        self.__buffer.write(raw)
+        
+    
+    def setecho(self, state):
+        """Sets the echo mode of the child console."""
+    
+        self.switchTo()
+        try:
+            mode = self.__consin.GetConsoleMode()
+            if state:
+                mode |= 0x0004
+            else:
+                mode &= ~0x0004
+            self.__consin.SetConsoleMode(mode)
+        except:
+            self.switchBack()
+            raise
+        self.switchBack()
+        
+    def getecho(self):
+        """Returns the echo mode of the child console."""
+        
+        self.switchTo()
+        try:
+            mode = self.__consin.GetConsoleMode()
+            ret = (mode & 0x0004) > 0
+            self.switchBack()
+        except:
+            self.switchBack()
+            raise
+        return ret  
+      
+    def getwinsize(self):
+        """Returns the size of the child console as a tuple of
+        (rows, columns)."""
+    
+        self.switchTo()
+        try:
+            size = self.__consout.GetConsoleScreenBufferInfo()['Size']
+            self.switchBack()
+        except:
+            self.switchBack()
+            raise
+        return (size.Y, size.X)
+        
+    def setwinsize(self, r, c):
+        """Sets the child console screen buffer size to (r, c)."""
+        
+        self.switchTo()
+        try:
+            self.__consout.SetConsoleScreenBufferSize(PyCOORDType(c, r))
+        except:
+            self.switchBack()
+            raise
+        self.switchBack()
+       
+    def interact(self):
+        """Displays the child console for interaction."""
+    
+        if not self.isalive():
+            return
+        
+        self.switchTo()
+        try:
+            ShowWindow(GetConsoleWindow(), SW_SHOW)
+        except:
+            self.switchBack()
+            raise
+        self.switchBack()
+        
+    def stop_interact(self):
+        """Hides the child console."""
+        
+        self.switchTo()
+        try:
+            ShowWindow(GetConsoleWindow(), SW_HIDE)
+        except:
+            self.switchBack()
+            raise
+        self.switchBack()
+    
+    def isalive(self):
+        """True if the child is still alive, false otherwise"""
+        
+        return GetExitCodeProcess(self.__childProcess) == STILL_ACTIVE
+    
+    def __oproc_isalive(self):
+        return GetExitCodeProcess(self.__oproc) == STILL_ACTIVE
+    
+    def sendintr(self):
+        """Sends the sigint signal to the child."""
+        
+        self.switchTo()
+        try:
+            time.sleep(.15)
+            win32api.GenerateConsoleCtrlEvent(CTRL_BREAK_EVENT, self.pid)
+            time.sleep(.25)
+        except:
+            self.switchBack()
+            raise
+        self.switchBack()
+    
+class ConsoleReader:
+   
+    def __init__(self, path, pid, tid, env=None, cp=None, c=None, r=None, logdir=None):
+        self.logdir = logdir
+        log('=' * 80, 'consolereader', logdir)
+        log("OEM code page: %s" % windll.kernel32.GetOEMCP(), 'consolereader', logdir)
+        consolecp = windll.kernel32.GetConsoleOutputCP()
+        log("Console output code page: %s" % consolecp, 'consolereader', logdir)
+        if consolecp != cp:
+            log("Setting console output code page to %s" % cp, 'consolereader', logdir)
+            try:
+                SetConsoleOutputCP(cp)
+            except Exception as e:
+                log(e, 'consolereader_exceptions', logdir)
+            else:
+                log("Console output code page: %s" % windll.kernel32.GetConsoleOutputCP(), 'consolereader', logdir)
+        log('Spawning %s' % path, 'consolereader', logdir)
+        try:
+            try:
+                consout = self.getConsoleOut()
+                self.initConsole(consout, c, r)
+                SetConsoleTitle(path)
+                
+                si = GetStartupInfo()
+                self.__childProcess, _, childPid, self.__tid = CreateProcess(None, path, None, None, False, 
+                                                                             CREATE_NEW_PROCESS_GROUP, None, None, si)
+            except Exception as e:
+                log(e, 'consolereader_exceptions', logdir)
+                time.sleep(.1)
+                win32api.PostThreadMessage(int(tid), WM_USER, 0, 0)
+                sys.exit()
+            
+            time.sleep(.1)
+            
+            win32api.PostThreadMessage(int(tid), WM_USER, childPid, 0)
+            
+            parent = win32api.OpenProcess(PROCESS_TERMINATE | PROCESS_QUERY_INFORMATION , 0, int(pid))
+            paused = False
+   
+            cursorinfo = consout.GetConsoleCursorInfo()
+
+            while GetExitCodeProcess(self.__childProcess) == STILL_ACTIVE:
+                try:
+                    if GetExitCodeProcess(parent) != STILL_ACTIVE: 
+                        try:
+                            TerminateProcess(self.__childProcess, 0)
+                        except pywintypes.error as e:
+                            log(e, 'consolereader_exceptions', logdir)
+                        sys.exit()
+                    
+                    consinfo = consout.GetConsoleScreenBufferInfo()
+                    cursorPos = consinfo['CursorPosition']
+                    maxconsoleY = consinfo['Size'].Y / 2
+                    
+                    if cursorPos.Y > maxconsoleY and not paused:
+                        #log('ConsoleReader.__init__: cursorPos %s' 
+                                   #% cursorPos, 'consolereader', logdir)
+                        #log('suspendThread', 'consolereader', logdir)
+                        self.suspendThread()
+                        paused = True
+                        SetConsoleTitle(path + ' (suspended)')
+                        # Hide cursor
+                        consout.SetConsoleCursorInfo(cursorinfo[0], 0)
+                        
+                    if cursorPos.Y <= maxconsoleY and paused:
+                        #log('ConsoleReader.__init__: cursorPos %s' 
+                                   #% cursorPos, 'consolereader', logdir)
+                        #log('resumeThread', 'consolereader', logdir)
+                        self.resumeThread()
+                        paused = False
+                        SetConsoleTitle(path)
+                        # Show cursor
+                        consout.SetConsoleCursorInfo(cursorinfo[0],
+                                                     cursorinfo[1])
+                                        
+                    time.sleep(.1)
+                except KeyboardInterrupt:
+                    # Only let child react to CTRL+C, ignore in ConsoleReader
+                    pass
+
+            SetConsoleTitle(path + ' (terminated)')
+            consout.SetConsoleCursorInfo(cursorinfo[0], 0)  # Hide cursor
+
+            while GetExitCodeProcess(parent) == STILL_ACTIVE:   
+                time.sleep(.1)
+        except Exception as e:
+            log(e, 'consolereader_exceptions', logdir)
+    
+    def handler(self, sig):       
+        log(sig, 'consolereader', logdir)
+        return False
+
+    def getConsoleOut(self):
+        consout = win32file.CreateFile('CONOUT$', 
+                                       GENERIC_READ | GENERIC_WRITE, 
+                                       FILE_SHARE_READ | FILE_SHARE_WRITE, 
+                                       None, 
+                                       OPEN_EXISTING, 
+                                       0, 
+                                       0)
+                                       
+        return PyConsoleScreenBufferType(consout)
+        
+    def initConsole(self, consout, c=None, r=None):     
+        rect = PySMALL_RECTType(0, 0, 79, 24)
+        consout.SetConsoleWindowInfo(True, rect)
+        size = PyCOORDType(c or 80, r or 16000)
+        consout.SetConsoleScreenBufferSize(size)
+        pos = PyCOORDType(0, 0)
+        consout.FillConsoleOutputCharacter(' ', size.X * size.Y, pos)   
+    
+    def suspendThread(self):
+        """Pauses the main thread of the child process."""
+        
+        handle = windll.kernel32.OpenThread(THREAD_SUSPEND_RESUME, 0, self.__tid)
+        SuspendThread(handle)
+        
+    def resumeThread(self):
+        """Un-pauses the main thread of the child process."""
+    
+        handle = windll.kernel32.OpenThread(THREAD_SUSPEND_RESUME, 0, self.__tid)
+        ResumeThread(handle)
+   
 class searcher_string (object):
 
     """This is a plain string search helper for the spawn.expect_any() method.
@@ -1624,7 +2647,7 @@ class searcher_string (object):
         if self.timeout_index >= 0:
             ss.append ((self.timeout_index,'    %d: TIMEOUT' % self.timeout_index))
         ss.sort()
-        ss = [ s[1] for s in ss ]
+        ss = zip(*ss)[1]
         return '\n'.join(ss)
 
     def search(self, buffer, freshlen, searchwindowsize=None):
@@ -1722,7 +2745,7 @@ class searcher_re (object):
         if self.timeout_index >= 0:
             ss.append ((self.timeout_index,'    %d: TIMEOUT' % self.timeout_index))
         ss.sort()
-        ss = [ s[1] for s in ss ]
+        ss = zip(*ss)[1]
         return '\n'.join(ss)
 
     def search(self, buffer, freshlen, searchwindowsize=None):
@@ -1760,6 +2783,77 @@ class searcher_re (object):
         self.end = self.match.end()
         return best_index
 
+def log(e, suffix='', logdir=None):
+    if isinstance(e, Exception):
+        # Get the full traceback
+        e = traceback.format_exc()
+    #if hasattr(sys.stdout, 'isatty') and sys.stdout.isatty():
+        ## Only try to print if stdout is a tty, otherwise we might get
+        ## an 'invalid handle' exception
+        #print e
+    if not logdir:
+        if getattr(sys, 'frozen', False):
+            logdir = appname
+        else:
+            logdir = os.path.split(os.path.dirname(os.path.abspath(__file__)))
+            if logdir[-1] == 'lib':
+                logdir.pop()
+            logdir = logdir[-1]
+    if sys.platform == "win32":
+        logdir = os.path.join(SHGetSpecialFolderPath(0, CSIDL_APPDATA, 1), 
+                              logdir, "logs")
+    elif sys.platform == "darwin":
+        logdir = os.path.join(os.path.expanduser("~"), "Library", "Logs", 
+                              logdir)
+    else:
+        logdir = os.path.join(os.getenv("XDG_DATA_HOME", 
+                                        os.path.expandvars("$HOME/.local/share")), 
+                                        logdir, "logs")
+    if not os.path.exists(logdir):
+        try:
+            os.makedirs(logdir)
+        except OSError:
+            pass
+    if os.path.isdir(logdir) and os.access(logdir, os.W_OK):
+        logfile = os.path.join(logdir, 'wexpect%s.log' % suffix)
+        if os.path.isfile(logfile):
+            try:
+                logstat = os.stat(logfile)
+            except Exception as exception:
+                pass
+            else:
+                try:
+                    mtime = time.localtime(logstat.st_mtime)
+                except ValueError as exception:
+                    # This can happen on Windows because localtime() is buggy on
+                    # that platform. See:
+                    # http://stackoverflow.com/questions/4434629/zipfile-module-in-python-runtime-problems
+                    # http://bugs.python.org/issue1760357
+                    # To overcome this problem, we ignore the real modification
+                    # date and force a rollover
+                    mtime = time.localtime(time() - 60 * 60 * 24)
+                if time.localtime()[:3] > mtime[:3]:
+                    # do rollover
+                    try:
+                        os.remove(logfile)
+                    except Exception as exception:
+                        pass
+        try:
+            fout = open(logfile, 'a')
+        except:
+            pass
+        else:
+            ts = time.time()
+            fout.write('%s,%s %s\n' % (time.strftime("%Y-%m-%d %H:%M:%S",
+                                                      time.localtime(ts)), 
+                                       ('%3f' % (ts - int(ts)))[2:5], e))
+            fout.close()   
+
+def excepthook(etype, value, tb):
+	log(''.join(traceback.format_exception(etype, value, tb)))
+
+#sys.excepthook = excepthook
+        
 def which (filename):
 
     """This takes a given filename; tries to find it in the environment path;
@@ -1778,14 +2872,24 @@ def which (filename):
 
     # Oddly enough this was the one line that made Pexpect
     # incompatible with Python 1.5.2.
-    #pathlist = p.split (os.pathsep)
-    pathlist = string.split (p, os.pathsep)
+    pathlist = p.split (os.pathsep)
+    #pathlist = string.split (p, os.pathsep)
 
     for path in pathlist:
         f = os.path.join(path, filename)
         if os.access(f, os.X_OK):
             return f
     return None
+
+def join_args(args):
+    """Joins arguments into a command line. It quotes all arguments that contain
+    spaces or any of the characters ^!$%&()[]{}=;'+,`~"""
+    commandline = []
+    for arg in args:
+        if re.search('[\^!$%&()[\]{}=;\'+,`~\s]', arg):
+            arg = '"%s"' % arg
+        commandline.append(arg)
+    return ' '.join(commandline)
 
 def split_command_line(command_line):
 
@@ -1804,12 +2908,14 @@ def split_command_line(command_line):
     state_doublequote = 3
     state_whitespace = 4 # The state of consuming whitespace between commands.
     state = state_basic
+    state_backup = state
 
     for c in command_line:
-        if state == state_basic or state == state_whitespace:
-            if c == '\\': # Escape the next character
-                state = state_esc
-            elif c == r"'": # Handle single quote
+        if state not in (state_esc, state_singlequote) and c == '\\': # Escape the next character
+            state_backup = state
+            state = state_esc
+        elif state == state_basic or state == state_whitespace:
+            if c == r"'": # Handle single quote
                 state = state_singlequote
             elif c == r'"': # Handle double quote
                 state = state_doublequote
@@ -1825,8 +2931,16 @@ def split_command_line(command_line):
                 arg = arg + c
                 state = state_basic
         elif state == state_esc:
+            # Follow bash escaping rules within double quotes:
+            # http://www.gnu.org/software/bash/manual/html_node/Double-Quotes.html
+            if state_backup == state_doublequote and c not in ('$', '`', '"',
+                                                               '\\', '\n'):
+                arg += '\\'
             arg = arg + c
-            state = state_basic
+            if state_backup != state_whitespace:
+                state = state_backup
+            else:
+                state = state_basic
         elif state == state_singlequote:
             if c == r"'":
                 state = state_basic
@@ -1841,5 +2955,3 @@ def split_command_line(command_line):
     if arg != '':
         arg_list.append(arg)
     return arg_list
-
-# vi:ts=4:sw=4:expandtab:ft=python:

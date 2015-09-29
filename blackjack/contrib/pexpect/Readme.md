@@ -2,15 +2,23 @@
 
 ## Overview
 
-Pexpect is a library using for calling external process's
+Pexpect is a library using for calling external process's and interacting with them
 https://pexpect.readthedocs.org/en/latest/overview.html
-The version of pexpect used within this project is the version included as part of winpexpect
 
-## Winpexpect
+## Windows Support
 
-with windows we need to use a different version called winpexpect, the default version from pip seems to have problems.
-The working version used here is from a fork found under this url
-https://bitbucket.org/weyou/winpexpect/downloads
+The current version 3.3 unfortunately doesn't appear to support windows, although this does appear to be planned
+in version 4.0
 
-Also this library has been converted for use under python 3.x
-And the changes from https://github.com/OSEHRA/VistA/tree/master/Python/Pexpect have been added
+The version I'm using here is wexpect from this source, which seems to be windows / unix compatible
+Also I've patched the source here for use within python 3.x
+
+ * http://sourceforge.net/p/dispcalgui/code/HEAD/tree/trunk/dispcalGUI/wexpect.py
+ * https://github.com/pexpect/pexpect/issues/17
+
+### Other Versions
+
+Other versions I've found include
+
+  * https://bitbucket.org/weyou/winpexpect/downloads
+  * https://github.com/OSEHRA/VistA/tree/master/Python/Pexpect

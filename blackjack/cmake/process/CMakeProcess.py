@@ -4,9 +4,11 @@
 # pexpect info
 # https://pexpect.readthedocs.org/en/latest/overview.html
 
-import blackjack.contrib.pexpect.winpexpect as pexpect
+import blackjack.contrib.pexpect.wexpect as pexpect
 #import blackjack.contrib.pexpect.pexpect as pexpect
-import sys
+#import wexpect as pexpect
+#import pexpect as pexpect
+import sys, time
 
 class CMakeProcess(object):
     """Represents a CMake Process that can be called externally"""
@@ -23,16 +25,28 @@ class CMakeProcess(object):
     # TODO Get list of generators, and get version
 
     def get_version(self):
-        proc = pexpect.winspawn('C:\\Program Files (x86)\\CMake\\bin\\cmake.exe', ['--version'])
 
 
+        #proc = pexpect.spawn("ftp.exe")
+        proc = pexpect.spawn(self.cmakepath,["--version"])
 
-        #proc = pexpect.winspawn(self.cmakepath,["--version"])
+        # Log everything to stdout
         proc.logfile = sys.stdout
 
-        #proc.
+        proc.send("test")
 
-        #proc.expect('\n>')
+        # Forces the output to be flushed into the before property
+        proc.expect(pexpect.EOF)
+
+        #proc.logfile = sys.stdout
+        #proc.expect('ftp> ')
+        #proc.wait()
+
+        x1 = proc.after
+        x2 = proc.before
+        x3 = proc.buffer
+
+        proc.close()
         return
 
     # TODO clean CMake cache

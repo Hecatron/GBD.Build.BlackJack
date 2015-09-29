@@ -98,8 +98,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="blackjack\cmake\vars\__init__.py" />
-    <Compile Include="blackjack\contrib\pexpect\pexpect.py" />
-    <Compile Include="blackjack\contrib\pexpect\winpexpect.py" />
+    <Compile Include="blackjack\contrib\pexpect\wexpect.py" />
+    <Compile Include="blackjack\contrib\pexpect\__init__.py" />
+    <Compile Include="blackjack\contrib\__init__.py" />
     <Compile Include="blackjack\test\cmake\cmdpart\IncludeDir.py">
       <SubType>Code</SubType>
     </Compile>
