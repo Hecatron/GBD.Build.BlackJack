@@ -1,11 +1,42 @@
-﻿#from helper.PropertyHelper import property_type
+﻿import sys
 
-#class CMakeProcessOpts(object):
-#    """Represents command line options passed to a cmake process"""
+class ProcessOpts(object):
+    """Represents command line options passed to a cmake process"""
 
-#    def __init__(self):
-#        self._source_directory = None
-#        self._build_directory = None
+    def __init__(self, cmakepath:str = None):
+
+        self.ExeSuffix = ""
+        if sys.platform == 'win32': self.ExeSuffix = ".exe"
+        # Assume cmake is in the current path
+        self.CMakeBinPath = "cmake" + self.ExeSuffix
+        """Binary path to the cmake executable"""
+        if cmakepath is not None: self.CMakePath = cmakepath
+
+        self.SourceDirectory = None
+        """Directory where the CMakeLists.txt files will be sourced"""
+
+        self.BuildDirectory = None
+        """Directory where the output from running cmake will be placed"""
+
+        self.LogFile = sys.stdout
+        """Log destination when running cmake"""
+
+        self.Generator = None
+        """Which generator to use when creating the make build files"""
+
+    def get_opts(self):
+        """Get command line options"""
+        # The Build directory is used as the working directory when running cmake
+        ret = list()
+
+        # TODO Add additional options
+        if self.Generator is not None: ret.append('-G' + str(self.Generator))
+
+        # Source directory always needs to come last
+        if self.SourceDirectory is not None: ret.append(self.SourceDirectory)
+        return ret
+
+
 #        self._preload_cache = None
 #        self._defines = []
 #        self._globbing_expr = None
@@ -27,25 +58,6 @@
 #        #self._warnings_uninitialized = False
 #        #self._warnings_nounused_cli = False
 #        return
-
-#    # Class Properties
-#    source_directory = property_type("_source_directory", str, "Source Directory, working directory used by cmake")
-#    build_directory = property_type("_build_directory", str, "Build Directory, output for build files used by cmake")
-#    preload_cache = property_type("_preload_cache", str, "Pre-load a script to populate the cache")
-#    defines = property_type("_defines", list, "Defines set for cmake via -D")
-#    globbing_expr = property_type("_globbing_expr", str, "Remove matching entries from CMake cache")
-#    generator_name = property_type("_generator_name", str, "Specify a build system generator")
-#    toolset_name = property_type("_toolset_name", str, "Specify toolset name if supported by the generator")
-#    platform_name = property_type("_platform_name", str, "Specify platform name if supported by the generator")
-#    warnings_developer = property_type("_warnings_developer", bool, "If to enable developer warnings for CMake")
-#    command = property_type("_command", str, "Set CMake for Command Mode, and run the specified command")
-#    list_vars = property_type("_list_vars", str, "List variables from within the cache, pass in A or H for additional values")
-#    build_tree = property_type("_build_tree", str, "Build a CMake-generated project binary tree")
-#    viewonly = property_type("_viewonly", bool, "View mode only")
-#    process_script = property_type("_process_script", str, "Process script mode")
-#    find_package = property_type("_find_package", bool, "Run in pkg-config like mode")
-#    graphviz = property_type("_graphviz", str, "Generate graphviz of dependencies, see CMakeGraphVizOptions.cmake for more")
-#    sysinfo = property_type("_sysinfo", str, "Dump information about this system")
 
 #    # TODO Process script via stdin option
 

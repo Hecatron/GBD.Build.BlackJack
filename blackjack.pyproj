@@ -47,6 +47,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="blackjack\cmake\modules\cmake\__init__.py" />
+    <Compile Include="blackjack\cmake\process\Generators.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="blackjack\cmake\storage\CacheList.py">
       <SubType>Code</SubType>
     </Compile>
@@ -237,9 +240,6 @@
     </Compile>
     <Compile Include="blackjack\cmake\target\__init__.py" />
     <Compile Include="blackjack\cmake\__init__.py" />
-    <Compile Include="blackjack\cmake\process\Process.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="blackjack\logs\Logger.py">
       <SubType>Code</SubType>
     </Compile>
@@ -249,7 +249,7 @@
     <Compile Include="blackjack\cmake\process\CMakeProcess.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="blackjack\cmake\process\CMakeProcessOpts.py">
+    <Compile Include="blackjack\cmake\process\ProcessOpts.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="blackjack\cmake\process\__init__.py">

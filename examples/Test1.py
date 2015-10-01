@@ -1,6 +1,7 @@
 ﻿#! python3
 
 import sys, os, logging
+from os.path import join, abspath, dirname
 #Uncomment below to use outside of VS for development
 sys.path.insert(0, os.path.abspath("../"))
 #sys.path.insert(0, os.path.abspath("../contrib/pexpect/"))
@@ -23,6 +24,14 @@ try:
     import blackjack.cmake.vars as vars
 
     proc1 = process.CMakeProcess()
+    proc1.Opts.SourceDirectory = abspath("D:\\Temp\\6\\zlib")
+    proc1.Opts.BuildDirectory = abspath("D:\\Temp\\6\\build")
+    proc1.Opts.Generator = process.Generators.Visual_Studio_14_2015
+    proc1.clean()
+    proc1.run()
+    
+    # cmake -G "Visual Studio 14 2015" D:\Temp\6\zlib
+
     #proc1.get_generators()
     #proc1.get_version()
     #proc1.testexe()
