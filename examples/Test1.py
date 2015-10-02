@@ -27,8 +27,11 @@ try:
     proc1.Opts.SourceDirectory = abspath("D:\\Temp\\6\\zlib")
     proc1.Opts.BuildDirectory = abspath("D:\\Temp\\6\\build")
     proc1.Opts.Generator = process.Generators.Visual_Studio_14_2015
+
     proc1.clean()
-    proc1.run()
+    #proc1.export()
+    proc1.generate()
+    proc1.build()
     
     # cmake -G "Visual Studio 14 2015" D:\Temp\6\zlib
 

@@ -2,4 +2,3 @@
 
 from .CMakeProcess import CMakeProcess
 from .Generators import Generators
-from .ProcessOpts import ProcessOpts

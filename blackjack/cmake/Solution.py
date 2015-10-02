@@ -2,6 +2,7 @@
 import os
 from .ScriptBase import ScriptBase
 from blackjack.cmake.cmdpart.Version import Version
+from blackjack.cmake.process.CMakeProcess import CMakeProcess
 
 class Solution(ScriptBase):
 
@@ -28,6 +29,8 @@ class Solution(ScriptBase):
         """List of Sets to add to the Project"""
         self.Targets = []
         """List of Targets to add to the Project"""
+        self.CMakeProcess = CMakeProcess()
+        """Helper process for running cmake"""
 
         # Set Defaults
         if self.Version is None: self.Version = Version(0,0)
@@ -77,3 +80,9 @@ class Solution(ScriptBase):
             ret += item.render()
 
         return ret
+
+    def generate(self):
+        self.Process.generate()
+
+    def build(self):
+        self.Process.build()
