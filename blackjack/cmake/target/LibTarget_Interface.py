@@ -24,9 +24,9 @@ class LibTarget_Interface(BaseTarget):
         ret += ["## Library Target - Interface"]
         ret += super().render_prefix()
         tmpopts = "INTERFACE"
-        if self.Imported == True:
+        if self.Imported:
             tmpopts += " IMPORTED"
-            if self.GlobalImport == True:
+            if self.GlobalImport:
                 tmpopts += " GLOBAL"
 
         libcmd = cmd.add_library(self.Name, tmpopts, [])

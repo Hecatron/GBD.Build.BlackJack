@@ -34,7 +34,7 @@ class Version(ScriptBase):
         if self.Tweak is not None:
             if not isinstance(self.Tweak, int): raise ValueError("Tweak Number must be an integer")
             ret += "." + str(self.Tweak)
-        if self.AddFatalError == True:
+        if self.AddFatalError:
             ret += " [FATAL_ERROR]"
         return ret
 

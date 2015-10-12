@@ -39,7 +39,7 @@ class LibTarget(BaseTarget):
         tmpopts = ""
         if self.LibType != LibTypes.DEFAULT:
             tmpopts += self.LibType.name + " "
-        if self.ExludeFromAll == True:
+        if self.ExludeFromAll:
             tmpopts += "EXCLUDE_FROM_ALL "
         libcmd = cmd.add_library(self.Name, tmpopts, self.get_fullsrcs())
         ret += libcmd.render()

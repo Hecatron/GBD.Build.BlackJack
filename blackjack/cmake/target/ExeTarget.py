@@ -26,11 +26,11 @@ class ExeTarget(BaseTarget):
         ret += ["## Executable Target - Normal"]
         ret += super().render_prefix()
         tmpopts = ""
-        if self.Win32 == True:
+        if self.Win32:
             tmpopts += "WIN32 "
-        if self.MacosxBundle == True:
+        if self.MacosxBundle:
             tmpopts += "MACOSX_BUNDLE "
-        if self.ExludeFromAll == True:
+        if self.ExludeFromAll:
             tmpopts += "EXCLUDE_FROM_ALL "
         execmd = cmd.add_executable(self.Name, tmpopts, self.get_fullsrcs())
         ret += execmd.render()

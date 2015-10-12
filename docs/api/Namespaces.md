@@ -45,7 +45,7 @@ has been generated.
 The storage namespace contains wrapper classes assocaited with storage of variables within cmake.
 
  * **ScriptBlock** - includes functions for importing text files from the outside and is basically an externally imported file.
- * **SourceList** - represents a set variable within cmake which basically an array of strings each one typically beinga path to a source file
+ * **SetList** - represents a set variable within cmake which basically an array of strings each one typically beinga path to a source file
  * **EnvVar** - represents the setting of an Enviromental Variable.
  * **CacheList** - uses cmake's set command to set Cache variables within the cmake cache.
 

@@ -2,14 +2,10 @@
 
 ## General
 
-1. Look into running the cmake process via pexpect / winpexpect
-
-2. add a property to Solution called ToolchainScript which if set adds a definition to load in the toolchain file
-
-3. Add a function to CMakeVariable base class to read off the value from cmake
+1. Add a function to CMakeVariable base class to read off the value from cmake
    during python runtime
 
-4. Look into comments feeding into doxygen
+2. Look into comments feeding into doxygen
 and redo docs for the main high level classes to use, remove cmake subdir, add to api subdir
 
 ## Visual Studio
@@ -59,7 +55,7 @@ namespace of blackjack.vstudio
  * remove_definitions
  * target_compile_definitions(<target> <INTERFACE|PUBLIC|PRIVATE> [items1...] [<INTERFACE|PUBLIC|PRIVATE> [items2...] ...])
 
-#### SourceList Class
+#### SetList Class
 
  * aux_source_directory(<dir> <variable>)
  * unset

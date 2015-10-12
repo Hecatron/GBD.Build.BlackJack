@@ -1,5 +1,5 @@
 ﻿import unittest, os, sys
-from blackjack.cmake.storage.ScriptBlock import ScriptBlock
+from blackjack.cmake.storage.file.ScriptBlock import ScriptBlock
 
 class Test_ScriptBlock(unittest.TestCase):
 

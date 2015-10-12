@@ -21,9 +21,9 @@ class IncludeDir(ScriptBase):
         """Default is used for Targets"""
         ret = []
         tmpline = ""
-        if self.System == True:
+        if self.System:
             tmpline += "SYSTEM "
-        if self.Before == True:
+        if self.Before:
             tmpline += "BEFORE "
         tmpline += self.ScopeType.name
         ret.append(tmpline)
@@ -35,11 +35,11 @@ class IncludeDir(ScriptBase):
         """This one is used for global include directories"""
         ret = []
         optsline = ""
-        if self.Before == True:
+        if self.Before:
             optsline += "BEFORE "
-        if self.Before == False:
+        if not self.Before:
             optsline += "AFTER "
-        if self.System == True:
+        if self.System:
             optsline += "SYSTEM "
         if optsline:
             optsline = "    " + optsline

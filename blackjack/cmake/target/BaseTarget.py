@@ -15,7 +15,7 @@ class BaseTarget(ScriptBase):
         """List of Sources to include into the Target"""
         self.IncDirs = []
         """Target Include Directories"""
-        self.SourceLists = []
+        self.SetLists = []
         """List of Sets to add to the Target"""
         return
 
@@ -37,7 +37,7 @@ class BaseTarget(ScriptBase):
     def get_fullsrcs(self):
         """This function returns the full list of sources and the list of set names"""
         setnames = []
-        for item in self.SourceLists:
+        for item in self.SetLists:
             setnames.append(item.Name)
         setnames += self.Srcs
         return setnames
@@ -45,7 +45,7 @@ class BaseTarget(ScriptBase):
     def render_prefix(self):
         # Add the Set Lists
         ret = []
-        for item in self.SourceLists:
+        for item in self.SetLists:
             ret += item.render()
         return ret
 

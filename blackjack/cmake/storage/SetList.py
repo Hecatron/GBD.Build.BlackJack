@@ -1,6 +1,6 @@
 ﻿from blackjack.cmake.ScriptBase import ScriptBase
 
-class SourceList(ScriptBase):
+class SetList(ScriptBase):
 
     """
     Represents a collection of source files to be passed to a Target
@@ -32,7 +32,7 @@ class SourceList(ScriptBase):
         from blackjack.cmake.cmd.cmake_set import cmake_set
         ret = ["## Source Set"]
         opts = ""
-        if self.ParentScope == True:
+        if self.ParentScope:
             opts = "PARENT_SCOPE"
         setcmd = cmake_set(self.Name, self.Srcs, opts)
         ret += setcmd.render()
@@ -44,7 +44,7 @@ class SourceList(ScriptBase):
             self.Srcs.append(items)
         if isinstance(items, list):
             self.Srcs += items
-        if isinstance(items, SourceList):
+        if isinstance(items, SetList):
             self.Srcs += items.Srcs
         return
 

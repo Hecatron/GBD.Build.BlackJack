@@ -1,8 +1,8 @@
-# SourceList Class
+# SetList Class
 
 ## Overview
 
-SourceList is basically a set within cmake, it's the setting of a variable in the context
+SetList is basically a set within cmake, it's the setting of a variable in the context
 of setting a list of sources for a given target
 
 ## Properties
@@ -38,7 +38,7 @@ The add method can be used to add
 
  * A single item as a string
  * A list of items via a list
- * All the items from another SourceList class
+ * All the items from another SetList class
 
 ### add_spacesep(items_str)
 

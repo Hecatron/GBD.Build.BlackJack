@@ -1,8 +1,8 @@
-﻿
-import os
+﻿import os
 from .ScriptBase import ScriptBase
 from blackjack.cmake.cmdpart.Version import Version
 from blackjack.cmake.process.CMakeProcess import CMakeProcess
+from blackjack.cmake.storage.file.ToolchainFile import ToolchainFile
 
 class Solution(ScriptBase):
 
@@ -25,12 +25,14 @@ class Solution(ScriptBase):
         """Minimum version of cmake required"""
         self.IncDirs = []
         """Global Include Directories"""
-        self.SourceLists = []
+        self.SetLists = []
         """List of Sets to add to the Project"""
         self.Targets = []
         """List of Targets to add to the Project"""
         self.CMakeProcess = CMakeProcess()
         """Helper process for running cmake"""
+        self.ToolchainFile = None
+        """Toolchain options to preload before the main script"""
 
         # Set Defaults
         if self.Version is None: self.Version = Version(0,0)
@@ -72,7 +74,7 @@ class Solution(ScriptBase):
         ret += cmd3.render()
 
         # Add the Set Lists
-        for item in self.SourceLists:
+        for item in self.SetLists:
             ret += item.render()
 
         # Add the list of Targets
@@ -81,8 +83,15 @@ class Solution(ScriptBase):
 
         return ret
 
+    def export(self, filepath = None):
+        super().export(filepath)
+        if isinstance(self.ToolchainFile, ToolchainFile):
+            self.ToolchainFile.export()
+
     def generate(self):
-        self.Process.generate()
+        if isinstance(self.ToolchainFile, ToolchainFile):
+            self.CMakeProcess.Opts.ToolChainFile = self.ToolchainFile.OutputFilePath
+        self.CMakeProcess.generate()
 
     def build(self):
-        self.Process.build()
+        self.CMakeProcess.build()

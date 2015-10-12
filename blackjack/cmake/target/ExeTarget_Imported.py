@@ -21,7 +21,7 @@ class ExeTarget_Imported(BaseTarget):
         ret += ["## Executable Target - Imported"]
         ret += super().render_prefix()
         tmpopts = "IMPORTED "
-        if self.GlobalImport == True:
+        if self.GlobalImport:
             tmpopts += "GLOBAL "
         execmd = cmd.add_executable(self.Name, tmpopts, [])
         ret += execmd.render()

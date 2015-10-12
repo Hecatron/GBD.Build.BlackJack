@@ -1,6 +1,6 @@
 ﻿import unittest, os, sys
 from blackjack.cmake.target.ExeTarget import ExeTarget
-from blackjack.cmake.storage.SourceList import SourceList
+from blackjack.cmake.storage.SetList import SetList
 
 class Test_ExeTarget(unittest.TestCase):
 
@@ -15,8 +15,8 @@ class Test_ExeTarget(unittest.TestCase):
 
     def test_render2(self):
         exetgt = ExeTarget("exe target", ["Test1.cpp", "Test2.cpp"], True, True, True)
-        set1 = SourceList("set1",["Test1.cpp", "Test2.cpp"])
-        exetgt.SourceLists.append(set1)
+        set1 = SetList("set1",["Test1.cpp", "Test2.cpp"])
+        exetgt.SetLists.append(set1)
         result = exetgt.render()
         print(result)
         if result != ['## Executable Target - Normal', '## Source Set', 'set(set1 ', '    "Test1.cpp"',

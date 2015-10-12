@@ -39,7 +39,7 @@ class CMakeProcess(object):
         cmdargs = self.BuildOpts.get_opts()
         self.Process = pexpect.spawn(self.BuildOpts.CMakeBinPath, args = cmdargs, cwd = self.BuildOpts.BuildDirectory)
         self.Process.logfile = self.BuildOpts.LogFile
-        #if self.Process.isalive: self.Process.wait()
+        if self.Process.isalive: self.Process.wait()
         self.Process.expect(pexpect.EOF)
         self.Process.close()
         return
@@ -55,7 +55,7 @@ class CMakeProcess(object):
         """Check the working directory exists"""
         if workdir is not None:
             if os.path.exists(workdir):
-                if os.path.isdir(workdir) == False: raise ValueError("Build Directory is invalid")
+                if not os.path.isdir(workdir): raise ValueError("Build Directory is invalid")
             else:
                 os.makedirs(workdir)
         return

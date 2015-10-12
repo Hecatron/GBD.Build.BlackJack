@@ -66,7 +66,7 @@ The functions for this class include:
 Body is a simple string list that is outputed via render_body()
 This can be manipulated via code to contain any strings lines required
 
-## ToolchainScript
+## ToolchainFile
 
 Normally when starting cmake, it makes an attempt to detect which compiler / linker to use.
 In some cases we want to override this and force it to use a compiler we've specified.
@@ -77,10 +77,10 @@ then get cmake to load this prior to doing anything else (such as processing CMa
 By defining CMAKE_TOOLCHAIN_FILE when cmake is run from the command line we can cause cmake
 to process the file specified before doing anything else
 
-The ToolchainScript is just a class inherited from ScriptBlock, the only difference
+The ToolchainFile is just a class inherited from ScriptBlock, the only difference
 is that it overrides the default export file path to "CMakeToolChain.txt"
 
-If we provide a ToolchainScript class to the ToolchainScript property of the Solution class
+If we provide a ToolchainFile class to the ToolchainFile property of the Solution class
 then during the launching of cmake, CMAKE_TOOLCHAIN_FILE will be set to the filepath of that class
 
 ### Links

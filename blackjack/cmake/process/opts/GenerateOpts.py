@@ -43,6 +43,28 @@ class GenerateOpts(BaseOpts):
         """Process the given cmake file as a script written in the CMake language
         No configure or generate step is performed and the cache is not modified"""
 
+        self.Debug_TryCompile = False
+        """Do not delete the try_compile build tree"""
+
+        self.Debug_Output = False
+        """Put cmake in a debug mode"""
+
+        self.Debug_Trace = False
+        """Put cmake in trace mode"""
+
+        self.Debug_WarnUninit = False
+        """Warn about uninitialized values"""
+
+        self.Debug_WarnUnusedVars = False
+        """Warn about unused variables"""
+
+        self.Debug_NoWarnUnusedCli = False
+        """Don't warn about command line options"""
+
+        self.CheckSystemVars = False
+        """Find problems with variable usage in system files"""
+
+
     def get_opts(self):
         """Generate cmd line opts for generate mode"""
         # The Build directory is used as the working directory when running cmake in generate mode
@@ -61,50 +83,36 @@ class GenerateOpts(BaseOpts):
         
         # TODO Cache variables
 
-        # Remove globbing expressions from the cmake cache
         for item in self.GlobbingRemoveExpr:
             self.Args.append("-U" + str(item))
-
-        # Add the Generator if specified
         if self.Generator is not None: 
             self.Args.append("-G" + str(self.Generator))
-
-        # Specify Toolset name
         if self.ToolsetName is not None:
             self.Args.append("-T" + str(self.ToolsetName))
-
-        # Specify Platform name
         if self.PlatformName is not None:
             self.Args.append("-A" + str(self.PlatformName))
-
-        # Suppress Developer Warnings
-        if self.SuppressDevelWarns == True:
+        if self.SuppressDevelWarns:
             self.Args.append("-Wno-dev")
-
-        # Enable Developer Warnings
-        if self.EnableDevelWarns == True:
+        if self.EnableDevelWarns:
             self.Args.append("-Wdev")
-
-        # View only mode
-        if self.ViewMode == True:
+        if self.ViewMode:
             self.Args.append("-N")
-
-        # Specify Process Script mode
         if self.ProcessScriptMode is not None:
             self.Args.append("-P" + str(self.ProcessScriptMode))
-
-
-
-        # TODO Add additional options
-        # --debug-trycompile
-        # --debug-output
-        # --trace
-        # --warn-uninitialized
-        # --warn-unused-vars
-        # --no-warn-unused-cli
-        # --check-system-vars
-
-
+        if self.Debug_TryCompile:
+            self.Args.append("--debug-trycompile")
+        if self.Debug_Output:
+            self.Args.append("--debug-output")
+        if self.Debug_Trace:
+            self.Args.append("--trace")
+        if self.Debug_WarnUninit:
+            self.Args.append("--warn-uninitialized")
+        if self.Debug_WarnUnusedVars:
+            self.Args.append("--warn-unused-vars")
+        if self.Debug_NoWarnUnusedCli:
+            self.Args.append("--no-warn-unused-cli")
+        if self.CheckSystemVars:
+            self.Args.append("--check-system-vars")
 
         # Source directory always needs to come last
         if self.SourceDirectory is not None: 
@@ -113,10 +121,3 @@ class GenerateOpts(BaseOpts):
         return self.Args
 
 
-    # TODO
-    # -E <command>
-    # -L[A][H] List non-advanced cached variables.
-
-    # --find-package
-    # --graphviz=[file]
-    # --system-information [file]

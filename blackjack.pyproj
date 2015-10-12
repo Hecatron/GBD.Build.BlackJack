@@ -69,10 +69,11 @@
     <Compile Include="blackjack\cmake\storage\EnvVar.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="blackjack\cmake\storage\ScriptBlock.py">
+    <Compile Include="blackjack\cmake\storage\file\__init__.py" />
+    <Compile Include="blackjack\cmake\storage\file\ScriptBlock.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="blackjack\cmake\storage\ToolchainScript.py">
+    <Compile Include="blackjack\cmake\storage\file\ToolchainFile.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="blackjack\cmake\storage\__init__.py" />
@@ -133,7 +134,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="blackjack\test\cmake\storage\ScriptBlock.py" />
-    <Compile Include="blackjack\test\cmake\storage\SourceList.py">
+    <Compile Include="blackjack\test\cmake\storage\SetList.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="blackjack\test\cmake\target\BaseTarget.py">
@@ -199,20 +200,19 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="blackjack\cmake\modules\__init__.py" />
-    <Compile Include="blackjack\cmake\process\cache\CacheEntry.py">
+    <Compile Include="blackjack\cmake\storage\CacheEntry.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="blackjack\cmake\process\cache\CacheFile.py">
+    <Compile Include="blackjack\cmake\storage\file\CacheFile.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="blackjack\cmake\process\cache\__init__.py" />
     <Compile Include="blackjack\cmake\Solution.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="blackjack\cmake\ScriptBase.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="blackjack\cmake\storage\SourceList.py">
+    <Compile Include="blackjack\cmake\storage\SetList.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="blackjack\cmake\target\ExeTarget_Alias.py">
@@ -274,10 +274,10 @@
     <Folder Include="blackjack\cmake\modules\" />
     <Folder Include="blackjack\cmake\modules\cmake\" />
     <Folder Include="blackjack\cmake\process\opts\" />
+    <Folder Include="blackjack\cmake\storage\file\" />
     <Folder Include="blackjack\cmake\util\" />
     <Folder Include="blackjack\cmake\vars\" />
     <Folder Include="blackjack\cmake\storage\" />
-    <Folder Include="blackjack\cmake\process\cache\" />
     <Folder Include="blackjack\cmake\target\" />
     <Folder Include="blackjack\cmake\cmd\" />
     <Folder Include="blackjack\cmake\process\" />
@@ -310,7 +310,7 @@
     <Content Include="docs\api\Project Classes.md" />
     <Content Include="docs\cmake\storage\CacheList.md" />
     <Content Include="docs\cmake\storage\EnvVar.md" />
-    <Content Include="docs\cmake\storage\SourceList.md" />
+    <Content Include="docs\cmake\storage\SetList.md" />
     <Content Include="docs\cmake\target\BaseTarget.md" />
     <Content Include="docs\cmake\target\ExeTarget.md" />
     <Content Include="docs\cmake\target\ExeTarget_Alias.md" />

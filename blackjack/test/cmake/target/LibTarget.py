@@ -1,7 +1,7 @@
 ﻿import unittest, os, sys
 from blackjack.cmake.target.LibTarget import LibTarget
 from blackjack.cmake.target.LibTypes import LibTypes
-from blackjack.cmake.storage.SourceList import SourceList
+from blackjack.cmake.storage.SetList import SetList
 
 class Test_LibTarget(unittest.TestCase):
 
@@ -16,8 +16,8 @@ class Test_LibTarget(unittest.TestCase):
 
     def test_render2(self):
         libtgt = LibTarget("lib target1",["Test1.cpp", "Test2.cpp"], LibTypes.STATIC, True)
-        set1 = SourceList("set1",["Test1.cpp", "Test2.cpp"])
-        libtgt.SourceLists.append(set1)
+        set1 = SetList("set1",["Test1.cpp", "Test2.cpp"])
+        libtgt.SetLists.append(set1)
         result = libtgt.render()
         print(result)
         if result != ['## Library Target - Normal', '## Source Set', 'set(set1 ', '    "Test1.cpp"',

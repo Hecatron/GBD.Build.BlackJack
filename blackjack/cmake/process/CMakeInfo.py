@@ -61,3 +61,12 @@ class CMakeInfo(object):
         child.close()
         result = child.before
         return result
+
+
+    # TODO Command line opts for cmake
+    # -E <command>
+    # -L[A][H] List non-advanced cached variables.
+
+    # --find-package
+    # --graphviz=[file]
+    # --system-information [file]

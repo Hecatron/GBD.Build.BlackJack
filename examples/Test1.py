@@ -28,6 +28,8 @@ try:
     proc1.Opts.BuildDirectory = abspath("D:\\Temp\\6\\build")
     proc1.Opts.Generator = process.Generators.Visual_Studio_14_2015
 
+    proc1.BuildOpts.Config = "Release"
+
     proc1.clean()
     #proc1.export()
     proc1.generate()
@@ -73,15 +75,15 @@ try:
     #test4 = vars.CMakeBuildControl.CMAKE_XCODE_ATTRIBUTE_ATTR("test")
 
 
-    set1 = storage.SourceList("Test Set")
+    set1 = storage.SetList("Test Set")
     set1.add("Test1.cxx")
     set1.add("Test2.cxx")
     set1.add_spacesep("Test3.cxx Test4.cxx")
     set2 = storage.EnvVar("testvar",["testval1", "testval2"])
 
     sol1 = cmake.Solution("test cmake solution")
-    sol1.SourceLists.append(set1)
-    sol1.SourceLists.append(set2)
+    sol1.SetLists.append(set1)
+    sol1.SetLists.append(set2)
     sol1.IncDirs.append(cmake.src_dir + "/..")
     sol1.IncDirs.append(cmake.src_dir + "/../include")
 

@@ -26,7 +26,7 @@ The properties for this class include:
    Each item can be a seperate directory, or an instance of a IncludeDir Class (see cmdpart namespace).
    The IncludeDir class takes several different options but only some will be used for global definitions
    of include directories
- * **SourceLists** - TODO
+ * **SetLists** - TODO
  * **Targets** - TODO
 
 The functions for this class include:

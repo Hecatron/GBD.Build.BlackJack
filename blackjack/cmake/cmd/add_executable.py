@@ -1,5 +1,5 @@
 ﻿from blackjack.cmake.ScriptBase import ScriptBase
-from blackjack.cmake.storage.SourceList import SourceList
+from blackjack.cmake.storage.SetList import SetList
 from .cmake_set import cmake_set
 
 class add_executable(ScriptBase):
@@ -37,7 +37,7 @@ class add_executable(ScriptBase):
         for item in self.Srcs:
             if isinstance(item, str):
                 ret.append('    "' + item + '" ')
-            if isinstance(item, SourceList):
+            if isinstance(item, SetList):
                 ret.append('    ' + item.Name)
         ret[-1] += ")"
         return ret

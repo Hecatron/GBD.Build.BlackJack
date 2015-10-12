@@ -1,7 +1,7 @@
 ﻿from .ScriptBlock import ScriptBlock
 import os
 
-class ToolchainScript(ScriptBlock):
+class ToolchainFile(ScriptBlock):
 
     """
     Represents a toolchain script to be loaded prior to cmake processing the main CMakeLists.txt

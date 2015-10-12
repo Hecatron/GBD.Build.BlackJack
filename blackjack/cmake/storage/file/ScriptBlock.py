@@ -27,7 +27,7 @@ class ScriptBlock(ScriptBase):
     def importfile(self, filepath: str):
         """Import the given file into the class storage"""
         tmppath = os.path.abspath(filepath)
-        if os.path.exists(tmppath) == False:
+        if not os.path.exists(tmppath):
             raise FileNotFoundError("File for import not found: " + tmppath)
         instr = ""
         with open(tmppath, "r") as f:

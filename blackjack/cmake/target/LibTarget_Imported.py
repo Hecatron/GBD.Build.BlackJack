@@ -36,7 +36,7 @@ class LibTarget_Imported(BaseTarget):
         ret += ["## Library Target - Imported"]
         ret += super().render_prefix()
         tmpopts = self.LibType.name + " IMPORTED"
-        if self.GlobalImport == True:
+        if self.GlobalImport:
             tmpopts += " GLOBAL"
         libcmd = cmd.add_library(self.Name, tmpopts, [])
         ret += libcmd.render()
