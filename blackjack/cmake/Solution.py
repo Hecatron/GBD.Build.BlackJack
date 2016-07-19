@@ -83,8 +83,18 @@ class Solution(ScriptBase):
 
         return ret
 
+    # TODO Clean
+
     def export(self, filepath = None):
+        builddir = self.CMakeProcess.Opts.BuildDirectory
+        if not os.path.exists(builddir):
+            os.makedirs(builddir)
+        if not os.path.isdir(builddir):
+            raise ValueError("Build Directory is not a directory")
+        self.OutputFilePath = os.path.join(self.CMakeProcess.Opts.BuildDirectory, "CMakeLists.txt")
         super().export(filepath)
+        
+        # TODO
         if isinstance(self.ToolchainFile, ToolchainFile):
             self.ToolchainFile.export()
 

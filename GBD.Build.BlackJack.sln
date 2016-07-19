@@ -1,11 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{446CDEED-2F3A-4D90-A925-9B68EA5B9861}"
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "blackjack", "blackjack.pyproj", "{26BFD115-F770-4CF1-977B-3462A663BD32}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apps", "Apps", "{1C269F3F-A7BC-4845-8B94-939F4A7D05BA}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "PyGenerator", "generator\vs\PyGenerator\PyGenerator.pyproj", "{10028D48-33E8-4830-B49F-5AD911E8CC59}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,11 +19,14 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{26BFD115-F770-4CF1-977B-3462A663BD32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{26BFD115-F770-4CF1-977B-3462A663BD32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10028D48-33E8-4830-B49F-5AD911E8CC59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10028D48-33E8-4830-B49F-5AD911E8CC59}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{26BFD115-F770-4CF1-977B-3462A663BD32} = {446CDEED-2F3A-4D90-A925-9B68EA5B9861}
+		{10028D48-33E8-4830-B49F-5AD911E8CC59} = {1C269F3F-A7BC-4845-8B94-939F4A7D05BA}
 	EndGlobalSection
 EndGlobal

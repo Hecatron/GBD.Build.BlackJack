@@ -10,10 +10,11 @@ class ToolchainFile(ScriptBlock):
     """
 
     def __init__(self, contents: [] = None):
-        super().__init__()
-        self.Body = contents
-        if self.Body == None:
-            self.Body = []
+        super().__init__(contents)
+        return
+
+        maindir = os.path.realpath(sys.argv[0])
+        if not os.path.isdir(maindir): maindir = os.path.dirname(maindir)
         self.OutputFilePath = os.path.join(maindir, "CMakeToolChain.txt")
         """Default file path for exports and appends"""
         return
