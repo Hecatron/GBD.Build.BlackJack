@@ -1,12 +1,12 @@
-{% extends "base_tmpl.py" %}
+{% extends "cmd_base_tmpl.py" %}
 
 {% set args = [
-('Name', 'str', 'Name of the target / set'),
-('Sources', '[]', 'List of Sources to include into the target / set'),
+('Name', 'str', 'Name of the target / set', ''),
+('Sources', '[]', 'List of Sources to include into the target / set', ''),
 ('Options', 'str', 'Options', 'None'),
 ] %}
 
-{% block Render_Inner %}
+{% block Func_Render_Body_Inner %}
         tmpline = "{{ CmdName }}(" + self.Name
         if self.Options:
             tmpline += " " + self.Options

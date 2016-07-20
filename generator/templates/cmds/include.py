@@ -1,13 +1,13 @@
 {% extends "cmd_base_tmpl.py" %}
 
 {% set args = [
-('FilePath', 'str', 'File path to import, or the name of the cmake module to import'),
+('FilePath', 'str', 'File path to import, or the name of the cmake module to import', ''),
 ('Optional', 'bool', 'If Optional is set, then no error is raised if the file does not exist.', 'False'),
-('ResultVar', 'str', '', 'None')
-('NoPolicyScope', 'str', '', 'False')
+('ResultVar', 'str', '', 'None'),
+('NoPolicyScope', 'str', '', 'False'),
 ] %}
 
-{% block Render_Inner %}
+{% block Func_Render_Body_Inner %}
         filepath = self.FilePath
         if isinstance(filepath, BaseModule):
             filepath = filepath.get_modulename()

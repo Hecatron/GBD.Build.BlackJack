@@ -1,13 +1,13 @@
 {% extends "cmd_base_tmpl.py" %}
 
 {% set args = [
-('Version', 'Version', 'Minimum required version of cmake', '')
+('Version', 'Version', 'Minimum required version of cmake', ''),
 ] %}
 
-{% block Init_Post %}
+{% block Func_ClassInit_Post %}
         if self.Version is None: self.Version = Version(2,8)
 {% endblock %}
 
-{% block Render_Inner %}
+{% block Func_Render_Body_Inner %}
         ret.append("{{ CmdName }}(" + self.Version.render_string() + ")")
 {% endblock %}

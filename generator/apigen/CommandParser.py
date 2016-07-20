@@ -21,8 +21,8 @@ class CommandParser(object):
         cmd_name = os.path.splitext(cmd_basefilename)[0]
         cmd_outfile = os.path.join(self.OutputDirectory, cmd_basefilename)
  
-        if (cmd_basefilename != "endforeach.py"):
-            return
+        #if (cmd_basefilename != "add_executable.py"):
+        #    return
 
 
         # Render the command output from the template

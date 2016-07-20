@@ -21,7 +21,7 @@ class Generator(object):
 
         # Setup Jinja Templating Environment
         tmpl_dirs = [self.Base_TemplateDir, self.Command_TemplateDir]
-        self.__jinjaenv = Environment(loader=FileSystemLoader(tmpl_dirs))
+        self.__jinjaenv = Environment(loader=FileSystemLoader(tmpl_dirs), trim_blocks=True)
 
         self.__log.info("Generating Command API's via Jinja")
         for file in os.listdir(self.Command_TemplateDir):

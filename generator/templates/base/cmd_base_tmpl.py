@@ -1,41 +1,43 @@
-{%- block imports -%}
+{% block imports %}
 from blackjack.cmake.ScriptBase import ScriptBase
-{%- endblock %}
+{% endblock %}
 
-{% block Func_ClassDeclr -%}
+{% block Func_ClassDeclr %}
 class {{ CmdName }}(ScriptBase):
-
     """
     CMake Command - {{ CmdName }}
     """
-{%- endblock %}
+{% endblock %}
 
 {% block Func_ClassInit %}
     def __init__(self
-{%- for argname, argtype, argdesc, argdef in args -%}
+{%- for argname, argtype, argdesc, argdef in args %}
 , {{ argname|lower }}: {{ argtype }} {% if argdef -%} = {{ argdef }} {%- endif %}
-{%- endfor -%}
+{% endfor %}
 ):
         super().__init__()
-{%- for argname, argtype, argdesc, argdef in args %}
+{% for argname, argtype, argdesc, argdef in args %}
         self.{{ argname }} = {{ argname|lower }}
-        {%- if argdesc %}
+{% if argdesc %}
         """{{ argdesc }}"""
-        {%- endif -%}
-{%- endfor %}
-        return
-{%- endblock %}
+{% endif %}
+{% endfor %}
+{% block Func_ClassInit_Post %}
+{% endblock %}
+		return
+{% endblock %}
 
 {% block Func_CommandName %}
     @property
     def CommandName(self):
         """Name of the command"""
         return "{{ CmdName }}"
-{%- endblock %}
+{% endblock %}
 
 {% block Func_Render_Body %}
-	def render_body(self):
+    def render_body(self):
         ret = []
-        {%- block Func_Render_Body_Inner %}{% endblock %}
-		return ret
-{%- endblock %}
+{% block Func_Render_Body_Inner %}
+{% endblock %}
+        return ret
+{% endblock %}

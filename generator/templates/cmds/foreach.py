@@ -5,7 +5,7 @@
 ('LoopItems', 'str', 'Items to loop over', ''),
 ] %}
 
-{% block Render_Inner %}
+{% block Func_Render_Body_Inner %}
         ret = ["{{ CmdName }}(" + self.LoopVar + " "]
         for item in self.LoopItems:
             if isinstance(item, str):
