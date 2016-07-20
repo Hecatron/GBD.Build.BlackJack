@@ -6,11 +6,11 @@
     <ProjectGuid>10028d48-33e8-4830-b49f-5ad911e8cc59</ProjectGuid>
     <ProjectHome>
     </ProjectHome>
-    <StartupFile>..\..\generator.py</StartupFile>
+    <StartupFile>..\..\apigen.py</StartupFile>
     <SearchPath>..\..\</SearchPath>
-    <WorkingDirectory>.</WorkingDirectory>
+    <WorkingDirectory>..\..\</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>PyGenerator</Name>
+    <Name>APIGenerator</Name>
     <RootNamespace>ScriptBindingGenerator</RootNamespace>
     <IsWindowsApplication>False</IsWindowsApplication>
     <InterpreterId>{9a7a9026-48c1-4688-9d5d-e5699d47d074}</InterpreterId>
@@ -29,24 +29,24 @@
     <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\..\generator.py">
-      <Link>generator.py</Link>
+    <Compile Include="..\..\apigen.py">
+      <Link>apigen.py</Link>
     </Compile>
-    <Compile Include="..\..\pygenerator\cmakecmd.py">
-      <Link>pygenerator\cmakecmd.py</Link>
+    <Compile Include="..\..\apigen\CommandParser.py">
+      <Link>apigen\CommandParser.py</Link>
     </Compile>
-    <Compile Include="..\..\pygenerator\cmakemeta.py">
-      <Link>pygenerator\cmakemeta.py</Link>
+    <Compile Include="..\..\apigen\Generator.py">
+      <Link>apigen\Generator.py</Link>
     </Compile>
-    <Compile Include="..\..\pygenerator\logwrapper.py">
-      <Link>pygenerator\logwrapper.py</Link>
+    <Compile Include="..\..\apigen\Logger.py">
+      <Link>apigen\Logger.py</Link>
     </Compile>
-    <Compile Include="..\..\pygenerator\__init__.py">
-      <Link>pygenerator\__init__.py</Link>
+    <Compile Include="..\..\apigen\__init__.py">
+      <Link>apigen\__init__.py</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="pygenerator\" />
+    <Folder Include="apigen\" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="{9a7a9026-48c1-4688-9d5d-e5699d47d074}\3.5" />

@@ -1,4 +1,4 @@
-{% extends "base_tmpl.py" %}
+{% extends "cmd_base_tmpl.py" %}
 
 {% set args = [
 ('Version', 'Version', 'Minimum required version of cmake', '')

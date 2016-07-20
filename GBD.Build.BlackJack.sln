@@ -9,7 +9,7 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "blackjack", "blackjack.pypr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apps", "Apps", "{1C269F3F-A7BC-4845-8B94-939F4A7D05BA}"
 EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "PyGenerator", "generator\vs\PyGenerator\PyGenerator.pyproj", "{10028D48-33E8-4830-B49F-5AD911E8CC59}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "APIGenerator", "generator\vs\APIGenerator\APIGenerator.pyproj", "{10028D48-33E8-4830-B49F-5AD911E8CC59}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

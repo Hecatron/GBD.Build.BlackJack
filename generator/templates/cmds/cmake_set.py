@@ -1,4 +1,4 @@
-{% extends "target_tmpl.py" %}
+{% extends "cmd_target_tmpl.py" %}
 
 {% block Render_Inner %}
         ret.append("set(" + self.Name)

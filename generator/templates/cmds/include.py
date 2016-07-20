@@ -1,4 +1,4 @@
-{% extends "base_tmpl.py" %}
+{% extends "cmd_base_tmpl.py" %}
 
 {% set args = [
 ('FilePath', 'str', 'File path to import, or the name of the cmake module to import'),

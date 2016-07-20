@@ -1,4 +1,4 @@
-{% extends "base_tmpl.py" %}
+{% extends "cmd_base_tmpl.py" %}
 
 {% set args = [
 ('LoopVar', 'str', 'Loop Variable for the foreach loop', ''),
